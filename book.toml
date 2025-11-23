@@ -22,3 +22,6 @@ enable = true
 limit-results = 30
 teaser-word-count = 30
 use-boolean-and = true
+
+[output.html.print]
+enable = true
