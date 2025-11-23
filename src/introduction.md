@@ -2,13 +2,16 @@
 
 Welcome to "The PC Emulation Book."
 
-This document aims to become a comprehensive guide to emulating the original IBM PC (and XT). 
+This document aims to become a comprehensive guide to emulating the original models of the IBM Personal Computer:
+
+- The IBM Model 5150 Personal Computer
+- The IBM Model 5160 Personal Computer XT
 
 ## Why Emulate the PC?
 
 The IBM PC is arguably one of the most influential computers in history, establishing standards that enabled the proliferation of "PC-compatible" systems and cemented the very term "PC" as an Intel-based system, probably running a Microsoft operating system. The "PC" lives on even today, only recently challenged for supremacy by the rise of ARM-based CPUs.
 
-The PC was an open and well-documented system. IBM published full schematics and commented BIOS source code listings, allowing to understand in great detail how the system operated, even without owning the physical hardware.
+The PC was an open and well-documented system. IBM published full schematics and commented BIOS source code listings, allowing anyone to understand in great detail how the system operated, even without owning the physical hardware.
 
 There are thousands of software titles to explore on a PC emulator, although the PC's limited graphics and sound capabilities make many of the games for the platform less than spectacular. Still, there are some classic titles that are still fun to play today, such as AlleyCat and Digger.
 
@@ -39,3 +42,7 @@ To get the most out of this book, you should have:
 - Basic understanding of digital logic
 - Some experience with emulation
   - If you have never programmed an emulator before, it is recommended that you start with the CHIP-8, a simple system that teaches basic emulation concepts. You can find a guide [here](https://tobiasvl.github.io/blog/write-a-chip-8-emulator/). 
+
+## Contributing
+
+This book is open-source and all content is licensed under the CC0 1.0 Creative Commons Public Domain license, except where otherwise noted.

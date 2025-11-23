@@ -26,6 +26,10 @@ I could certainly use help documenting everything - there's a lot of material to
     - Ideally, all text in the book should be of original authorship. This is our opportunity to clarify material, remove ambiguities, and create the clearest, most helpful documentation on the a particular topic available.
  - Please be knowledgable about the topic of your contributions. If you've never programmed or emulated a serial port, perhaps you should not write a chapter on the serial port. Yes, anyone can read and translate a datasheet, but the point of this work is to go beyond. And as any emulator author can tell you, the datasheets can lie.
 
+## License
+
+ - Except where otherwise noted, all content in this book is released into the public domain under Creative Commons CC0 1.0. See LICENSE. 
+
 ## Special Thanks To
 
  - modem7 of minuszerodegrees.net, which remains to single best single resource documenting everything about the IBM 5150 and 5160. I have relied on it heavily. He has graciously given me permission to include material from MZD. 
