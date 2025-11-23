@@ -1,5 +1,7 @@
 # The PC Emulation Book
 
+[Read the current preliminary version](https://book.martypc.net/) - Warning, there's not a ton of content completed.
+
 Inspired by [Pandocs](https://gbdev.io/pandocs/) documentation for Gameboy emulator authors, this book is the start of what will be a long, laborious project of documenting everything you need to know to emulate an original IBM PC.
 
 This book will (initially) describe two models of IBM machine due to their extreme commonalities:
