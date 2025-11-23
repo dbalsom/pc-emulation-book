@@ -11,11 +11,11 @@ create-missing = true
 
 [output.html]
 smart-punctuation = true
+mathjax-support = true
 copy-fonts = true
 no-section-label = false
 git-repository-url = "https://github.com/dbalsom/pc-emulation-book"
 edit-url-template = "https://github.com/dbalsom/pc-emulation-book/edit/main/src/{path}"
-additional-js = ["theme/mathjax-config.js"]
 
 [output.html.search]
 enable = true
