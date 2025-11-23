@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 820 180"
+   version="1.1"
+   id="svg40"
+   sodipodi:docname="fdc_dor_01.svg"
+   width="820"
+   height="180"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview40"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.410678"
+     inkscape:cx="335.6542"
+     inkscape:cy="240.66441"
+     inkscape:window-width="2255"
+     inkscape:window-height="1211"
+     inkscape:window-x="208"
+     inkscape:window-y="150"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg40" />
+  <defs
+     id="defs1">
+    <rect
+       x="51.127819"
+       y="181.9549"
+       width="28.070175"
+       height="28.070175"
+       id="rect41" />
+    <style
+       id="style1">
+      .bit-box { stroke: #333; stroke-width: 2; }
+      .text-bit { font-family: Arial, sans-serif; font-weight: bold; font-size: 14px; text-anchor: middle; fill: #000; }
+      .text-desc { font-family: Arial, sans-serif; font-size: 12px; text-anchor: middle; fill: #444; }
+      .text-label { font-family: Arial, sans-serif; font-weight: bold; font-size: 16px; text-anchor: middle; }
+      .title { font-family: Arial, sans-serif; font-weight: bold; font-size: 22px; text-anchor: middle; fill: #000; }
+      .legend { font-family: monospace; font-size: 12px; fill: #333; }
+      
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .title { fill: #ffffff; }
+        .text-bit { fill: #ffffff; }
+      }
+      
+      /* Functional Colors */
+      .bg-motor { fill: #ffcccc; }
+      .bg-ctrl  { fill: #ccddff; }
+      .bg-sel   { fill: #ccffcc; }
+    </style>
+  </defs>
+  <!-- Title -->
+  <text
+     x="407.49374"
+     y="25.488722"
+     class="title"
+     id="text1">Digital Output Register (DOR)</text>
+  <!-- Group: Motors (Bits 7-4) -->
+  <g
+     transform="translate(10,60)"
+     id="g17">
+    <!-- Bit 7 -->
+    <rect
+       x="0"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-motor"
+       id="rect1" />
+    <text
+       x="50"
+       y="-10"
+       class="text-bit"
+       id="text2">Bit 7</text>
+    <text
+       x="50"
+       y="40"
+       class="text-label"
+       id="text3">MOT EN 3</text>
+    <text
+       x="50"
+       y="65"
+       class="text-desc"
+       id="text4">Motor D</text>
+    <text
+       x="50"
+       y="85"
+       class="text-desc"
+       id="text5">(ON/OFF)</text>
+    <!-- Bit 6 -->
+    <rect
+       x="100"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-motor"
+       id="rect5" />
+    <text
+       x="150"
+       y="-10"
+       class="text-bit"
+       id="text6">Bit 6</text>
+    <text
+       x="150"
+       y="40"
+       class="text-label"
+       id="text7">MOT EN 2</text>
+    <text
+       x="150"
+       y="65"
+       class="text-desc"
+       id="text8">Motor C</text>
+    <text
+       x="150"
+       y="85"
+       class="text-desc"
+       id="text9">(ON/OFF)</text>
+    <!-- Bit 5 -->
+    <rect
+       x="200"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-motor"
+       id="rect9" />
+    <text
+       x="250"
+       y="-10"
+       class="text-bit"
+       id="text10">Bit 5</text>
+    <text
+       x="250"
+       y="40"
+       class="text-label"
+       id="text11">MOT EN 1</text>
+    <text
+       x="250"
+       y="65"
+       class="text-desc"
+       id="text12">Motor B</text>
+    <text
+       x="250"
+       y="85"
+       class="text-desc"
+       id="text13">(ON/OFF)</text>
+    <!-- Bit 4 -->
+    <rect
+       x="300"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-motor"
+       id="rect13" />
+    <text
+       x="350"
+       y="-10"
+       class="text-bit"
+       id="text14">Bit 4</text>
+    <text
+       x="350"
+       y="40"
+       class="text-label"
+       id="text15">MOT EN 0</text>
+    <text
+       x="350"
+       y="65"
+       class="text-desc"
+       id="text16">Motor A</text>
+    <text
+       x="350"
+       y="85"
+       class="text-desc"
+       id="text17">(ON/OFF)</text>
+  </g>
+  <!-- Group: Control (Bits 3-2) -->
+  <g
+     transform="translate(410,60)"
+     id="g25">
+    <!-- Bit 3 -->
+    <rect
+       x="0"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-ctrl"
+       id="rect17" />
+    <text
+       x="50"
+       y="-10"
+       class="text-bit"
+       id="text18">Bit 3</text>
+    <text
+       x="50"
+       y="40"
+       class="text-label"
+       id="text19">DMA/INT</text>
+    <text
+       x="50"
+       y="65"
+       class="text-desc"
+       id="text20">0 = Disable</text>
+    <text
+       x="50"
+       y="85"
+       class="text-desc"
+       id="text21">1 = Enable</text>
+    <!-- Bit 2 -->
+    <rect
+       x="100"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-ctrl"
+       id="rect21" />
+    <text
+       x="150"
+       y="-10"
+       class="text-bit"
+       id="text22">Bit 2</text>
+    <text
+       x="150"
+       y="40"
+       class="text-label"
+       id="text23">FDC RST</text>
+    <text
+       x="150"
+       y="65"
+       class="text-desc"
+       id="text24">0 = Reset</text>
+    <text
+       x="150"
+       y="85"
+       class="text-desc"
+       id="text25">1 = Enable</text>
+  </g>
+  <!-- Group: Drive Select (Bits 1-0) -->
+  <g
+     transform="translate(610,60)"
+     id="g31">
+    <!-- Bit 1 -->
+    <rect
+       x="0"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-sel"
+       id="rect25" />
+    <text
+       x="50"
+       y="-10"
+       class="text-bit"
+       id="text26">Bit 1</text>
+    <text
+       x="50"
+       y="40"
+       class="text-label"
+       id="text27">DRV SEL 1</text>
+    <text
+       x="50"
+       y="75"
+       class="text-desc"
+       id="text28">(See Table)</text>
+    <!-- Bit 0 -->
+    <rect
+       x="100"
+       y="0"
+       width="100"
+       height="100"
+       class="bit-box bg-sel"
+       id="rect28" />
+    <text
+       x="150"
+       y="-10"
+       class="text-bit"
+       id="text29">Bit 0</text>
+    <text
+       x="150"
+       y="40"
+       class="text-label"
+       id="text30">DRV SEL 0</text>
+    <text
+       x="150"
+       y="75"
+       class="text-desc"
+       id="text31">(See Table)</text>
+  </g>
+  <!-- Detail / Legend Area -->
+  <text
+     xml:space="preserve"
+     id="text41"
+     style="font-size:21.3333px;font-family:Helvetica;-inkscape-font-specification:Helvetica;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect41);fill:#000000;-inkscape-stroke:none" />
+  <text
+     xml:space="preserve"
+     style="font-size:21.3333px;font-family:Helvetica;-inkscape-font-specification:Helvetica;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;-inkscape-stroke:none"
+     x="240.6015"
+     y="197.49373"
+     id="text42"><tspan
+       sodipodi:role="line"
+       id="tspan42"
+       x="240.6015"
+       y="197.49373"></tspan></text>
+</svg>

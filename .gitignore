@@ -1,0 +1,8 @@
+# Exclude compiled book
+book
+
+# Exclude local-only file directory
+local
+
+# Exluce img-src for now
+img-src

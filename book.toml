@@ -1,0 +1,25 @@
+[book]
+authors = ["dbalsom"]
+language = "en"
+multilingual = false
+src = "src"
+title = "The PC Emulation Book"
+description = "A comprehensive guide to emulating the original IBM PC and its hardware components"
+
+[build]
+build-dir = "book"
+create-missing = true
+
+[output.html]
+smart-punctuation = true
+mathjax-support = true
+copy-fonts = true
+no-section-label = false
+git-repository-url = "https://github.com/your-username/pc-emulation-book"
+edit-url-template = "https://github.com/your-username/pc-emulation-book/edit/main/src/{path}"
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true

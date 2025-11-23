@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 800 535"
+   width="800"
+   height="535"
+   version="1.1"
+   id="svg103"
+   sodipodi:docname="8253_control_word.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview103"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.3021643"
+     inkscape:cx="416.23011"
+     inkscape:cy="273.00702"
+     inkscape:window-width="2188"
+     inkscape:window-height="1211"
+     inkscape:window-x="312"
+     inkscape:window-y="150"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg103" />
+  <defs
+     id="defs1">
+    <style
+       id="style1">
+      .base-text { font-family: Arial, Helvetica, sans-serif; font-size: 14px; fill: black; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: bold; fill: black; }
+      .header { font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: bold; fill: black; }
+      .table-header { font-weight: bold; }
+      .mono { font-family: 'Courier New', monospace; }
+      line, rect { stroke: black; stroke-width: 1.5; fill: none; }
+      .overline { text-decoration: overline; }
+    </style>
+  </defs>
+  <!-- White Background -->
+  <!-- Main Header -->
+  <text
+     x="20"
+     y="30"
+     class="title"
+     id="text1">Control Word Format</text>
+  <!-- Bit Register Diagram -->
+  <text
+     x="228.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text7">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan7">7</tspan></text>
+  <text
+     x="278.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text8">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan8">6</tspan></text>
+  <text
+     x="328.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text9">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan9">5</tspan></text>
+  <text
+     x="378.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text10">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan10">4</tspan></text>
+  <text
+     x="428.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text11">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan11">3</tspan></text>
+  <text
+     x="478.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text12">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan12">2</tspan></text>
+  <text
+     x="528.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text13">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan13">1</tspan></text>
+  <text
+     x="578.85638"
+     y="59.513958"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text14">D<tspan
+   dy="4"
+   font-size="10px"
+   id="tspan14">0</tspan></text>
+  <rect
+     x="203.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect14"
+     style="fill:#ffc3ca;fill-opacity:1" />
+  <text
+     x="228.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text15">SC1</text>
+  <rect
+     x="253.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect15"
+     style="fill:#ffc3ca;fill-opacity:1" />
+  <text
+     x="278.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text16">SC0</text>
+  <rect
+     x="303.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect16"
+     style="fill:#c3ffdf;fill-opacity:1" />
+  <text
+     x="328.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text17">RW1</text>
+  <rect
+     x="353.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect17"
+     style="fill:#c3ffdf;fill-opacity:1" />
+  <text
+     x="378.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text18">RW0</text>
+  <rect
+     x="403.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect18"
+     style="fill:#c3e5ff;fill-opacity:1" />
+  <text
+     x="428.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text19">M2</text>
+  <rect
+     x="453.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect19"
+     style="fill:#c3e5ff;fill-opacity:1" />
+  <text
+     x="478.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text20">M1</text>
+  <rect
+     x="503.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect20"
+     style="fill:#c3e5ff;fill-opacity:1" />
+  <text
+     x="528.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text21">M0</text>
+  <rect
+     x="553.85638"
+     y="68.513962"
+     width="50"
+     height="30"
+     id="rect21"
+     style="fill:#ffee91;fill-opacity:1" />
+  <text
+     x="578.85638"
+     y="88.513962"
+     class="base-text"
+     text-anchor="middle"
+     id="text22">BCD</text>
+  <!-- SC Table (Left Top) -->
+  <text
+     x="13.856382"
+     y="138.51396"
+     class="header"
+     id="text23">SC — Select Counter</text>
+  <text
+     x="47.85638"
+     y="158.51396"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text24">SC1</text>
+  <text
+     x="113.85638"
+     y="158.51396"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text25">SC0</text>
+  <rect
+     x="13.856382"
+     y="163.51396"
+     width="380"
+     height="120"
+     id="rect25"
+     style="fill:#ffffff;fill-opacity:1" />
+  <line
+     x1="13.856382"
+     y1="193.51396"
+     x2="393.85638"
+     y2="193.51396"
+     id="line25" />
+  <line
+     x1="13.856382"
+     y1="223.51396"
+     x2="393.85638"
+     y2="223.51396"
+     id="line26" />
+  <line
+     x1="13.856382"
+     y1="253.51396"
+     x2="393.85638"
+     y2="253.51396"
+     id="line27" />
+  <line
+     x1="82.337097"
+     y1="163.51396"
+     x2="82.337097"
+     y2="283.51395"
+     id="line28" />
+  <line
+     x1="143.85638"
+     y1="163.51396"
+     x2="143.85638"
+     y2="283.51395"
+     id="line29" />
+  <text
+     x="47.85638"
+     y="183.51396"
+     class="base-text"
+     text-anchor="middle"
+     id="text29">0</text>
+  <text
+     x="113.85638"
+     y="183.51396"
+     class="base-text"
+     text-anchor="middle"
+     id="text30">0</text>
+  <text
+     x="153.85638"
+     y="183.51396"
+     class="base-text"
+     id="text31">Select Counter 0</text>
+  <text
+     x="47.85638"
+     y="213.51396"
+     class="base-text"
+     text-anchor="middle"
+     id="text32">0</text>
+  <text
+     x="113.85638"
+     y="213.51396"
+     class="base-text"
+     text-anchor="middle"
+     id="text33">1</text>
+  <text
+     x="153.85638"
+     y="213.51396"
+     class="base-text"
+     id="text34">Select Counter 1</text>
+  <text
+     x="47.85638"
+     y="243.51396"
+     class="base-text"
+     text-anchor="middle"
+     id="text35">1</text>
+  <text
+     x="113.85638"
+     y="243.51396"
+     class="base-text"
+     text-anchor="middle"
+     id="text36">0</text>
+  <text
+     x="153.85638"
+     y="243.51396"
+     class="base-text"
+     id="text37">Select Counter 2</text>
+  <text
+     x="47.85638"
+     y="273.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text38">1</text>
+  <text
+     x="113.85638"
+     y="273.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text39">1</text>
+  <text
+     x="153.31335"
+     y="273.94418"
+     class="base-text"
+     id="text40">Read-Back Command (8254 Only)</text>
+  <!-- RW Table (Left Bottom) -->
+  <text
+     x="14.624334"
+     y="337.746"
+     class="header"
+     id="text42">RW — Read/Write</text>
+  <text
+     x="43.85638"
+     y="358.51395"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text43">RW1</text>
+  <text
+     x="93.856384"
+     y="358.51395"
+     class="base-text table-header"
+     text-anchor="middle"
+     id="text44">RW0</text>
+  <rect
+     x="13.890328"
+     y="363.54788"
+     width="379.9321"
+     height="152.9873"
+     id="rect44"
+     style="fill:#ffffff;fill-opacity:1" />
+  <line
+     x1="13.856382"
+     y1="401.51395"
+     x2="393.85638"
+     y2="401.51395"
+     id="line44" />
+  <line
+     x1="13.856382"
+     y1="437.51395"
+     x2="393.85638"
+     y2="437.51395"
+     id="line45" />
+  <line
+     x1="13.856382"
+     y1="473.51395"
+     x2="393.85638"
+     y2="473.51395"
+     id="line46" />
+  <line
+     x1="68.856384"
+     y1="363.51395"
+     x2="68.856384"
+     y2="516.56915"
+     id="line47" />
+  <line
+     x1="118.85638"
+     y1="363.51395"
+     x2="118.85638"
+     y2="515.18896"
+     id="line48" />
+  <text
+     x="41.85638"
+     y="383.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text48">0</text>
+  <text
+     x="93.856384"
+     y="383.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text49">0</text>
+  <text
+     x="128.85638"
+     y="386.96143"
+     class="base-text"
+     id="text50">Counter Latch Command</text>
+  <text
+     x="128.85638"
+     y="393.51395"
+     class="base-text"
+     id="text51"
+     style="white-space:pre;inline-size:151.061;display:inline"
+     xml:space="preserve" />
+  <text
+     x="41.85638"
+     y="423.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text52">0</text>
+  <text
+     x="93.856384"
+     y="423.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text53">1</text>
+  <text
+     x="128.85638"
+     y="423.51395"
+     class="base-text"
+     id="text54">Read/Write least significant byte only</text>
+  <text
+     x="41.85638"
+     y="459.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text55">1</text>
+  <text
+     x="93.856384"
+     y="459.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text56">0</text>
+  <text
+     x="125.78458"
+     y="460.42551"
+     class="base-text"
+     id="text57">Read/Write most significant byte only</text>
+  <text
+     x="41.85638"
+     y="500.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text58">1</text>
+  <text
+     x="93.856384"
+     y="500.51395"
+     class="base-text"
+     text-anchor="middle"
+     id="text59">1</text>
+  <text
+     x="125.78458"
+     y="490.80118"
+     class="base-text"
+     id="text60">Read/Write least significant byte first,</text>
+  <text
+     x="125.78458"
+     y="505.80118"
+     class="base-text"
+     id="text61">then most significant byte</text>
+  <!-- Mode Table (Right Top) -->
+  <g
+     transform="translate(423.85638,148.51396)"
+     id="g95">
+    <text
+       x="0"
+       y="-10"
+       class="header"
+       id="text62">M — Mode</text>
+    <text
+       x="40"
+       y="10"
+       class="base-text table-header"
+       text-anchor="middle"
+       id="text63">M2</text>
+    <text
+       x="120"
+       y="10"
+       class="base-text table-header"
+       text-anchor="middle"
+       id="text64">M1</text>
+    <text
+       x="200"
+       y="10"
+       class="base-text table-header"
+       text-anchor="middle"
+       id="text65">M0</text>
+    <!-- Table Structure -->
+    <rect
+       x="0"
+       y="15"
+       width="360"
+       height="150"
+       id="rect65"
+       style="fill:#ffffff;fill-opacity:1" />
+    <line
+       x1="0"
+       y1="40"
+       x2="360"
+       y2="40"
+       id="line65" />
+    <line
+       x1="0"
+       y1="65"
+       x2="360"
+       y2="65"
+       id="line66" />
+    <line
+       x1="0"
+       y1="90"
+       x2="360"
+       y2="90"
+       id="line67" />
+    <line
+       x1="0"
+       y1="115"
+       x2="360"
+       y2="115"
+       id="line68" />
+    <line
+       x1="0"
+       y1="140"
+       x2="360"
+       y2="140"
+       id="line69" />
+    <!-- Missing row divider added -->
+    <!-- Vertical Dividers -->
+    <line
+       x1="80"
+       y1="15"
+       x2="80"
+       y2="165"
+       id="line70" />
+    <line
+       x1="160"
+       y1="15"
+       x2="160"
+       y2="165"
+       id="line71" />
+    <line
+       x1="240"
+       y1="15"
+       x2="240"
+       y2="165"
+       id="line72" />
+    <!-- Row 1 -->
+    <text
+       x="40"
+       y="33"
+       class="base-text"
+       text-anchor="middle"
+       id="text72">0</text>
+    <text
+       x="120"
+       y="33"
+       class="base-text"
+       text-anchor="middle"
+       id="text73">0</text>
+    <text
+       x="200"
+       y="33"
+       class="base-text"
+       text-anchor="middle"
+       id="text74">0</text>
+    <text
+       x="300"
+       y="33"
+       class="base-text"
+       text-anchor="middle"
+       id="text75">Mode 0</text>
+    <!-- Row 2 -->
+    <text
+       x="40"
+       y="58"
+       class="base-text"
+       text-anchor="middle"
+       id="text76">0</text>
+    <text
+       x="120"
+       y="58"
+       class="base-text"
+       text-anchor="middle"
+       id="text77">0</text>
+    <text
+       x="200"
+       y="58"
+       class="base-text"
+       text-anchor="middle"
+       id="text78">1</text>
+    <text
+       x="300"
+       y="58"
+       class="base-text"
+       text-anchor="middle"
+       id="text79">Mode 1</text>
+    <!-- Row 3 -->
+    <text
+       x="40"
+       y="83"
+       class="base-text"
+       text-anchor="middle"
+       id="text80">Don't Care</text>
+    <text
+       x="120"
+       y="83"
+       class="base-text"
+       text-anchor="middle"
+       id="text81">1</text>
+    <text
+       x="200"
+       y="83"
+       class="base-text"
+       text-anchor="middle"
+       id="text82">0</text>
+    <text
+       x="300"
+       y="83"
+       class="base-text"
+       text-anchor="middle"
+       id="text83">Mode 2</text>
+    <!-- Row 4 -->
+    <text
+       x="40"
+       y="108"
+       class="base-text"
+       text-anchor="middle"
+       id="text84">Don't Care</text>
+    <text
+       x="120"
+       y="108"
+       class="base-text"
+       text-anchor="middle"
+       id="text85">1</text>
+    <text
+       x="200"
+       y="108"
+       class="base-text"
+       text-anchor="middle"
+       id="text86">1</text>
+    <text
+       x="300"
+       y="108"
+       class="base-text"
+       text-anchor="middle"
+       id="text87">Mode 3</text>
+    <!-- Row 5 -->
+    <text
+       x="40"
+       y="133"
+       class="base-text"
+       text-anchor="middle"
+       id="text88">1</text>
+    <text
+       x="120"
+       y="133"
+       class="base-text"
+       text-anchor="middle"
+       id="text89">0</text>
+    <text
+       x="200"
+       y="133"
+       class="base-text"
+       text-anchor="middle"
+       id="text90">0</text>
+    <text
+       x="300"
+       y="133"
+       class="base-text"
+       text-anchor="middle"
+       id="text91">Mode 4</text>
+    <!-- Row 6 -->
+    <text
+       x="40"
+       y="158"
+       class="base-text"
+       text-anchor="middle"
+       id="text92">1</text>
+    <text
+       x="120"
+       y="158"
+       class="base-text"
+       text-anchor="middle"
+       id="text93">0</text>
+    <text
+       x="200"
+       y="158"
+       class="base-text"
+       text-anchor="middle"
+       id="text94">1</text>
+    <text
+       x="300"
+       y="158"
+       class="base-text"
+       text-anchor="middle"
+       id="text95">Mode 5</text>
+  </g>
+  <!-- BCD Table (Right Bottom) -->
+  <text
+     x="421.55252"
+     y="358.54721"
+     class="header"
+     id="text96">BCD</text>
+  <rect
+     x="421.55447"
+     y="363.54916"
+     width="361.89667"
+     height="69.996094"
+     id="rect96"
+     style="fill:#ffffff;fill-opacity:1" />
+  <line
+     x1="421.55252"
+     y1="398.54721"
+     x2="782.91003"
+     y2="398.54721"
+     id="line96" />
+  <line
+     x1="471.55252"
+     y1="363.54721"
+     x2="471.55252"
+     y2="433.54721"
+     id="line97" />
+  <text
+     x="446.55252"
+     y="385.54721"
+     class="base-text"
+     text-anchor="middle"
+     id="text97">0</text>
+  <text
+     x="481.55252"
+     y="385.54721"
+     class="base-text"
+     id="text98">Binary Counter 16-bits</text>
+  <text
+     x="446.55252"
+     y="421.54721"
+     class="base-text"
+     text-anchor="middle"
+     id="text99">1</text>
+  <text
+     x="481.55252"
+     y="413.54721"
+     class="base-text"
+     id="text100">Binary Coded Decimal (BCD) Counter</text>
+  <text
+     x="481.55252"
+     y="428.54721"
+     class="base-text"
+     id="text101">(4 Decades)</text>
+  <!-- Footer Note -->
+</svg>

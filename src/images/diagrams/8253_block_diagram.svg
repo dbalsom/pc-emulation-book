@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="900"
+   height="570"
+   viewBox="0 0 900 570"
+   version="1.1"
+   id="svg39"
+   sodipodi:docname="8253_block_diagram_03.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview47"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.1285424"
+     inkscape:cx="250.32289"
+     inkscape:cy="291.96953"
+     inkscape:window-width="2231"
+     inkscape:window-height="1211"
+     inkscape:window-x="338"
+     inkscape:window-y="150"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg39" />
+  <defs
+     id="defs2">
+    <!-- 3D Bevel and Drop Shadow Filter -->
+    <filter
+       id="bevelFilter"
+       x="-0.096363636"
+       y="-0.265"
+       width="1.2290909"
+       height="1.63">
+      <!-- Drop Shadow -->
+      <feGaussianBlur
+         in="SourceAlpha"
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur1" />
+      <feOffset
+         in="blur"
+         dx="4"
+         dy="4"
+         result="offsetBlur"
+         id="feOffset1" />
+      <feFlood
+         flood-color="rgba(0,0,0,0.3)"
+         result="shadowColor"
+         id="feFlood1" />
+      <feComposite
+         in="shadowColor"
+         in2="offsetBlur"
+         operator="in"
+         result="shadow"
+         id="feComposite1" />
+      <!-- Lighting/Bevel -->
+      <feGaussianBlur
+         in="SourceAlpha"
+         stdDeviation="1"
+         result="blurAlpha"
+         id="feGaussianBlur2" />
+      <feSpecularLighting
+         in="blurAlpha"
+         surfaceScale="3"
+         specularConstant="0.8"
+         specularExponent="15"
+         lighting-color="#ffffff"
+         result="specular"
+         id="feSpecularLighting2">
+        <fePointLight
+           x="-5000"
+           y="-10000"
+           z="10000"
+           id="fePointLight2" />
+      </feSpecularLighting>
+      <feComposite
+         in="specular"
+         in2="SourceAlpha"
+         operator="in"
+         result="specular"
+         id="feComposite2" />
+      <!-- Compose -->
+      <feMerge
+         id="feMerge4">
+        <feMergeNode
+           in="shadow"
+           id="feMergeNode2" />
+        <feMergeNode
+           in="SourceGraphic"
+           id="feMergeNode3" />
+        <feMergeNode
+           in="specular"
+           id="feMergeNode4" />
+      </feMerge>
+    </filter>
+    <!-- Gradients for 3D Surface Look -->
+    <!-- Blue (Control) -->
+    <linearGradient
+       id="grad-blue"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#e3f2fd;stop-opacity:1"
+         id="stop4" />
+      <stop
+         offset="100%"
+         style="stop-color:#90caf9;stop-opacity:1"
+         id="stop5" />
+    </linearGradient>
+    <!-- Orange (Status) -->
+    <linearGradient
+       id="grad-orange"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#fff3e0;stop-opacity:1"
+         id="stop6" />
+      <stop
+         offset="100%"
+         style="stop-color:#ffcc80;stop-opacity:1"
+         id="stop7" />
+    </linearGradient>
+    <!-- Green (Registers/Latches) -->
+    <linearGradient
+       id="grad-green"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#e8f5e9;stop-opacity:1"
+         id="stop8" />
+      <stop
+         offset="100%"
+         style="stop-color:#a5d6a7;stop-opacity:1"
+         id="stop9" />
+    </linearGradient>
+    <!-- Purple (Counting Element) -->
+    <linearGradient
+       id="grad-purple"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#f3e5f5;stop-opacity:1"
+         id="stop10" />
+      <stop
+         offset="100%"
+         style="stop-color:#ce93d8;stop-opacity:1"
+         id="stop11" />
+    </linearGradient>
+    
+    <!-- Dark Theme Gradients -->
+    <linearGradient
+       id="grad-blue-dark"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#1a365d;stop-opacity:1"
+         id="stop4-dark" />
+      <stop
+         offset="100%"
+         style="stop-color:#2b77ad;stop-opacity:1"
+         id="stop5-dark" />
+    </linearGradient>
+    
+    <linearGradient
+       id="grad-orange-dark"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#744210;stop-opacity:1"
+         id="stop6-dark" />
+      <stop
+         offset="100%"
+         style="stop-color:#b7791f;stop-opacity:1"
+         id="stop7-dark" />
+    </linearGradient>
+    
+    <linearGradient
+       id="grad-green-dark"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#1a402a;stop-opacity:1"
+         id="stop8-dark" />
+      <stop
+         offset="100%"
+         style="stop-color:#2d5a41;stop-opacity:1"
+         id="stop9-dark" />
+    </linearGradient>
+    
+    <linearGradient
+       id="grad-purple-dark"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         style="stop-color:#4a1a4a;stop-opacity:1"
+         id="stop10-dark" />
+      <stop
+         offset="100%"
+         style="stop-color:#6a2c70;stop-opacity:1"
+         id="stop11-dark" />
+    </linearGradient>
+    
+    <!-- Markers -->
+    <marker
+       id="arrow"
+       markerWidth="9"
+       markerHeight="6"
+       refX="0"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 9 6">
+      <path
+         d="M0,0 L0,6 L9,3 z"
+         class="arrow-fill"
+         id="path11" />
+    </marker>
+    <marker
+       id="arrow-0"
+       markerWidth="9"
+       markerHeight="6"
+       refX="0"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 9 6">
+      <path
+         d="M 0,0 V 6 L 9,3 Z"
+         class="arrow-fill"
+         id="path12" />
+    </marker>
+    <marker
+       id="arrow-0-8"
+       markerWidth="9"
+       markerHeight="6"
+       refX="0"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 9 6">
+      <path
+         d="M 0,0 V 6 L 9,3 Z"
+         class="arrow-fill"
+         id="path13" />
+    </marker>
+    
+    <!-- Dark theme arrow marker -->
+    <marker
+       id="arrow-dark"
+       markerWidth="9"
+       markerHeight="6"
+       refX="0"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 9 6">
+      <path
+         d="M 0,0 V 6 L 9,3 Z"
+         fill="#ffffff"
+         id="path13-dark" />
+    </marker>
+    
+    <style
+       id="style13">
+      /* Light Theme Styles (default) */
+      .text-bold { 
+        font-family: Arial, sans-serif; 
+        font-size: 14px; 
+        font-weight: bold; 
+        text-anchor: middle; 
+        fill: black; 
+        pointer-events: none; 
+      }
+      .text-sub { font-size: 10px; baseline-shift: sub; }
+      
+      /* Base Box Styles */
+      .box, .box-thin { 
+        stroke: #333; 
+        stroke-width: 2; 
+        filter: url(#bevelFilter);
+      }
+
+      /* Color Classes - Light Theme */
+      .fill-blue { fill: url(#grad-blue); }
+      .fill-orange { fill: url(#grad-orange); }
+      .fill-green { fill: url(#grad-green); }
+      .fill-purple { fill: url(#grad-purple); }
+
+      .bus-arrow { fill: white; stroke: black; stroke-width: 2; }
+      .control-line { stroke: black; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .control-line-plain { stroke: black; stroke-width: 2; fill: none; }
+      .dot { fill: black; }
+      .arrow-fill { fill: black; }
+      
+      /* Dark Theme Adaptations */
+      @media (prefers-color-scheme: dark) {
+        .text-bold { 
+          fill: white; 
+        }
+        
+        /* Base Box Styles for Dark Theme */
+        .box, .box-thin { 
+          stroke: #cccccc; 
+        }
+
+        /* Color Classes - Dark Theme */
+        .fill-blue { fill: url(#grad-blue-dark); }
+        .fill-orange { fill: url(#grad-orange-dark); }
+        .fill-green { fill: url(#grad-green-dark); }
+        .fill-purple { fill: url(#grad-purple-dark); }
+
+        .bus-arrow { fill: #2d2d2d; stroke: white; }
+        .control-line { stroke: white; marker-end: url(#arrow-dark); }
+        .control-line-plain { stroke: white; }
+        .dot { fill: white; }
+        .arrow-fill { fill: white; }
+      }
+    </style>
+  </defs>
+  <!-- Internal Bus Arrow (Top Left) -->
+  <!-- Horizontal Control Line -->
+  <path
+     class="control-line"
+     d="m 180.32109,373.93366 h 399.63052 l 0,28.79821"
+     id="path40" />
+  <!-- ================= LEFT SIDE BLOCKS (Control - Blue) ================= -->
+  <!-- Control Word Register -->
+  <rect
+     x="50"
+     y="140"
+     width="130"
+     height="60"
+     class="box fill-blue"
+     id="rect2" />
+  <text
+     x="114.37"
+     y="159.98"
+     class="text-bold"
+     id="text13">CONTROL</text>
+  <text
+     x="114.37"
+     y="174.98"
+     class="text-bold"
+     id="text14">WORD</text>
+  <text
+     x="114.37"
+     y="189.98"
+     class="text-bold"
+     id="text15">REGISTER</text>
+  <!-- Control Logic -->
+  <rect
+     x="50"
+     y="250"
+     width="130"
+     height="170"
+     class="box fill-blue"
+     id="rect5" />
+  <text
+     x="115"
+     y="325"
+     class="text-bold"
+     id="text16">CONTROL</text>
+  <text
+     x="115"
+     y="345"
+     class="text-bold"
+     id="text17">LOGIC</text>
+  <!-- ================= CENTER / STATUS BLOCKS (Orange) ================= -->
+  <!-- Status Latch -->
+  <rect
+     x="210"
+     y="140"
+     width="110"
+     height="40"
+     class="box-thin fill-orange"
+     id="rect7" />
+  <text
+     x="265"
+     y="158"
+     class="text-bold"
+     id="text18">STATUS</text>
+  <text
+     x="265"
+     y="173"
+     class="text-bold"
+     id="text19">LATCH</text>
+  <!-- Status Register -->
+  <rect
+     x="209.55"
+     y="211.58"
+     width="110"
+     height="45"
+     class="box-thin fill-orange"
+     id="rect9" />
+  <text
+     x="264.55"
+     y="231.58"
+     class="text-bold"
+     id="text20">STATUS</text>
+  <text
+     x="264.55"
+     y="246.58"
+     class="text-bold"
+     id="text21">REGISTER</text>
+  <!-- ================= RIGHT SIDE REGISTERS (Green) ================= -->
+  <!-- CR_M -->
+  <rect
+     x="400"
+     y="180"
+     width="110"
+     height="50"
+     class="box-thin fill-green"
+     id="rect11" />
+  <text
+     x="455"
+     y="210"
+     class="text-bold"
+     id="text22">CR<tspan
+   class="text-sub"
+   id="tspan21">M</tspan></text>
+  <!-- CR_L -->
+  <rect
+     x="560"
+     y="180"
+     width="110"
+     height="50"
+     class="box-thin fill-green"
+     id="rect12" />
+  <text
+     x="615"
+     y="210"
+     class="text-bold"
+     id="text23">CR<tspan
+   class="text-sub"
+   id="tspan22">L</tspan></text>
+  <!-- ================= CENTER ELEMENT (Purple) ================= -->
+  <!-- CE -->
+  <rect
+     x="400"
+     y="295"
+     width="270"
+     height="60"
+     class="box fill-purple"
+     id="rect13" />
+  <text
+     x="535"
+     y="330"
+     class="text-bold"
+     id="text24">CE</text>
+  <!-- ================= OUTPUT LATCHES (Green) ================= -->
+  <!-- OL_M -->
+  <rect
+     x="400"
+     y="420"
+     width="110"
+     height="50"
+     class="box-thin fill-green"
+     id="rect14" />
+  <text
+     x="455"
+     y="450"
+     class="text-bold"
+     id="text25">OL<tspan
+   class="text-sub"
+   id="tspan24">M</tspan></text>
+  <!-- OL_L -->
+  <rect
+     x="560"
+     y="420"
+     width="110"
+     height="50"
+     class="box-thin fill-green"
+     id="rect15" />
+  <text
+     x="615"
+     y="450"
+     class="text-bold"
+     id="text26">OL<tspan
+   class="text-sub"
+   id="tspan25">L</tspan></text>
+  <!-- ================= BUS ARROWS (DATA PATHS) ================= -->
+  <path
+     d="M 255,140 L 255,90 L 245,90 L 265,75 L 285,90 L 275,90 L 275,140 Z"
+     class="bus-arrow"
+     id="path17"
+     style="fill:#ffe29d;fill-opacity:1" />
+  <!-- Big Complex Bus Path -->
+  <path
+     id="path20"
+     class="bus-arrow"
+     d="m 625.8861,75 v 90 h 10 l -20,15 -20,-15 h 10 V 75 h -140 v 90 h 10 l -20,15 -20,-15 h 10 V 75 h -318 v 48 h 14 l -26,15 -24.000001,-15 H 105.8861 V 75 H 40.886099 l 0.26,14.94 -20.26,-29.94 19.85,-32.85 0.15,17.85 H 860.8861 l -0.06,-17.85 20.06,32.85 -19.91,29.94 -0.09,-14.94 z"
+     style="fill:#fffedb;fill-opacity:1" />
+  <!-- CR to CE arrows -->
+  <path
+     d="M 445,230 L 465,230 L 465,280 L 475,280 L 455,295 L 435,280 L 445,280 Z"
+     class="bus-arrow"
+     id="path26"
+     style="fill:#fffedb;fill-opacity:1" />
+  <path
+     d="M 605,230 L 625,230 L 625,280 L 635,280 L 615,295 L 595,280 L 605,280 Z"
+     class="bus-arrow"
+     id="path27"
+     style="fill:#fffedb;fill-opacity:1" />
+  <!-- CE to OL arrows -->
+  <path
+     d="M 445,355 L 465,355 L 465,405 L 475,405 L 455,420 L 435,405 L 445,405 Z"
+     class="bus-arrow"
+     id="path28"
+     style="fill:#fffedb;fill-opacity:1" />
+  <path
+     d="M 605,355 L 625,355 L 625,405 L 635,405 L 615,420 L 595,405 L 605,405 Z"
+     class="bus-arrow"
+     id="path29"
+     style="fill:#fffedb;fill-opacity:1" />
+  <!-- RETURN PATHS -->
+  <path
+     d="m 445,470 h 20 v 60 H 760 V 90 h -10 l 20,-15 20,15 H 780 V 550 H 445 Z"
+     class="bus-arrow"
+     id="path30"
+     style="fill:#fffedb;fill-opacity:1" />
+  <path
+     d="m 605,470 h 20 v 20 h 73 V 90 h -10 l 20,-15 20,15 H 718 V 510 H 605 Z"
+     class="bus-arrow"
+     id="path31"
+     style="fill:#fffedb;fill-opacity:1" />
+  <!-- ================= CONTROL LINES ================= -->
+  <!-- Input: CLK n -->
+  <line
+     x1="70"
+     y1="528"
+     x2="70"
+     y2="437"
+     class="control-line"
+     id="line31" />
+  <text
+     x="70"
+     y="543"
+     class="text-bold"
+     id="text31">CLK n</text>
+  <!-- Input: GATE n -->
+  <line
+     x1="115"
+     y1="496"
+     x2="115"
+     y2="437"
+     class="control-line"
+     id="line32" />
+  <text
+     x="115"
+     y="515"
+     class="text-bold"
+     id="text32">GATE n</text>
+  <!-- Output: OUT n -->
+  <line
+     x1="160"
+     y1="420"
+     x2="160"
+     y2="510"
+     class="control-line"
+     id="line33" />
+  <text
+     x="160"
+     y="543"
+     class="text-bold"
+     id="text33">OUT n</text>
+  <!-- Logic wiring -->
+  <line
+     x1="115"
+     y1="200"
+     x2="115"
+     y2="234"
+     class="control-line"
+     id="line34" />
+  <line
+     x1="236.41"
+     y1="358.52"
+     x2="236.41"
+     y2="275.22"
+     class="control-line"
+     style="marker-end:url(#arrow-0)"
+     id="line35" />
+  <line
+     x1="296.31"
+     y1="446.71"
+     x2="296.31"
+     y2="275.79"
+     class="control-line"
+     style="marker-end:url(#arrow-0-8)"
+     id="line36" />
+  <line
+     x1="147.30"
+     y1="231.71"
+     x2="190.43"
+     y2="231.71"
+     class="control-line"
+     id="line37" />
+  <line
+     x1="415.30"
+     y1="140.11"
+     x2="415.30"
+     y2="160.78"
+     class="control-line"
+     id="line38" />
+  <line
+     x1="180.88"
+     y1="321.45"
+     x2="382.93"
+     y2="321.45"
+     class="control-line"
+     id="line39" />
+  <line
+     x1="400.88"
+     y1="340.56"
+     x2="197.33"
+     y2="340.56"
+     class="control-line"
+     id="line40" />
+  <path
+     d="m 415.39,391.74 v 11.59"
+     class="control-line"
+     id="path41" />
+  <!-- Internal Bus Text -->
+  <g
+     transform="translate(18,73)"
+     id="g41">
+    <text
+       x="428"
+       y="-8"
+       class="text-bold"
+       font-size="16"
+       id="text41">INTERNAL BUS</text>
+  </g>
+  <!-- Additional Wiring Paths -->
+  <path
+     d="M 416.38,391.87 H 181.65"
+     class="control-line-plain"
+     id="path42" />
+  <path
+     d="m 179.43,302.60 h 187.40 l 0,-162.15"
+     class="control-line-plain"
+     id="path43" />
+  <path
+     d="M 366.40,140.88 H 414.69"
+     class="control-line-plain"
+     id="path44" />
+  <path
+     d="M 236.14,357.54 H 180.76"
+     class="control-line-plain"
+     id="path45" />
+  <path
+     d="M 296.40,446.15 H 159.94"
+     class="control-line-plain"
+     id="path46" />
+  <circle
+     cx="159.77"
+     cy="446.20"
+     r="4"
+     class="dot"
+     id="circle46" />
+  <path
+     d="M 148.33,231.35 V 200.18"
+     class="control-line-plain"
+     id="path47" />
+  <path
+     d="M 254.98853,211.14038 V 194.58124 H 244.97706 L 265,179.99179 l 20.02294,14.58945 h -10.01147 v 16.55914 z"
+     class="bus-arrow"
+     id="path18"
+     style="fill:#ffe29d;fill-opacity:1" />
+</svg>
