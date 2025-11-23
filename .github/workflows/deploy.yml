@@ -1,0 +1,33 @@
+name: Build and Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup mdbook
+      uses: peaceiris/actions-mdbook@v1
+      with:
+        mdbook-version: 'latest'
+        
+    - name: Build book
+      run: mdbook build
+      
+    - name: Deploy to Cloudflare Pages
+      uses: cloudflare/pages-action@v1
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        projectName: pc-emulation-book
+        directory: book
+        gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        wranglerVersion: '3'
