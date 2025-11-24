@@ -7,6 +7,15 @@ This document aims to become a comprehensive guide to emulating the original mod
 - The IBM Model 5150 Personal Computer
 - The IBM Model 5160 Personal Computer XT
 
+## 🚧 **UNDER CONSTRUCTION!** 🚧
+
+You'll notice that many of the pages in this book are empty stubs.
+Content is still being fleshed out. Here is a list of some of the more complete pages:
+
+ - [The Intel 8253 Programmable Interval Timer](support-chips/timer-8253.md)
+ - [The Intel 8259 Programmable Interrupt Controller](support-chips/pic-8259.md)
+ - [The Keyboard](io-devices/keyboard.md)
+
 ## Why Emulate the PC?
 
 The IBM PC is arguably one of the most influential computers in history, establishing standards that enabled the proliferation of "PC-compatible" systems and cemented the very term "PC" as an Intel-based system, probably running a Microsoft operating system. The "PC" lives on even today, only recently challenged for supremacy by the rise of ARM-based CPUs.
@@ -43,6 +52,10 @@ To get the most out of this book, you should have:
 - Some experience with emulation
   - If you have never programmed an emulator before, it is recommended that you start with the CHIP-8, a simple system that teaches basic emulation concepts. You can find a guide [here](https://tobiasvl.github.io/blog/write-a-chip-8-emulator/). 
 
-## Contributing
+## License
 
 This book is open-source and all content is licensed under the CC0 1.0 Creative Commons Public Domain license, except where otherwise noted.
+
+## Contributing
+
+The main source repository for the PC Emulation Book can be found [here](https://github.com/dbalsom/pc-emulation-book).
