@@ -211,12 +211,12 @@ In Mode 0, the counter counts down once per tick from the initial count until it
 - **When countdown reaches 0:** OUT → HIGH (and remains HIGH)  
 - **Upon writing new count:** OUT → LOW
 
-### GATE Behavior
+#### GATE Behavior
 - Level-triggered
 - **GATE HIGH**: enables counting  
 - **GATE LOW**: inhibits counting (freezes the countdown)  
 
-### Reload Behavior
+#### Reload Behavior
 - In 8-bit RW modes:
   - Writing either the `LSB` or `MSB` while the counter is running **forces OUT low** immediately.  
   - The CR will be loaded into the CE on the next clock edge.
@@ -224,7 +224,7 @@ In Mode 0, the counter counts down once per tick from the initial count until it
   - Writing the `LSB` while the counter is running **disables counting** and **forces OUT low** immediately.  
   - Writing the `MSB` will load the CR into the CE on the next clock edge.
 
-### Timing
+#### Timing
 - For initial count = N, OUT will go high up to N+1 timer clock cycles after the write.
 
 <div style="text-align: center; margin: 1.5em 0;">
@@ -236,7 +236,7 @@ In Mode 0, the counter counts down once per tick from the initial count until it
 
 ---
 
-## Mode 1 — Hardware Retriggerable One-Shot  
+### Mode 1 — Hardware Retriggerable One-Shot  
 
 ### Summary
 This mode allows a low pulse of the OUT pin of a configurable length, triggerable via the GATE pin. This mode is inoperable on the IBM PC except on timer channel 2.
@@ -250,20 +250,20 @@ We refer to a "trigger" as a LOW → HIGH transition of the GATE pin.
 #### Count Loading
 - After setting the mode and initial count, the CR will hold the initial count but will NOT write it into the CE until a trigger occurs.
 
-### Output Behavior
+#### Output Behavior
 - **After mode set:** OUT → HIGH 
 - **After GATE LOW → HIGH:** OUT → LOW
 - **At terminal count:** OUT → HIGH 
 
-### GATE Behavior
+#### GATE Behavior
 - Edge-triggered
 - **GATE LOW -> HIGH:** Trigger. The CR is loaded into the CE on the next clock edge.
   - Since the trigger reloads the CE, another trigger will **restart** any count in progress.
 
-### Reload Behavior
+#### Reload Behavior
 - Writing a new count during an active count will not affect the current count until the next trigger, as the trigger controls loading of the CE from CR.
 
-### Timing
+#### Timing
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/timer_mode_1_01.png" 
@@ -273,31 +273,31 @@ We refer to a "trigger" as a LOW → HIGH transition of the GATE pin.
 </div>
 ---
 
-## Mode 2 — Rate Generator  
+### Mode 2 — Rate Generator  
 
 ### Summary
 In this mode, OUT normally remains HIGH, but produces regular **one-clock-wide low pulses**. This mode is useful when a periodic LOW → HIGH transition is required. 
 
 On the IBM PC, timer channel 1 is typically configured for Mode 2 to repeatedly generate the \\(DREQ0\\) signal.
 
-### Output Behavior
+#### Output Behavior
 - **After mode set:** OUT → HIGH 
 - **When count reaches 1:** OUT → LOW
 - **When count reaches 0:** OUT → HIGH 
 
-### GATE Behavior
+#### GATE Behavior
 - Edge-triggered
 - **GATE LOW -> HIGH:** Trigger. The CR is loaded into the CE on the next clock edge. Counting enabled.
 - **GATE LOW:** OUT is forced HIGH, **counting disabled**.
 
-### Reload Behavior
+#### Reload Behavior
 - Writing a new count during an active count will not affect the current count until either a terminal count or a GATE trigger.
 - CR is automatically loaded into the CE after terminal count is reached, restarting the count.
 
-### Constraints
+#### Constraints
 - A count of 1 is invalid and will cause the timer channel not to function.
 
-### Timing
+#### Timing
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/timer_mode_2_01.png" 
@@ -307,9 +307,9 @@ On the IBM PC, timer channel 1 is typically configured for Mode 2 to repeatedly 
 </div>
 ---
 
-## Mode 3 — Square Wave Generator  
+### Mode 3 — Square Wave Generator  
 
-### Summary
+#### Summary
 Similar to Mode 2, but produces a **square wave**: OUT alternates high and low with a 50% duty cycle (if the initial count is even). This is a general-purpose mode with many applications. The IBM BIOS sets timer channel 0 to Mode 3 to run the BIOS time-of-day clock. This mode can also be used to drive a tone of a specific frequency to the PC speaker on timer channel 2.
 
 This mode is a bit more complex than the other modes. The 8253 creates a square wave of a period determined by the initial count by **decrementing the counting element by 2** instead of 1. This presents a problem if the initial count is odd, as we need to reach 0 to trigger the terminal count condition.
@@ -329,20 +329,20 @@ This is a somewhat awkward way of accounting for the one missed clock period per
 
 The counter also has an **output flip-flop** that it uses in this mode to toggle the state of the OUT pin when terminal count is reached.
 
-### Output Behavior
+#### Output Behavior
 - **After mode set:** OUT → HIGH 
 - **At terminal count:** OUT toggles state
 
-### GATE Behavior
+#### GATE Behavior
  - Edge-triggered
  - **GATE HIGH:** Trigger. The CR is loaded into the CE on the next clock edge. Counting enabled.
  - **GATE LOW:**  OUT → HIGH. Counting disabled.
 
-### Reload Behavior
+#### Reload Behavior
  - Writing a new count during an active count will not affect the current count until either a terminal count or a GATE trigger.
  - CR is automatically loaded into the CE after terminal count is reached, restarting the count.
 
-### Timing
+#### Timing
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/timer_mode_3_01.png" 
@@ -353,30 +353,30 @@ The counter also has an **output flip-flop** that it uses in this mode to toggle
 
 ---
 
-## Mode 4 — Software Triggered Strobe  
+### Mode 4 — Software Triggered Strobe  
 
-### Summary
+#### Summary
 When the initial count reaches 0, OUT produces a **one-clock-wide low pulse**. This is similar to Mode 2, but with a distinct difference - in Mode 2, OUT goes low on a  count of 1, and HIGH again on a count of 0. In Mode 4, OUT goes low on a count of 0, then HIGH again on the next clock edge. The counter will continue to count, rolling over from 0 to `0xFFFF`, but will not affect the state of the OUT pin until the next count value is written.
 
 Counting begins when the initial count is written (the "software trigger").
 
-### Output Behavior
+#### Output Behavior
 - **After mode set:** OUT → HIGH 
 - **At terminal count:** OUT → LOW for one clock period
 
-### Count Loading
+#### Count Loading
 - After writing the count, the CR is loaded into the CE on the next clock edge. Counting begins automatically on the following clock edge.
 - Writing a new count during an active count will trigger a CR to be loaded into the CE at the next clock edge.
   - In `LSBMSB` mode, writing the first byte only has no effect.
 
-### GATE Behavior
+#### GATE Behavior
  - Level-triggered
  - **GATE HIGH:** Counting enabled.
  - **GATE LOW:** Counting disabled.
  - GATE does not affect OUT.
  - GATE does not trigger a reload of the counter.
 
-### Timing
+#### Timing
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/timer_mode_4_01.png" 
@@ -387,26 +387,26 @@ Counting begins when the initial count is written (the "software trigger").
 
 ---
 
-## Mode 5 — Hardware Triggered Strobe
+### Mode 5 — Hardware Triggered Strobe
 
-### Summary
+#### Summary
 Similar to Mode 4, but triggered by a LOW → HIGH transition of GATE. In Mode 5, OUT goes low on a count of 0, then HIGH again on the next clock edge. The counter will continue to count, rolling over from 0 to `0xFFFF`, but will not affect the state of the OUT pin until the counter is retriggered by the GATE pin.
 
 > **Note:** The count starts running as soon as Mode 5 is selected - but you'll note that the CE is not loaded until a GATE trigger. Presumably, the counting element still contains whatever it had in it when the mode was set, but this has not been verified.
 
-### Output Behavior
+#### Output Behavior
 - **After mode set:** OUT → HIGH 
 - **At terminal count:** OUT → LOW for one clock period
 
-### GATE Behavior
+#### GATE Behavior
 - Edge-triggered
 - **GATE LOW -> HIGH:** Trigger. The CR is loaded into the CE on the next clock edge. Counting enabled.
 - GATE does not affect OUT,
 
-### Reload Behavior
+#### Reload Behavior
  - Writing a new count value during an active count will not affect the current count until either a terminal count or a GATE trigger.
 
-### Timing
+#### Timing
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/timer_mode_5_01.png" 
