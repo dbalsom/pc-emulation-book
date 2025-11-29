@@ -83,6 +83,7 @@
 
 # Appendices
 
+- [ASCII Table](./appendices/ascii-table.md)
 - [IBM PC Technical Specifications](./appendices/specs.md)
 - [Memory Map Reference](./appendices/memory-map.md)
 - [I/O Port Reference](./appendices/io-ports.md)
