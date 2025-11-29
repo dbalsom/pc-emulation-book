@@ -1,3 +1,6 @@
+# Jetbrains stuff
+.idea
+
 # Exclude compiled book
 book
 
