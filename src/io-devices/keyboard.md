@@ -1,6 +1,6 @@
 # Keyboard 
 
-The IBM 5150 and 5160 originally used an 83-key IBM "Model-F" keyboard[^wikipedia], IBM Part #1501100 (Part #1501105 in the UK[^seasip]).
+The IBM 5150 and 5160 originally used an 83-key IBM "Model F" keyboard[^wikipedia], IBM Part #1501100 (Part #1501105 in the UK[^seasip]).
 
 Later revisions of the BIOS ROM for the IBM 5160 contained support for the 101-key Enhanced Keyboard[^mzd]. This keyboard introduced multi-byte scancodes, which required large changes in the keyboard handling code of the BIOS to accommodate.
 
@@ -43,18 +43,48 @@ document.addEventListener('keydown', function(event) {
 
 ## Keyboard Operation
 
-The keyboard communicates with the PC by sending one-byte **scancodes** when a key is pressed or released. On the original 83-keyboard, each key produces a single-byte scancode.  When pressed, the unmodified scancode value is sent. When released, the scancode is sent again, with the MSB set to `1`.  Since keyboard operation is event-driven, if we were ever to miss processing a 'key-up' scancode, this would cause the phenomenon of a "stuck key," something most PC users have experienced at one point.
+The keyboard communicates with the PC by sending **scancodes** when a key is pressed or released. On the original 83-key keyboard, each key produces a pair of single-byte scancodes, one when pressed, called the **make** scancode, and one when released called the **break** scancode. The make scancodes are typically the values provided in scancode tables, and can be seen in the figure above. Break scancodes are calculated by taking the make scancode and setting the MSB to 1. 
 
-The keyboard is a serial device, and the keyboard port a specialized serial port. The electrical details of the keyboard port are not really salient to emulating the keyboard, except for the operation of the clock pin.
+Since keyboard operation is event-driven, if the host computer were ever to miss processing a 'key-up' scancode, this would cause the phenomenon of a "stuck key," something most PC users have experienced at one point.
 
-Bit 6 of the 8255 PPI's Port B register, when written with a 0, will pull the keyboard clock line low. When held in this state for approximately 20ms, the keyboard will perform a self-test. When the clock line is released by writing `1` to PPI Port B bit 6, the keyboard will send the special scancode `0xAA`. If the keyboard internally detects a physically stuck key, it will send the scancode of that key 10ms after sending `0xAA`.[^mzd-kb]. There's probably no reason to emulate stuck keys, though.
+Inside the Model F keyboard is an Intel 8048 microcontroller that is responsible for scanning the internal key matrix and converting keypresses (and releases) into scancodes to send to the host PC. On early versions of the Model F, the 8048 could be reset directly through the RESET pin on the keyboard DIN connector. Later versions of the Model F disconnected this RESET line and the 8048 is no longer externally resettable, except perhaps by unplugging the keyboard.
+
+The 8048 has burned-in program ROM and a small amount of onboard RAM, in which it keeps a 16-byte scancode FIFO buffer. Scancodes are placed into this buffer as they are detected from the keyboard matrix, and read out as they are sent to the host. 
+
+> **Note:** It is important that you buffer scancodes in your emulator - a fast typist can generate scancodes very rapidly - consider how quickly scancodes may be produced in the event that multiple keys are pressed and released at once. It is generally insufficient to deliver one scancode per frame.
+
+The keyboard is a serial device, and the keyboard port is a specialized serial port. The exact electrical details of the keyboard port are not crucially important to emulating the keyboard, except for the operation of the clock pin.
+
+Bit 6 of the 8255 PPI's Port B register, when set to 0, will pull the keyboard clock line low. When held in this state for approximately 20ms, the 8048 will perform a keyboard self-test. When the clock line is released by writing `1` to PPI Port B bit 6, the keyboard will send the special scancode `0xAA`. If the keyboard internally detects a physically stuck key, it will send the scancode of that key 10ms after sending `0xAA`.[^mzd-kb].
 
 If you fail to emulate sending the reset scancode `0xAA` at the appropriate time, the BIOS will emit a `POST error code 301`.
+
+Note that the 'clock' line does not actually clock the 8048. The keyboard data and clock lines are simply connected to specialized I/O pins on the 8048 that it can monitor. The 8048 is clocked via an internal oscillator configured for approximately 5MHz. 
+
+### Typematic Repeat
+
+Most computer users are familiar with what happens when a key on the keyboard is held down - typically after a short delay, the keyboard will begin repeating the keypress automatically. 
+
+IBM called this feature "typematic" on the Model F. When a key is held down, it will start to repeat after approximately 500ms at a rate of approximately 11 characters per second. Both the make and break scancodes are sent for each repeat.
+
+It is possible to simply pass through the host's typematic repeat to your emulator, but I recommend handling it yourself, as it gives you better control over the rate (which might otherwise be too fast). 
+
+There are some subtleties to typematic repeat operation:
+ - If more than one key is held down, only the last key will repeat.
+ - Repeat will stop when a key is released, even if other keys remain held down.
+
+The IBM BIOS keyboard routines will filter typematic events for Ctrl, Shift, Alt, Num Lock, Scroll Lock, Caps Lock, and Insert. If the default BIOS keyboard routines are used by an application that does not process keyboard events fast enough, it is likely that holding down a key will fill the BIOS keyboard buffer and result in several angry beeps from the PC speaker.
+
+## The Keyboard Interface
+
+Serial data from the keyboard is first read into a shift register on the motherboard, then ultimately read out in a parallel fashion via the [8255 PPI](../support-chips/ppi-8255.md)'s Port A. See the chapter on the [IBM PC's Keyboard Interface](../motherboard/keyboard-interface.md) for more details.
+
+## SDL Scancode Table
 
 If you happen to be using SDL for your emulator, here's a table of SDL keycode definitions to IBM scancodes:
 
 | SDL Key           | Scancode (hex) |
-| ----------------- | -------------- |
+|-------------------|----------------|
 | SDLK_A            | 1E             |
 | SDLK_B            | 30             |
 | SDLK_C            | 2E             |
