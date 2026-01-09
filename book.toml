@@ -16,6 +16,7 @@ copy-fonts = true
 no-section-label = false
 git-repository-url = "https://github.com/dbalsom/pc-emulation-book"
 edit-url-template = "https://github.com/dbalsom/pc-emulation-book/edit/main/src/{path}"
+additional-css = ["src/custom.css"]
 
 [output.html.search]
 enable = true
@@ -25,3 +26,10 @@ use-boolean-and = true
 
 [output.html.print]
 enable = true
+
+[preprocessor.toml_bitfield]
+command = "python scripts/mdbook-bitfield/mdbook-toml_bitfield.py"
+table = "md"
+
+[preprocessor.csv_table]
+command = "python scripts/mdbook-csvtable/mdbook-csv_table.py"

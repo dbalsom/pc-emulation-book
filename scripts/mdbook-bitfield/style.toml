@@ -1,0 +1,42 @@
+font_family = "Verdana, sans-serif"
+reserved_color = "#eeeeee"
+undefined_color = "#cccccc"
+stroke_color = "#333333"
+index_position = "bottom"
+fallback_name = "--"
+hatch_angle = 45
+hatch_spacing = 4.0
+hatch_opacity = 0.35
+
+reg_digits = 3
+show_access = false
+show_reset = false
+cell_gradient = true
+
+header_name_gap = 6.0
+header_desc_gap = 6.0
+header_addr_gap = 15.0
+table_gap = 40.0
+
+# CSS Classes
+header_class = "reg-header"
+description_class = "reg-desc"
+bit_class = "reg-bit-num"
+field_name_class = "reg-field-name"
+field_meta_class = "reg-field-meta"
+legend_title_class = "legendT"
+legend_text_class = "legend"
+
+reserved_class = "field-reserved"
+undefined_class = "field-undefined"
+
+field_classes = [
+    "field-color-0",
+    "field-color-1",
+    "field-color-2",
+    "field-color-3",
+    "field-color-4",
+    "field-color-5",
+    "field-color-6",
+    "field-color-7"
+]

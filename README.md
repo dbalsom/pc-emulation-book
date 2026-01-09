@@ -24,7 +24,7 @@ I could certainly use help documenting everything - there's a lot of material to
  - Editorial work is always appreciated. If you find a grammatical issue or find certain phrasing awkward, please suggest corrections or improvements.
  - Please, no AI-generated text. If I wanted to include AI written chapters I could have asked ChatGPT myself to write the whole thing.
  - Diagrams should ideally be in SVG format and display well using either light or dark themes. We can inject CSS into the SVG to change the colors per-theme, if necessary.
- - No scrapes / dumps of existing documentation, text, or other websites (without explicit and documented permission).
+ - No scrapes / dumps of text from books or websites still under copyright protection (without explicit and documented permission).
     - Ideally, all text in the book should be of original authorship. This is our opportunity to clarify material, remove ambiguities, and create the clearest, most helpful documentation on the a particular topic available.
  - Please be knowledgable about the topic of your contributions. If you've never programmed or emulated a serial port, perhaps you should not write a chapter on the serial port. Yes, anyone can read and translate a datasheet, but the point of this work is to go beyond. And as any emulator author can tell you, the datasheets can lie.
 
@@ -34,7 +34,9 @@ I could certainly use help documenting everything - there's a lot of material to
 
 ## Special Thanks To
 
- - modem7 of minuszerodegrees.net, which remains to single best single resource documenting everything about the IBM 5150 and 5160. I have relied on it heavily. He has graciously given me permission to include material from MZD. 
+ - modem7 of [minuszerodegrees.net](https://www.minuszerodegrees.net/), which remains the single best resource documenting the IBM 5150 and 5160 (and more)
+ - The late David Jurgens for authoring [HELPPC](https://helppc.netcore2k.net/)
+ - Ralf Brown for his many contributions [documenting the PC](https://www.cs.cmu.edu/~ralf/files.html)
  - Ken Shirriff for documenting all the things silicon
- - reenigne for being an amazing wizard
- - Trixter for the constant encouragement
+ - reenigne for being an amazing code wizard
+ - Trixter for the constant encouragement and deep historical knowledge

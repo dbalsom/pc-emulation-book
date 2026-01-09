@@ -1,0 +1,172 @@
+/* SVG Register Diagram Styles */
+
+:root {
+    /* SVG Specific Variables (Light Mode Default) */
+    --svg-stroke: #333333;
+    --svg-text-primary: #333333;
+    --svg-text-secondary: #666666;
+    --svg-text-muted: #888888;
+    --svg-field-text: #000000;
+    --svg-field-meta: #555555;
+    
+    /* Field Colors (Light Palette) */
+    --field-0: #dae8fc;
+    --field-1: #d5e8d4;
+    --field-2: #ffe6cc;
+    --field-3: #e1d5e7;
+    --field-4: #d0e0e3;
+    --field-5: #fff2cc;
+    --field-6: #f5f5f5;
+    --field-7: #bac8d3;
+    --field-reserved: #f5f5f5;
+    --field-undefined: #cccccc;
+    --field-undefined-hatch: #333333;
+}
+
+/* Dark Mode Variables */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --svg-stroke: #888888;
+        --svg-text-primary: #e0e0e0;
+        --svg-text-secondary: #aaaaaa;
+        --svg-text-muted: #666666;
+        --svg-field-text: #e0e0e0;
+        --svg-field-meta: #aaaaaa;
+        
+        /* Field Colors (Dark - Muted/Darker versions) */
+        --field-0: #1a3b5c;
+        --field-1: #4a2c4a;
+        --field-2: #1e3a25;
+        --field-3: #4a3b2c;
+        --field-4: #4a2c36;
+        --field-5: #1a3b45;
+        --field-6: #4a422c;
+        --field-7: #3a2c4a;
+        --field-reserved: #2a2a2a;
+        --field-undefined: #333333;
+        --field-undefined-hatch: #666666;
+    }
+}
+
+/* Manual Dark Mode Toggle Class (for web/mdbook compatibility) */
+body.dark-mode, html.dark, html.coal, html.navy, html.ayu {
+    --svg-stroke: #888888;
+    --svg-text-primary: #e0e0e0;
+    --svg-text-secondary: #aaaaaa;
+    --svg-text-muted: #666666;
+    --svg-field-text: #e0e0e0;
+    --svg-field-meta: #aaaaaa;
+    
+    --field-0: #1a3b5c;
+    --field-1: #4a2c4a;
+    --field-2: #1e3a25;
+    --field-3: #4a3b2c;
+    --field-4: #4a2c36;
+    --field-5: #1a3b45;
+    --field-6: #4a422c;
+    --field-7: #3a2c4a;
+    --field-reserved: #2a2a2a;
+    --field-undefined: #333333;
+    --field-undefined-hatch: #666666;
+}
+
+/* Global SVG Overrides */
+svg rect, svg line {
+    stroke: var(--svg-stroke) !important;
+}
+
+/* Text Elements */
+.reg-header {
+    font-family: "Consolas", monospace;
+    font-size: 20px;
+    font-weight: 700;
+    fill: var(--svg-text-primary);
+}
+
+.reg-desc {
+    font-family: sans-serif;
+    font-size: 14px;
+    fill: var(--svg-text-secondary);
+    font-style: italic;
+}
+
+.reg-addr {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: bold;
+    fill: var(--svg-text-primary);
+}
+
+.reg-bit-num {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: bold;
+    fill: var(--svg-text-primary);
+}
+
+.reg-field-name {
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    fill: var(--svg-field-text);
+    text-anchor: middle;
+}
+
+.reg-field-meta {
+    font-family: monospace;
+    font-size: 10px;
+    fill: var(--svg-field-meta);
+    text-anchor: middle;
+}
+
+/* Field Background Colors */
+.field-color-0 { fill: var(--field-0); }
+.field-color-1 { fill: var(--field-1); }
+.field-color-2 { fill: var(--field-2); }
+.field-color-3 { fill: var(--field-3); }
+.field-color-4 { fill: var(--field-4); }
+.field-color-5 { fill: var(--field-5); }
+.field-color-6 { fill: var(--field-6); }
+.field-color-7 { fill: var(--field-7); }
+
+.field-reserved {
+    fill: var(--field-reserved);
+    stroke: var(--svg-stroke);
+}
+
+.field-undefined {
+    /* fill is set via inline style/attribute to dynamic url(#hatch-UUID) */
+    stroke: var(--svg-stroke);
+}
+
+/* Hatch Pattern Override */
+pattern rect {
+    fill: var(--field-undefined) !important;
+    stroke: none !important;
+}
+pattern line {
+    stroke: var(--svg-stroke) !important;
+    stroke-width: 1px !important;
+    stroke-opacity: 0.5 !important;
+}
+
+/* Legend / Table Text */
+.legendT {
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    fill: var(--svg-text-primary);
+}
+
+.legend {
+    font-family: monospace;
+    font-size: 12px;
+    fill: var(--svg-text-secondary);
+}
+
+/* Hover effects for interactivity */
+rect.field-rect:hover {
+    stroke: var(--svg-text-primary) !important;
+    stroke-width: 2px;
+    cursor: pointer;
+}

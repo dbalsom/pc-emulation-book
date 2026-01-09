@@ -5,10 +5,6 @@
 # Part I: System Architecture
 
 - [Architecture Overview](./system-architecture/architecture-overview.md)
-- [Memory Map](./system-architecture/memory-map.md)
-  - [BIOS Data Area](./system-architecture/bda.md)
-  - [ROM Layout](./system-architecture/rom-layout.md)
-- [I/O Port Map](./system-architecture/io-ports.md)
 
 # Part II: The Intel 8088 CPU
 
@@ -42,7 +38,7 @@
   - [XTIDE](./storage-devices/xtide-controller.md)
 
 # Part VI: Video Devices
-
+- [Display Concepts](./display-graphics/display-concepts.md)
 - [Motorola 6845 CRTC](./display-graphics/6845.md)
 - [Monochrome Display Adapter (MDA)](./display-graphics/mda.md)
 - [Color Graphics Adapter (CGA)](./display-graphics/cga.md)
@@ -85,6 +81,8 @@
 
 - [ASCII Table](./appendices/ascii-table.md)
 - [IBM PC Technical Specifications](./appendices/specs.md)
-- [Memory Map Reference](./appendices/memory-map.md)
+- [Memory Map](./appendices/memory-map.md)
+- [BIOS Data Area](./appendices/bios-data-area.md)
 - [I/O Port Reference](./appendices/io-ports.md)
 - [BIOS Interrupt Reference](./appendices/bios-interrupts.md)
+

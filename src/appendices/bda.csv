@@ -1,0 +1,88 @@
+Offset,Bytes,Description,Int,Comments
+00,2,COM 1 base address,14,
+02,2,COM 2 base address,14,
+04,2,COM 3 base address,14,
+06,2,COM 4 base address,14,
+08,2,LPT 1 base address,17,
+0A,2,LPT 2 base address,17,
+0C,2,LPT 3 base address,17,
+0E,2,LPT 4 base address,17,EBDA on PS/2 and later
+10,2,Equipment List Flags,11,See [[Equipment List Flags]]
+12,1,Reserved,,
+12,1,PCjr: infrared keyboard error count,,
+13,2,Base memory size,12,Number of kilobytes of RAM
+15,2,Reserved,,
+17,1,Keyboard Flag Byte 0,16,See [[Keyboard Flag Byte 0]]
+18,1,Keyboard Flag Byte 1,16,See [[Keyboard Flag Byte 1]]
+19,1,Work area for ALT key,16,Handles ALT + numpad key entry
+1A,2,Keyboard-buffer Head Offset,16,Head offset into keyboard ring buffer
+1C,2,Keyboard-buffer Tail Offset,16,Tail offset into keyboard ring buffer
+1E,32,Keyboard Buffer,16,
+3E,1,Floppy recalibrate status,13,See [[Floppy Recalibrate Status]]
+3F,1,Floppy motor status,13,See [[Floppy Motor Status]]
+40,1,Floppy motor timeout,13,
+41,1,Floppy operation status,13,
+42,7,Floppy controller status,13,See [[Floppy Controller Status]]
+49,30,Video info,10,
+49,1,Current Video Mode,10,
+4A,2,Number of Columns,,
+4C,2,Size of video buffer (bytes),,
+4E,2,Offset of current video page,,
+50,16,Cursor position of pages 1-8,,
+60,1,Cursor ending scanline,,
+61,1,Cursor starting scanline,,
+62,1,Active display page number,,
+63,2,Base port for active CRTC,,"3B4 for MDA, 3D4 for CGA+"
+65,1,CGA mode control register ,,Emulated on EGA+
+66,1,CGA current palette,,Emulated on EGA+
+67,5,PC: Cassette tape control,,
+67,4,AT: POST re-entry pointer,,
+6B,1,Last Unexpected interrupt,,
+6C,4,Timer Counter,1A,
+70,1,Timer Overflow,1A,
+71,1,Break key state,16,
+72,2,Reset Flag,,
+74,1,HDD operation status,13,
+75,1,Number of HDDs attached,13,
+76,2,Reserved,13,
+78,1,LPT 1 time-out,14,
+79,1,LPT 2 time-out,14,
+7A,1,LPT 3 time-out,14,
+7B,1,Reserved,,
+7C,1,COM 1 time-out,,
+7D,1,COM 2 time-out,,
+7E,1,COM 3 time-out,,
+7F,1,COM 4 time-out,,
+80,2,Keyboard buffer start ptr,16,
+82,2,Keyboard buffer end ptr,16,
+84,7,Video info,10,
+85,2,EGA: Character line height,,
+85,1,PCjr: Typematic repeat key,,
+86,1,PCjr: Typematic repeat delay,,
+87,1,EGA: Video mode options,,See [[Video Mode Options]]
+87,1,PCjr: Current Fn key number,,
+88,1,EGA: Feature / DIP switches,,See [[EGA Dip Switches]]
+88,1,PCjr: Keyboard status byte 3,,
+89,1,VGA/MCGA: Video Display Data,,See [[VGA Display Data]]
+8A,1,EGA: Display Combination Code (DCC) index,,
+8B,1,Floppy media control,13,See [[Floppy Media Control]]
+8C,1,HDD Controller status,13,
+8D,1,HDD Controller error status,13,
+8E,1,HDD Interrupt control,13,
+8F,1,Reserved,,
+90,1,Floppy 0 media status,13,See [[Floppy Media Status]]
+91,1,Floppy 1 media status,13,
+92,1,Floppy 2 media status,13,
+93,1,Floppy 3 media status,13,
+94,1,Drive 0 current cylinder,13,
+95,1,Drive 1 current cylinder,13,
+96,1,Keyboard Mode State and Flags,16,See [[Keyboard Mode Byte]]
+97,1,Keyboard LED State,16,See [[Keyboard LED State]]
+98,2,User wait flag offset,15,
+9A,2,User wait flag segment,15,
+9C,4,User wait count (milliseconds),,
+A0,1,RTC Wait active flag,15,See [[RTC Wait Flags]]
+A1,7,Reserved,,
+A8,4,BIOS Video info Pointer,10,
+AC,84,Reserved,,
+100,1,Print Screen Status,5,
