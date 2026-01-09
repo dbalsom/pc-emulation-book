@@ -7,6 +7,8 @@ This document aims to become a comprehensive guide to emulating the original mod
 - The IBM Model 5150 Personal Computer
 - The IBM Model 5160 Personal Computer XT
 
+When we refer to the original "IBM PC", we are technically referring to the IBM Model 5150.  However, the slightly improved IBM Model 5160 (otherwise known as the IBM XT) is similar enough in design and function that they are often lumped together. In this book, we will refer to the 5160 or XT interchangably, when a distinction between the PC and XT is important. Otherwise, consider any reference to the "IBM PC" as referring to either model.
+
 ## 🚧 **UNDER CONSTRUCTION!** 🚧
 
 You'll notice that many of the pages in this book are empty stubs.
@@ -24,7 +26,7 @@ The PC was an open and well-documented system. IBM published full schematics and
 
 There are thousands of software titles to explore on a PC emulator, although the PC's limited graphics and sound capabilities make many of the games for the platform less than spectacular. Still, there are some classic titles that are still fun to play today, such as AlleyCat and Digger.
 
-If you're up for a challenge, recently several demos have been released that push the original PC hardware to its utter limits and require cycle-exact emulation of the 5150 and its components. These demos include 8088 MPH, released in 2015, and Area 5150, released in 2022.
+If you're up for a challenge, recently several demos have been released that push the original PC hardware to its utter limits and require cycle-exact emulation of the 5150 and its components. These demos include [8088 MPH](https://www.pouet.net/prod.php?which=65371), released in 2015, and [Area 5150](https://www.pouet.net/prod.php?which=91938), released in 2022.
 
 Even without any attempt at cycle-accuracy, the PC can be emulated with a respectable level of compatibility.
 
