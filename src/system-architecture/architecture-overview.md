@@ -1,10 +1,10 @@
 # IBM PC/XT Architecture Overview
 
-The design of the IBM 5150 Personal Computer reflects IBM's project requirements to create a low-cost, maintainable system capable of expansion.
+The design of the original IBM 5150 reflected IBM's project requirements to create a low-cost, maintainable system largely comprised of off-the-shelf parts, yet capable of being expanded. They succeeded in that effort far beyond any conceivable expectations - the IBM PC is now recognized as the ancestor of a line of "PC Compatible" systems that continue to be sold to this day.
 
 ## CPU
 
-IBM chose the Intel 8088 for the 5150. The 8088 was a lower-cost variant of the 8086 CPU. While still 16-bit internally, the 8088 only had an 8-bit data bus. This simplified the 5150's motherboard design, and made it easy to build a system around Intel's various 8-bit peripheral chips. 
+IBM chose the Intel 8088 for the 5150, which is also used in the 5160. The 8088 was a lower-cost variant of the 8086 CPU. While still 16-bit internally, the 8088 only had an 8-bit data bus. This simplified the PC's motherboard design, and made it easy to build a system around Intel's various 8-bit peripheral chips. 
 
 The 8088 has 20 address lines, allowing it to address \\(2^{20}\\) bytes, or 1MB.
 
@@ -22,9 +22,9 @@ The crystal frequency can be expressed as a fraction:
 
 $$f_{crystal} = \frac{315}{22} \text{ MHz} = 14.318181\overline{81} \text{ MHz}$$
 
-This choice was made to make the PC more easily compatible with North American television sets, making available a low-budget display option. This may seem like an odd choice for a business-oriented computer, but it allowed the IBM Color Graphics Adapter to omit a separate crystal.
+This choice was likely made due to the low cost of NTSC-derived clock crystals, as they were being manufactured by the millions to be used in television sets. It also made the PC more easily compatible with North American television sets, making low-cost display option available to PC owners. It also allowed the IBM Color Graphics Adapter to omit a separate crystal.
 
-The CPU frequency (4.77 MHz) is obtained by dividing the system clock by 3: 
+The CPU frequency of 4.77 MHz is obtained by dividing the system clock by 3: 
 
 $$\frac{14.3181818}{3} = 4.773MHz$$ 
 
