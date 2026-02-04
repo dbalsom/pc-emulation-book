@@ -87,3 +87,4 @@
 - [BIOS Interrupt Reference](./appendices/bios-interrupts.md)
 - [EGA Dipswitch Settings](./appendices/video/ega-switches.md)
 - [EGA Registers](./appendices/video/ega-registers.md)
+- [SuperEGA Registers](./appendices/video/superega-registers.md)
