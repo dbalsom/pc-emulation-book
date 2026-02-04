@@ -7,7 +7,7 @@ This table shows all 256 characters of the IBM PC's Code Page 437 character set 
   border-collapse: collapse;
   font-family: monospace;
   font-size: 14px;
-  margin: 1em 0;
+  margin: 1em auto;
 }
 .ascii-table th, .ascii-table td {
   border: 1px solid var(--table-border-color, #ddd);
@@ -34,7 +34,6 @@ This table shows all 256 characters of the IBM PC's Code Page 437 character set 
   font-weight: bold;
 }
 </style>
-
 
 
 <table class="ascii-table">
