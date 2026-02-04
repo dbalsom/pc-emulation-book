@@ -80,9 +80,10 @@
 # Appendices
 
 - [ASCII Table](./appendices/ascii-table.md)
-- [IBM PC Technical Specifications](./appendices/specs.md)
 - [Memory Map](./appendices/memory-map.md)
 - [BIOS Data Area](./appendices/bios-data-area.md)
+- [BIOS Video Modes](./appendices/bios-video-modes.md)
 - [I/O Port Reference](./appendices/io-ports.md)
 - [BIOS Interrupt Reference](./appendices/bios-interrupts.md)
-
+- [EGA Dipswitch Settings](./appendices/video/ega-switches.md)
+- [EGA Registers](./appendices/video/ega-registers.md)
