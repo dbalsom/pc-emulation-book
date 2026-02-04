@@ -58,7 +58,9 @@ The character code, combined with the vertical line counter of the CRTC, is used
 
 Since each character cell requires two bytes, it takes 4KB of memory to display an 80x25 text mode screen. This means up to four text-mode screens can fit in the CGA's 16KB of memory, and a program can switch between each screen by adjusting the CRTC's start address registers. Multiple screens present in video memory are often called **video pages**, and switching between them may be referred to as **page-switching** or **page-flipping** when used for fast animation. Alternatively, a single large screen of up to 80x100 could be stored in memory and the visible 80x25 region panned down through it by adjusting the start address registers one row at a time.
 
+## Primary Emulation Resources
 
+ - (seasip.info) [Colour Graphics Adapter: Notes](https://www.seasip.info/VintagePC/cga.html)
 
 
 
