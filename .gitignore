@@ -4,8 +4,9 @@
 # Exclude compiled book
 book
 
-# Exclude local-only file directory
+# Exclude local-only directories
 local
+references
 
 # Exclude img-src for now
 img-src
