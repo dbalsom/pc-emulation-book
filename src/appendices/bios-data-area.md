@@ -54,7 +54,7 @@ description = "Number of floppy drives installed, -1"
 name = "VM"
 lsb = 4
 width = 2
-description = "Initial video mode at boot time"
+description = "{{Initial video mode}} at boot time"
 
 [[fields]]
 name = "RAM"
@@ -74,6 +74,15 @@ lsb = 0
 width = 1
 description = "Floppy drive installed"
 ```
+
+#### Initial Video Mode
+
+| Bits 5,4 | Description |
+| :---: | :--- |
+| `00` | Unused |
+| `01` | 40x25 color |
+| `10` | 80x25 color |
+| `11` | 80x25 monochrome |
 
 ```toml_bitfield
 name = "Keyboard Flag Byte 0"
