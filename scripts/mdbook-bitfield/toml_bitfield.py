@@ -5,6 +5,7 @@ import argparse
 import sys
 import os
 import uuid
+import re
 from typing import Any, Dict, List, Optional, Tuple
 
 import svgwrite
@@ -14,6 +15,45 @@ try:
     import tomllib  # Python 3.11+
 except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore
+
+
+def slugify(text: str) -> str:
+    """
+    Converts text to a Markdown-compatible anchor slug.
+    Example: "My Header!" -> "my-header"
+    """
+    text = text.lower()
+    # Remove non-alphanumeric characters (excluding spaces and hyphens)
+    text = re.sub(r'[^\w\s-]', '', text)
+    # Replace whitespace and existing hyphens with a single hyphen
+    text = re.sub(r'[-\s]+', '-', text)
+    return text.strip('-')
+
+
+def transform_links(text: str, render_markdown: bool = True) -> str:
+    """
+    Detects {{Header Name}} or {{Header Name|Display Text}} 
+    and converts them to Markdown internal links or plain text.
+    """
+    if not text:
+        return text
+
+    # Regex to capture {{Target}} or {{Target|Label}}
+    pattern = r'\{\{(.*?)(?:\|(.*?))?\}\}'
+    
+    def replace_match(match):
+        target = match.group(1)
+        # If Group 2 is present, use it as label; otherwise use the target
+        label = match.group(2) if match.group(2) else target
+        
+        if render_markdown:
+            anchor = slugify(target)
+            return f"[{label}](#{anchor})"
+        else:
+            return label 
+
+    return re.sub(pattern, replace_match, text)
+
 
 class FieldDef(BaseModel):
     name: str = ""
@@ -310,7 +350,8 @@ def generate_md_table(reg: RegisterDef) -> str:
         if f.name.lower() in ["reserved", "res"]:
              desc = f.description or "Reserved"
         else:
-             desc = f.description
+             # Process description for links
+             desc = transform_links(f.description, render_markdown=True)
              
         if f.name:
              name_str = f"**{f.name}**"
@@ -419,6 +460,8 @@ def render_svg(reg: RegisterDef, render_table: bool) -> str:
     # Accessibility: use SVG-native <title>/<desc>
     title_text = reg.name + (f" @ {reg.address}" if reg.address else "")
     desc_text = reg.description.strip() or None
+    if desc_text:
+        desc_text = transform_links(desc_text, render_markdown=False)
     dwg.set_desc(title=title_text, desc=desc_text)
 
     # Hatch pattern for undefined fields
@@ -451,7 +494,8 @@ def render_svg(reg: RegisterDef, render_table: bool) -> str:
     # Description
     if reg.description.strip():
         y_cursor += 18.0 # Add line height to reach baseline
-        dwg.add(dwg.text(reg.description, insert=(x0, y_cursor), class_=reg.style.description_class))
+        clean_desc = transform_links(reg.description, render_markdown=False)
+        dwg.add(dwg.text(clean_desc, insert=(x0, y_cursor), class_=reg.style.description_class))
         y_cursor += reg.style.header_desc_gap
     
     # Addresses
@@ -613,7 +657,7 @@ def render_svg(reg: RegisterDef, render_table: bool) -> str:
             name = f.name if f.name else reg.style.fallback_name
             access = f.access or reg.default_access or ""
             reset = f.reset or ""
-            desc = f.description or ""
+            desc = transform_links(f.description, render_markdown=False) if f.description else ""
             
             dwg.add(dwg.text(bits, insert=(col_x["bits"], y_row), class_=reg.style.legend_text_class))
             dwg.add(dwg.text(name, insert=(col_x["name"], y_row), class_=reg.style.legend_text_class))
