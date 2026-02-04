@@ -1,0 +1,2 @@
+- Install mdbook via `cargo install mdbook`.
+- Call `mdbook build` to build the book or `mdbook serve` to build and serve the book on localhost.
