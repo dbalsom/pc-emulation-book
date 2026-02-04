@@ -1,0 +1,17 @@
+SW1,SW2,SW3,SW4,Primary Card,EGA Monitor Type,DIP Hex
+0 (ON),0 (ON),0 (ON),0 (ON),MDA Primary + EGA,Color (40x25) ,0
+1 (OFF),0 (ON),0 (ON),0 (ON),MDA Primary,Color (80x25),1
+0 (ON),1 (OFF),0 (ON),0 (ON),MDA Primary + EGA,Enhanced Color (in Normal Color Mode),2
+1 (OFF),1 (OFF),0 (ON),0 (ON),MDA Primary + EGA,Enhanced Color (in Enhanced Color Mode),3
+0 (ON),0 (ON),1 (OFF),0 (ON),CGA Primary + EGA,Monochrome (CGA Color (40x25)),4
+1 (OFF),0 (ON),1 (OFF),0 (ON),CGA Primary + EGA,Monochrome (CGA Color (80x25)),5
+0 (ON),1 (OFF),1 (OFF),0 (ON),EGA Primary + MDA,Color (40x25) ,6
+1 (OFF),1 (OFF),1 (OFF),0 (ON),EGA Primary + MDA,Color (80x25),7
+0 (ON),0 (ON),0 (ON),1 (OFF),EGA Primary + MDA,Enhanced Color (in Normal Color Mode),8
+1 (OFF),0 (ON),0 (ON),1 (OFF),EGA Primary + MDA,Enhanced Color (in Enhanced Color Mode),9
+0 (ON),1 (OFF),0 (ON),1 (OFF),EGA Primary + CGA,Monochrome (CGA Color (40x25)),A
+1 (OFF),1 (OFF),0 (ON),1 (OFF),EGA Primary + CGA,Monochrome (CGA Color (80x25)),B
+0 (ON),0 (ON),1 (OFF),1 (OFF),reserved ,reserved ,reserved 
+1 (OFF),0 (ON),1 (OFF),1 (OFF),reserved ,reserved ,reserved 
+0 (ON),1 (OFF),1 (OFF),1 (OFF),reserved ,reserved ,reserved 
+1 (OFF),1 (OFF),1 (OFF),1 (OFF),reserved ,reserved ,reserved 
