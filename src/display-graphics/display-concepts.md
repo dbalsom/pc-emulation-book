@@ -29,3 +29,6 @@ The phosphors on the screen only stay fully lit during the period at which the e
     - On analog television sets, the [overscan](https://en.wikipedia.org/wiki/Overscan) is part of the video signal that may be hidden by the display's bezels. 
     - On digital computer monitors, 'overscan' typically refers to the part of the video signal which lies outside of the region where addressable pixels are displayed, which may lie partially within the borders of the monitor's bezels, and partially outside it. The overscan can often be set to a particular color, depending on the adapter.
 
+## Primary Emulation Resources:
+
+ - (cosmodoc.org) [People Don’t Like Electrons Shooting At Their Face](https://cosmodoc.org/topics/ega-functions/#people-dont-like-electrons-shooting-at-their-face)
