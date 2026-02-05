@@ -17,6 +17,7 @@ no-section-label = false
 git-repository-url = "https://github.com/dbalsom/pc-emulation-book"
 edit-url-template = "https://github.com/dbalsom/pc-emulation-book/edit/main/src/{path}"
 additional-css = ["src/custom.css"]
+hash-files = true
 
 [output.html.search]
 enable = true

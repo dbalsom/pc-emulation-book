@@ -10,4 +10,5 @@ Note that DIP switches are read by the PC logically reversed. A switch that is O
 
 ## Primary Emulation Resources
 
+ - (minuszerodegrees.net) [IBM EGA - Switch Settings](https://minuszerodegrees.net/ibm_ega/ibm_ega_switch_settings.htm)
  - (minuszerodegrees.net) [IBM EGA - Installation Instructions](https://minuszerodegrees.net/ibm_ega/IBM%20EGA%20-%20Installation%20Instructions.pdf)

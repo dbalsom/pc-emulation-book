@@ -90,6 +90,20 @@ class FieldDef(BaseModel):
             raise ValueError("field lsb must be >= 0")
         return v
 
+    @field_validator("color")
+    @classmethod
+    def _validate_color(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            return ""
+        # 8-digit hex RRGGBBAA
+        if re.fullmatch(r"[0-9A-Fa-f]{8}", v):
+            return f"#{v}"
+        # 6-digit hex RRGGBB
+        if re.fullmatch(r"[0-9A-Fa-f]{6}", v):
+            return f"#{v}"
+        return v
+
 class StyleDef(BaseModel):
     font_family: str = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
     reserved_color: str = "#f4f4f4"
@@ -722,7 +736,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         if args.show_reset:
             reg.style.show_reset = True
 
-        svg = render_svg(reg, table_format=args.table)
+        svg = render_svg(reg, render_table=(args.table == "svg"))
     except ValidationError as e:
         print("error: invalid register definition:", file=sys.stderr)
         print(e, file=sys.stderr)

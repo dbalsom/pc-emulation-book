@@ -8,7 +8,7 @@ SuperEGA chipsets often extended the standard EGA register file, with new regist
 
 The Tseng Labs ET2000 was an advanced chipset designed to be adaptable to a variety of different graphics adapters, although it only ever appeared on three EGA cards: the Tseng Labs EVA and EVA/480, and the NEC GB-1 (a rebadged EVA/480). The plain EVA model lacks the 25MHz clock that allows 640x480 resolution.
 
-It is comprised of three VLSI chipsets in PLCC68 packages:
+It is comprised of three VLSI chips in PLCC68 packages:
 
 | Chip   | Function             |
 | :----- | :------------------- |
