@@ -155,7 +155,7 @@ The intensity bit, specified in the CGA Color Control register, provides two var
 <tbody>
 <tr><td>0</td><td>0</td><td>0</td><td>0</td><td class="cga-bg-swatch" style="width: 50px;">&nbsp;</td><td>Overscan</td></tr>
 <tr><td>0</td><td>1</td><td>1</td><td>0</td><td style="background-color: #00AAAA; width: 50px;">&nbsp;</td><td>00AAAA</td></tr>
-<tr><td>1</td><td>0</td><td>0</td><td>0</td><td style="background-color: #AA00AA; width: 50px;">&nbsp;</td><td>AA00AA</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td style="background-color: #AA00AA; width: 50px;">&nbsp;</td><td>AA00AA</td></tr>
 <tr><td>1</td><td>1</td><td>1</td><td>0</td><td style="background-color: #AAAAAA; width: 50px;">&nbsp;</td><td>AAAAAA</td></tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ The intensity bit, specified in the CGA Color Control register, provides two var
 <tbody>
 <tr><td>0</td><td>0</td><td>0</td><td>1</td><td class="cga-bg-swatch" style="width: 50px;">&nbsp;</td><td>Overscan</td></tr>
 <tr><td>0</td><td>1</td><td>1</td><td>1</td><td style="background-color: #55FFFF; width: 50px;">&nbsp;</td><td>55FFFF</td></tr>
-<tr><td>1</td><td>0</td><td>0</td><td>1</td><td style="background-color: #FF55FF; width: 50px;">&nbsp;</td><td>FF55FF</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>1</td><td style="background-color: #FF55FF; width: 50px;">&nbsp;</td><td>FF55FF</td></tr>
 <tr><td>1</td><td>1</td><td>1</td><td>1</td><td style="background-color: #FFFFFF; width: 50px;">&nbsp;</td><td>FFFFFF</td></tr>
 </tbody>
 </table>
