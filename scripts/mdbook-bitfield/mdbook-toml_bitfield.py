@@ -2,7 +2,11 @@
 import json
 import sys
 import os
-import tomli as tomllib # or import tomllib if on Python 3.11+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
+
 from toml_bitfield import RegisterDef, render_svg, generate_md_table, StyleDef
 
 # Read default CSS from sibling file
