@@ -43,7 +43,7 @@ Indexed registers can also be implemented via an internal flip-flop, where only 
 
 The EGA uses a custom LSI CRTC chip. It is very similar in operation to the [Motorola 6845](../../display-graphics/6845.md), but defines most vertical counters in units of scanlines. Using scanlines as the vertical unit is more convenient for a graphics-mode oriented video adapter. It also has the big advantage of not requiring any memory-addressing tricks that lead to inconvenient video memory layouts on the CGA and Hercules cards.
 
-Most of the EGA CRTC registers are read-only, with the exception of the three register pairs that hold memory addresses - the Start Address, Cursor Location, and Light Pen address registers can be read out. The inability to read the EGA CRTC registers was an annoyance for graphics and games programmers everywhere. This was rectified on the VGA which made most of the register file readable, but much software written for 4bpp modes did not rely on this to maintain backwards compatibility.
+Most of the EGA CRTC registers are write-only, with the exception of the three register pairs that hold memory addresses - the Start Address, Cursor Location, and Light Pen address registers can be read out. The inability to read the EGA CRTC registers was an annoyance for graphics and games programmers everywhere. This was rectified on the VGA which made most of the register file readable, but much software written for 4bpp modes did not rely on this to maintain backwards compatibility.
 
 | Index   | Register Name            | Access | Description                                         |
 | :------ | :----------------------- | :----- | :-------------------------------------------------- |
