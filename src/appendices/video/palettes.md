@@ -239,6 +239,8 @@ This palette is created by miscellaneous logic that enables the blue video outpu
 
 ### EGA 6-bit Palette (64 Colors)
 
+The EGA can display any 16 of these 64 colors simultaneously when connected to an EGA monitor and operating in 350 line mode, although there are exceptions that enable use of 6bpp color in 200 line modes with the right hardware.
+
 <table>
 <thead>
 <tr>
@@ -285,6 +287,10 @@ This palette is created by miscellaneous logic that enables the blue video outpu
 ## The Default VGA Palette
 
 The VGA has a total palette of 256 out of 262,144 colors, making a full table a bit impractical. The default VGA palette is shown below.
+
+The VGA still has the 16 Attribute Controller Palette registers, which are used in text mode and 4bpp modes, however they no longer store color information. Instead, they contain indexes into the 256 color registers of the DAC. This DAC lookup is always active. 
+
+The first 16 colors of the default VGA palette correspond to the traditional 16 color RGBI palette, and so the Attribute Palette registers reference the same colors by virtue of being initialized with the values 0-F.  The Attribute Palette registers remain 6 bits, and so they can only reference a total of 64 DAC Color registers. Due to this, the VGA divides the 256 total Color registers into four separate banks, which can be selected independently. 
 
 <table style='border-collapse: collapse;'>
 <tr>
