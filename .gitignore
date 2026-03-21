@@ -16,6 +16,10 @@ img-src
 
 # Exclude compiled scripts
 /scripts/**/__pycache__
+/scripts/build/
+/scripts/dist/
+/scripts/*.egg-info/
+*.egg-info/
 
 # ignore local cpsell - we should set up spell check as CI?
 .cspell
