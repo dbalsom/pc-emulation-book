@@ -47,7 +47,7 @@ The keyboard communicates with the PC by sending **scancodes** when a key is pre
 
 Since keyboard operation is event-driven, if the host computer were ever to miss processing a 'key-up' scancode, this would cause the phenomenon of a "stuck key," something most PC users have experienced at one point.
 
-Inside the Model F keyboard is an Intel 8048 microcontroller that is responsible for scanning the internal key matrix and converting keypresses (and releases) into scancodes to send to the host PC. On early versions of the Model F, the 8048 could be reset directly through the RESET pin on the keyboard DIN connector. Later versions of the Model F disconnected this RESET line and the 8048 is no longer externally resettable, except perhaps by unplugging the keyboard.
+Inside the Model F keyboard is an Intel 8048 microcontroller that is responsible for scanning the internal capacitive key matrix and converting key-presses (and releases) into scancodes to send to the host PC. On early versions of the Model F, the 8048 could be reset directly through the RESET pin on the keyboard DIN connector. Later versions of the Model F disconnected this RESET line and the 8048 is no longer externally resettable, except perhaps by unplugging the keyboard.
 
 The 8048 has burned-in program ROM and a small amount of onboard RAM, in which it keeps a 16-byte scancode FIFO buffer. Scancodes are placed into this buffer as they are detected from the keyboard matrix, and read out as they are sent to the host. 
 
@@ -55,11 +55,13 @@ The 8048 has burned-in program ROM and a small amount of onboard RAM, in which i
 
 The keyboard is a serial device, and the keyboard port is a specialized serial port. The exact electrical details of the keyboard port are not crucially important to emulating the keyboard, except for the operation of the clock pin.
 
-Bit 6 of the 8255 PPI's Port B register, when set to 0, will pull the keyboard clock line low. When held in this state for approximately 20ms, the 8048 will perform a keyboard self-test. When the clock line is released by writing `1` to PPI Port B bit 6, the keyboard will send the special scancode `0xAA`. If the keyboard internally detects a physically stuck key, it will send the scancode of that key 10ms after sending `0xAA`.[^mzd-kb].
+Bit 6 of the 8255 PPI's Port B register, when set to 0, will result in the motherboard pulling the keyboard clock line low. When held in this state for approximately 20ms, the 8048 will perform a keyboard self-test. When the clock line is released by writing `1` to PPI Port B bit 6, the keyboard will send the special scancode `0xAA` about 8-10ms later. If the keyboard internally detects a physically stuck key, it will send the scancode of that key 10ms after sending `0xAA`.[^mzd-kb].
 
 If you fail to emulate sending the reset scancode `0xAA` at the appropriate time, the BIOS will emit a `POST error code 301`.
 
-Note that the 'clock' line does not actually clock the 8048. The keyboard data and clock lines are simply connected to specialized I/O pins on the 8048 that it can monitor. The 8048 is clocked via an internal oscillator configured for approximately 5MHz. 
+It is important to note that the 'clock' line does not actually clock the 8048 MCU itself. The keyboard data and clock lines are simply connected to specialized I/O pins on the 8048 that allow it to monitor the voltage level of each line, or pull the line to ground. 
+
+The 8048 is operationally clocked via an internal oscillator, the speed of which is set in via an [LC resonant circuit](https://en.wikipedia.org/wiki/LC_circuit) that configures it for approximately 5MHz. The 8048 is not quite that fast in actual operation due to an internal clock divisor of 15.
 
 ### Typematic Repeat
 
