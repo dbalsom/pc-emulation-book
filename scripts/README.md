@@ -2,8 +2,11 @@
 
 ## mdbook-bitfield
 
-The `mdbook-bitfield` plugin converts inline blocks of toml that define a bitfield diagram into SVG.
-An inline bitfield definition is created by using `\```toml_bitfield` to start a code block.
+The `mdbook-bitfield` plugin converts TOML bitfield definitions into SVG diagrams and associated markdown blocks.
+
+There are two ways to generate a bitfield diagram from a TOML specification:
+ - An inline TOML bitfield definition can be specified using `` ```bitfield`` to start a code block.
+ - A bitfield can be rendered from a definition in an external file via the syntax `{{#bitfield filename.toml#specific-register-definition}}`
 
 ## mdbook-csvtable
 

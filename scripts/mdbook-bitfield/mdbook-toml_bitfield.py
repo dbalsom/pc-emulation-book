@@ -48,7 +48,7 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
         path = chapter_data.get('source_path', chapter_data.get('path', 'Unknown'))
         sys.stderr.write(f"WARNING: Encoding issue (lone surrogates) detected in Chapter: '{name}' (File: {path})\n")
 
-    # look for ```toml_bitfield and replace the block with SVG
+    # look for ```bitfield and replace the block with SVG
     lines = content.split('\n')
     new_lines = []
     in_block = False
@@ -56,7 +56,8 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
     found_bitfield = False
     
     for line in lines:
-        if line.strip().startswith('```toml_bitfield'):
+        stripped_line = line.strip()
+        if stripped_line.startswith('```bitfield') or stripped_line.startswith('```toml_bitfield'):
             in_block = True
             found_bitfield = True
             block_lines = []
@@ -284,7 +285,8 @@ def main():
         sys.exit(1)
     
     # Get configuration from context
-    config = context.get('config', {}).get('preprocessor', {}).get('toml_bitfield', {})
+    preprocessors = context.get('config', {}).get('preprocessor', {})
+    config = preprocessors.get('bitfield', preprocessors.get('toml_bitfield', {}))
 
     # Determine script directory for relative lookups
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -307,9 +309,9 @@ def main():
                 style_path = default_style_path
     
     if style_path:
-        sys.stderr.write(f"DEBUG: mdbook-toml_bitfield: attempting to load style from '{os.path.abspath(style_path)}'\n")
+        sys.stderr.write(f"DEBUG: mdbook-bitfield: attempting to load style from '{os.path.abspath(style_path)}'\n")
     else:
-        sys.stderr.write("DEBUG: mdbook-toml_bitfield: no style file specified or found in CWD or script dir.\n")
+        sys.stderr.write("DEBUG: mdbook-bitfield: no style file specified or found in CWD or script dir.\n")
 
     if style_path and os.path.exists(style_path):
         try:
@@ -337,8 +339,8 @@ def main():
         except Exception as e:
             sys.stderr.write(f"Warning: Could not read exclude list: {e}\n")
 
-    # Process every section
-    for section in book['sections']:
+    # Process every top-level item
+    for section in book['items']:
         if 'Chapter' in section:
             process_chapter(section['Chapter'], excluded_files, config)
             

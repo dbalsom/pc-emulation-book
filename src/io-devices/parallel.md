@@ -6,7 +6,7 @@ Therefore, you will sometimes hear the parallel port described as the "Centronic
 
 The parallel port, in contrast to the serial port, has eight data lines, or 8-bits in "parallel".
 
-```toml_bitfield
+```bitfield
 name = "Status Register"
 bits = 8
 description = "Buffered status pins from the printer."
@@ -53,7 +53,7 @@ width = 3
 description = "Unused"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Control Register"
 bits = 8
 description = "Set control signals from the CPU to the printer."
@@ -99,4 +99,3 @@ lsb = 0
 width = 1
 description = "Data clock strobe to feed data into the printer."
 ```
-

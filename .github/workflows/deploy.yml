@@ -9,13 +9,16 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@7f4fc3e22c37d6ff65e88745f38bd3157c663f7c # v4
       with:
         python-version: '3.11'
 
@@ -25,18 +28,19 @@ jobs:
         pip install -r scripts/requirements.txt
       
     - name: Setup mdbook
-      uses: peaceiris/actions-mdbook@v1
+      uses: peaceiris/actions-mdbook@adeb05db28a0c0004681db83893d56c0388ea9ea # v1
       with:
-        mdbook-version: '0.4.48'
+        mdbook-version: '0.5.2'
         
     - name: Build book
       run: mdbook build
       
     - name: Deploy to Cloudflare Pages
-      uses: cloudflare/pages-action@v1
+      id: deploy
+      uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        projectName: pc-emulation-book
-        directory: book
+        gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        command: pages deploy book --project-name=pc-emulation-book
         wranglerVersion: '3'
