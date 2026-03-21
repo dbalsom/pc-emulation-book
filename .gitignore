@@ -1,6 +1,9 @@
 # Jetbrains stuff
 .idea
 
+# VSC stuff
+.vscode
+
 # Exclude compiled book
 book
 
@@ -13,3 +16,6 @@ img-src
 
 # Exclude compiled scripts
 /scripts/**/__pycache__
+
+# ignore local cpsell - we should set up spell check as CI?
+.cspell
