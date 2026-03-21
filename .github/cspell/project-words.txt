@@ -1,0 +1,23 @@
+# pc-emulation-book custom dictionary
+
+# framework stuff
+mdbook
+peaceiris
+
+# technical terms
+bitfield
+bitfields
+regs
+scancode
+scancodes
+microcontroller
+# IBM specifically spells it this way, one word, no hyphen or em-dash, in the 5150 technical reference.
+typematic
+
+# brand names
+Centronics
+
+# websites
+minuszerodegrees
+seasip
+csvtable
