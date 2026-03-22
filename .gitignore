@@ -15,6 +15,7 @@ references
 img-src
 
 # Exclude compiled scripts
+/scripts/cspell_check.py
 /scripts/**/__pycache__
 /scripts/build/
 /scripts/dist/

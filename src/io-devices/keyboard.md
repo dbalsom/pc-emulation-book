@@ -8,7 +8,7 @@ IBM changed the keyboard protocol with the IBM 5170 AT, making everyone buy new 
 
 The 83-key keyboard layout is missing many of the keys that we take for granted on modern keyboard layouts. Unlike modern keyboards, the function keys are arranged in a block on the left side. 
 
-
+<!-- cSpell:disable -->
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/pc_keyboard_wkeys01.svg"
        alt="The IBM 83-key XT keyboard, with scancodes overlaid" 
@@ -40,6 +40,7 @@ document.addEventListener('keydown', function(event) {
     }
 });
 </script>
+<!-- cSpell:enable -->
 
 ## Keyboard Operation
 

@@ -191,6 +191,7 @@ Sometimes described as a "hidden" palette, and often considered the most aesthet
 
 This palette is created by miscellaneous logic that enables the blue video output unless the color red is decoded.
 
+<!-- cSpell:disable -->
 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
 
 <div>
@@ -236,11 +237,13 @@ This palette is created by miscellaneous logic that enables the blue video outpu
 </div>
 
 </div>
+<!-- cSpell:enable -->
 
 ### EGA 6-bit Palette (64 Colors)
 
 The EGA can display any 16 of these 64 colors simultaneously when connected to an EGA monitor and operating in 350 line mode, although there are exceptions that enable use of 6bpp color in 200 line modes with the right hardware.
 
+<!-- cSpell:disable -->
 <table>
 <thead>
 <tr>
@@ -283,6 +286,7 @@ The EGA can display any 16 of these 64 colors simultaneously when connected to a
 <tr><td>1F</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td style="background-color: #AAFFFF; width: 50px;">&nbsp;</td><td>AAFFFF</td><td>3F</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td style="background-color: #FFFFFF; width: 50px;">&nbsp;</td><td>FFFFFF</td></tr>
 </tbody>
 </table>
+<!-- cSpell:enable -->
 
 ## The Default VGA Palette
 
@@ -292,6 +296,7 @@ The VGA still has the 16 Attribute Controller Palette registers, which are used 
 
 The first 16 colors of the default VGA palette correspond to the traditional 16 color RGBI palette, and so the Attribute Palette registers reference the same colors by virtue of being initialized with the values 0-F.  The Attribute Palette registers remain 6 bits, and so they can only reference a total of 64 DAC Color registers. Due to this, the VGA divides the 256 total Color registers into four separate banks, which can be selected independently. 
 
+<!-- cSpell:disable -->
 <table style='border-collapse: collapse;'>
 <tr>
 <td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #0000AA; color: white;'>0000AA</td><td class='vga-palette-cell' style='background-color: #00AA00; color: white;'>00AA00</td><td class='vga-palette-cell' style='background-color: #00AAAA; color: white;'>00AAAA</td><td class='vga-palette-cell' style='background-color: #AA0000; color: white;'>AA0000</td><td class='vga-palette-cell' style='background-color: #AA00AA; color: white;'>AA00AA</td><td class='vga-palette-cell' style='background-color: #AA5500; color: white;'>AA5500</td><td class='vga-palette-cell' style='background-color: #AAAAAA; color: black;'>AAAAAA</td><td class='vga-palette-cell' style='background-color: #555555; color: white;'>555555</td><td class='vga-palette-cell' style='background-color: #5555FF; color: white;'>5555FF</td><td class='vga-palette-cell' style='background-color: #55FF55; color: black;'>55FF55</td><td class='vga-palette-cell' style='background-color: #55FFFF; color: black;'>55FFFF</td><td class='vga-palette-cell' style='background-color: #FF5555; color: black;'>FF5555</td><td class='vga-palette-cell' style='background-color: #FF55FF; color: black;'>FF55FF</td><td class='vga-palette-cell' style='background-color: #FFFF55; color: black;'>FFFF55</td><td class='vga-palette-cell' style='background-color: #FFFFFF; color: black;'>FFFFFF</td></tr>
@@ -326,6 +331,7 @@ The first 16 colors of the default VGA palette correspond to the traditional 16 
 <tr>
 <td class='vga-palette-cell' style='background-color: #2C412C; color: white;'>2C412C</td><td class='vga-palette-cell' style='background-color: #2C4130; color: white;'>2C4130</td><td class='vga-palette-cell' style='background-color: #2C4134; color: white;'>2C4134</td><td class='vga-palette-cell' style='background-color: #2C413C; color: white;'>2C413C</td><td class='vga-palette-cell' style='background-color: #2C4141; color: white;'>2C4141</td><td class='vga-palette-cell' style='background-color: #2C3C41; color: white;'>2C3C41</td><td class='vga-palette-cell' style='background-color: #2C3441; color: white;'>2C3441</td><td class='vga-palette-cell' style='background-color: #2C3041; color: white;'>2C3041</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td><td class='vga-palette-cell' style='background-color: #000000; color: white;'>000000</td></tr>
 </table>
+<!-- cSpell:enable -->
 
 ## Primary Emulation Resources
 

@@ -44,7 +44,7 @@ With either clock, the number of vertical scanlines remains the same, but the ho
 
 The 16KB of DRAM on the CGA is not expandable. It also **single-ported**, meaning that only either the CPU or the CGA can access the video memory at any given time. This is a bit of a problem as the CGA needs to be reading video memory constantly as it rasterizes the screen.
 
-The CGA has some circuitry for attempting to marshall the CPU's access to video memory, but perhaps due to limitations in board space, this circuitry was only implemented for the card's low-resolution modes where the **lclock** is used. In high-resolution text mode, attempts to access video memory by the CPU while the CGA is rasterizing the active display area will result in what is called **snow** - random glitches where the CGA reads the wrong data while attempting to read character glyphs or attribute bytes. IBM worked around this in BIOS routines that scrolled the screen - such as when you execute the `DIR` command in DOS by rapidly disabling and re-enabling the display, causing noticable flicker.
+The CGA has some circuitry for attempting to marshal the CPU's access to video memory, but perhaps due to limitations in board space, this circuitry was only implemented for the card's low-resolution modes where the **lclock** is used. In high-resolution text mode, attempts to access video memory by the CPU while the CGA is rasterizing the active display area will result in what is called **snow** - random glitches where the CGA reads the wrong data while attempting to read character glyphs or attribute bytes. IBM worked around this in BIOS routines that scrolled the screen - such as when you execute the `DIR` command in DOS by rapidly disabling and re-enabling the display, causing noticeable flicker.
 
 ## Operational Modes
 
@@ -60,8 +60,8 @@ Since each character cell requires two bytes, it takes 4KB of memory to display 
 
 ## Primary Emulation Resources
 
+<!-- cSpell:disable-next-line -->
  - (seasip.info) [Colour Graphics Adapter: Notes](https://www.seasip.info/VintagePC/cga.html)
-
 
 
 
