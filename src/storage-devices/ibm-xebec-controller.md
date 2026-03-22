@@ -1,1 +1,1 @@
-# IBM/Xebec Hard Disk Controler
+# IBM/Xebec Hard Disk Controller

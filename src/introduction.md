@@ -7,7 +7,7 @@ This document aims to become a comprehensive guide to emulating the original mod
 - The IBM Model 5150 Personal Computer
 - The IBM Model 5160 Personal Computer XT
 
-When we refer to the original "IBM PC", we are technically referring to the IBM Model 5150.  However, the slightly improved IBM Model 5160 (otherwise known as the IBM XT) is similar enough in design and function that they are often lumped together. In this book, we will refer to the 5160 or XT interchangably, when a distinction between the PC and XT is important. Otherwise, consider any reference to the "IBM PC" as referring to either model.
+When we refer to the original "IBM PC", we are technically referring to the IBM Model 5150.  However, the slightly improved IBM Model 5160 (otherwise known as the IBM XT) is similar enough in design and function that they are often lumped together. In this book, we will refer to the 5160 or XT interchangeably, when a distinction between the PC and XT is important. Otherwise, consider any reference to the "IBM PC" as referring to either model.
 
 ## 🚧 **UNDER CONSTRUCTION!** 🚧
 

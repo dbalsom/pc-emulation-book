@@ -1,1 +1,1 @@
-# Joystikcs
+# Joysticks

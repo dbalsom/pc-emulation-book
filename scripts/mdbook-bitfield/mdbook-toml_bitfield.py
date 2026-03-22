@@ -2,6 +2,7 @@
 import json
 import sys
 import os
+import re
 try:
     import tomllib
 except ImportError:
@@ -47,7 +48,7 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
         path = chapter_data.get('source_path', chapter_data.get('path', 'Unknown'))
         sys.stderr.write(f"WARNING: Encoding issue (lone surrogates) detected in Chapter: '{name}' (File: {path})\n")
 
-    # look for ```toml_bitfield and replace the block with SVG
+    # look for ```bitfield and replace the block with SVG
     lines = content.split('\n')
     new_lines = []
     in_block = False
@@ -55,11 +56,133 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
     found_bitfield = False
     
     for line in lines:
-        if line.strip().startswith('```toml_bitfield'):
+        stripped_line = line.strip()
+        if stripped_line.startswith('```bitfield') or stripped_line.startswith('```toml_bitfield'):
             in_block = True
             found_bitfield = True
             block_lines = []
             continue
+            
+        # Check for {{#bitfield file.toml#anchor}}
+        bitfield_match = re.search(r'\{\{#bitfield\s+([^#]+)(?:#([^}]+))?\}\}', line)
+        if bitfield_match:
+            found_bitfield = True
+            filename = bitfield_match.group(1).strip()
+            anchor = bitfield_match.group(2)
+            if anchor:
+                anchor = anchor.strip()
+                
+            # Determine file path
+            # 1. Try relative to the current markdown file's source path
+            # src_dir is relative to the book root, where mdbook is run
+            src_dir = os.path.dirname(path) if path else ""
+            toml_path = os.path.join(src_dir, filename)
+            
+            # 2. Fallback to src/bitfields/
+            if not os.path.exists(toml_path):
+                fallback_path = os.path.join("src", "bitfields", filename)
+                if os.path.exists(fallback_path):
+                    toml_path = fallback_path
+
+            if not os.path.exists(toml_path):
+                # TODO: this should probably be a build error instead
+                new_lines.append(f"<pre style='color:red'>Error: Could not find bitfield file '{filename}'</pre>")
+                continue
+                
+            try:
+                with open(toml_path, "rb") as f:
+                    raw_data = tomllib.load(f)
+                    
+                # Handle single or multi-register definitions
+                reg_data_list = []
+                if "registers" in raw_data:
+                    regs_src = raw_data["registers"]
+                    
+                    if isinstance(regs_src, dict):
+                        # Dictionary-based format (e.g. [registers.my-anchor])
+                        # Inject the dictionary key as the 'anchor' if not present
+                        for k, v in regs_src.items():
+                            if isinstance(v, dict):
+                                if "anchor" not in v:
+                                    v["anchor"] = k
+                                # If an anchor filter is active, only append matches
+                                if anchor:
+                                    if str(v.get("anchor", "")) == anchor or k == anchor:
+                                        reg_data_list.append(v)
+                                else:
+                                    reg_data_list.append(v)
+                                    
+                        if anchor and not reg_data_list:
+                            raise Exception(f"Register with anchor '{anchor}' not found in {toml_path}")
+                        if not anchor and not reg_data_list:
+                            raise Exception(f"No registers found in array in {toml_path}")
+
+                    elif isinstance(regs_src, list):
+                        # Array-based format (e.g. [[registers]])
+                        if anchor:
+                            found = False
+                            for r in regs_src:
+                                if str(r.get("anchor", "")) == anchor:
+                                    reg_data_list.append(r)
+                                    found = True
+                                    break
+                            if not found:
+                                raise Exception(f"Register with anchor '{anchor}' not found in {toml_path}")
+                        else:
+                            # If no anchor, grab all registers
+                            if regs_src:
+                                reg_data_list = regs_src
+                            else:
+                                raise Exception(f"No registers found in array in {toml_path}")
+                    else:
+                        raise Exception(f"'registers' key must be a list or dict in {toml_path}")
+                else:
+                    reg_data_list = [raw_data]
+                    
+                
+                all_svg_outputs = []
+                for reg_data in reg_data_list:
+                    reg = RegisterDef.model_validate(reg_data)
+                    
+                    # Apply global style if loaded
+                    global_style = config.get('loaded_style', {})
+                    if global_style:
+                        merged_style = reg.style.model_dump()
+                        merged_style.update(global_style)
+                        reg.style = StyleDef.model_validate(merged_style)
+                    
+                    # Read parameters from mdbook config
+                    table_format = config.get('table')
+                    render_svg_table = False
+
+                    if table_format == 'svg':
+                        render_svg_table = True
+                        
+                    # Render the SVG diagram
+                    svg_output = render_svg(reg, render_svg_table)
+                    
+                    # Wrap in anchor div if specified
+                    if reg.anchor:
+                        svg_output = f'<div id="{reg.anchor}">{svg_output}</div>'
+                    
+                    # If Markdown table requested, generate and append it
+                    if table_format == 'md':
+                        md_table = generate_md_table(reg)
+                        svg_output += "\n\n" + md_table + "\n"
+                        
+                    svg_output = f'<div class="toml-bitfield-wrapper">\n{svg_output}\n</div>'
+                    all_svg_outputs.append(svg_output)
+                
+                # Replace the match in the line with the combined outputs
+                combined_output = "\n".join(all_svg_outputs)
+                new_line = line[:bitfield_match.start()] + combined_output + line[bitfield_match.end():]
+                new_lines.append(new_line)
+                
+            except Exception as e:
+                new_lines.append(f"<pre style='color:red'>Error rendering SVG from {toml_path}: {e}</pre>")
+                
+            continue
+
             
         if in_block and line.strip().startswith('```'):
             in_block = False
@@ -82,6 +205,8 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
                 
                 # Read parameters from mdbook config
                 table_format = config.get('table')
+
+                # TODO: actually use this
                 style_override = config.get('style')
                 render_svg_table = False
 
@@ -99,10 +224,13 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
                 if table_format == 'md':
                      md_table = generate_md_table(reg)
                      svg_output += "\n\n" + md_table + "\n"
+                     
+                svg_output = f'<div class="toml-bitfield-wrapper">\n{svg_output}\n</div>'
                 
                 new_lines.append(svg_output)
             except Exception as e:
                 # Fallback: print error in place of SVG for debugging
+                # TODO: Again, should probably be a build error?
                 new_lines.append(f"<pre style='color:red'>Error rendering SVG: {e}</pre>")
             continue
             
@@ -130,13 +258,14 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == "supports":
         # mdbook checks if we support the renderer (usually "html")
         renderer = sys.argv[2] if len(sys.argv) > 2 else "unknown"
-        sys.stderr.write(f"DEBUG: mdbook-toml_bitfield: checking support for renderer '{renderer}'\n")
+        sys.stderr.write(f"DEBUG: mdbook-bitfield: checking support for renderer '{renderer}'\n")
         
         if renderer == "html":
             sys.exit(0)
+
+        sys.stderr.write(f"ERROR: mdbook-bitfield currently only supports html renderer\n")
         sys.exit(1)
 
-    # Read from stdin
     try:
         data = json.load(sys.stdin)
     except Exception as e:
@@ -144,6 +273,7 @@ def main():
         sys.exit(1)
 
     context = {}
+    
     if isinstance(data, list):
         context = data[0]
         book = data[1]
@@ -155,7 +285,8 @@ def main():
         sys.exit(1)
     
     # Get configuration from context
-    config = context.get('config', {}).get('preprocessor', {}).get('toml_bitfield', {})
+    preprocessors = context.get('config', {}).get('preprocessor', {})
+    config = preprocessors.get('bitfield', preprocessors.get('toml_bitfield', {}))
 
     # Determine script directory for relative lookups
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -178,9 +309,9 @@ def main():
                 style_path = default_style_path
     
     if style_path:
-        sys.stderr.write(f"DEBUG: mdbook-toml_bitfield: attempting to load style from '{os.path.abspath(style_path)}'\n")
+        sys.stderr.write(f"DEBUG: mdbook-bitfield: attempting to load style from '{os.path.abspath(style_path)}'\n")
     else:
-        sys.stderr.write("DEBUG: mdbook-toml_bitfield: no style file specified or found in CWD or script dir.\n")
+        sys.stderr.write("DEBUG: mdbook-bitfield: no style file specified or found in CWD or script dir.\n")
 
     if style_path and os.path.exists(style_path):
         try:
@@ -197,6 +328,7 @@ def main():
 
     # Files to exclude from processing
     # Read from exclude_list.txt in the same directory as the script
+    # TODO: 'txt' is a bit windows-specific.  maybe .exclude_list is more agnostic
     exclude_file_path = os.path.join(script_dir, "exclude_list.txt")
     excluded_files = []
     
@@ -207,22 +339,23 @@ def main():
         except Exception as e:
             sys.stderr.write(f"Warning: Could not read exclude list: {e}\n")
 
-    # Process every section
-    for section in book['sections']:
+    # Process every top-level item
+    for section in book['items']:
         if 'Chapter' in section:
             process_chapter(section['Chapter'], excluded_files, config)
             
     # Write back to stdout
+    # TODO: redundant with reconfigure in __main__? factor out?
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')
     
-    # Dump just the book object. ensure_ascii=False ensures actual UTF-8 characters are output
-    # rather than \uXXXX escapes, which avoids some parser issues with lone surrogates.
+    # Dump just the book object. 
+    # ensure_ascii=False allows actual UTF-8 to be output
     print(json.dumps(book, ensure_ascii=False))
 
 if __name__ == '__main__':
     # Force stdin/stdout to UTF-8 to avoid encoding issues on Windows
-    # Mdbook communicates via JSON over stdio, which should be UTF-8.
+    # mdbook communicates via JSON over stdio, which should be UTF-8.
     if sys.platform == 'win32':
         sys.stdin.reconfigure(encoding='utf-8')
         sys.stdout.reconfigure(encoding='utf-8')

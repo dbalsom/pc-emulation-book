@@ -1,0 +1,32 @@
+version: "0.2"
+language: en
+
+patterns:
+  - name: hostname
+    pattern: /\b[a-z0-9-]+(?:\.[a-z0-9-]+)+\b/gi
+
+dictionaries:
+  - project-words
+
+dictionaryDefinitions:
+  - name: project-words
+    path: ./.github/cspell/project-words.txt
+    addWords: true
+
+ignorePaths:
+  - book.toml
+  - LICENSE
+  - "**/*.csv"
+  - "**/*.svg"
+  - book/**
+  - .git/**
+  - scripts/**
+  - local/**
+  - references/**
+
+languageSettings:
+  - languageId: markdown
+    caseSensitive: true
+
+ignoreRegExpList:
+  - hostname
