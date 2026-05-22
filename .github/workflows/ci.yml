@@ -90,7 +90,8 @@ jobs:
         wranglerVersion: '3'
 
     - name: Add preview URL to summary
-      run: echo "Preview deployment: https://pr-${{ github.event.number }}.pc-emulation-book.pages.dev" >> "$GITHUB_STEP_SUMMARY"
+      run: |
+        echo "Preview deployment: https://pr-${{ github.event.number }}.pc-emulation-book.pages.dev" >> "$GITHUB_STEP_SUMMARY"
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
