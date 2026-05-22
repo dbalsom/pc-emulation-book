@@ -68,9 +68,6 @@ jobs:
     concurrency:
       group: pages-preview-pr-${{ github.event.number }}
       cancel-in-progress: true
-    environment:
-      name: "preview / PR #${{ github.event.number }}"
-      url: https://pr-${{ github.event.number }}.pc-emulation-book.pages.dev
 
     steps:
     - name: Download book artifact
@@ -103,8 +100,6 @@ jobs:
     concurrency:
       group: pages-production
       cancel-in-progress: false
-    environment:
-      name: production
 
     steps:
     - name: Download book artifact
