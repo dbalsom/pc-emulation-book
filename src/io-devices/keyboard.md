@@ -56,7 +56,17 @@ The 8048 has burned-in program ROM and a small amount of onboard RAM, in which i
 
 The keyboard is a serial device, and the keyboard port is a specialized serial port. The exact electrical details of the keyboard port are not crucially important to emulating the keyboard, except for the operation of the clock pin.
 
-Bit 6 of the 8255 PPI's Port B register, when set to 0, will result in the motherboard pulling the keyboard clock line low. When held in this state for approximately 20ms, the 8048 will perform a keyboard self-test. When the clock line is released by writing `1` to PPI Port B bit 6, the keyboard will send the special scancode `0xAA` about 8-10ms later. If the keyboard internally detects a physically stuck key, it will send the scancode of that key 10ms after sending `0xAA`.[^mzd-kb].
+The clock pin is normally pulled up by the motherboard. Both the computer and the keyboard can pull the clock line low - the motherboard has a special driver for this, whereas the keyboard relies on an open-drain output pin.
+
+Setting bit 6 of the 8255 PPI's Port B register to 0 will result in the motherboard pulling the keyboard clock line low. The keyboard can detect this condition. When held in this state for approximately 20ms, the 8048 will perform a keyboard self-test. When the clock line is released by writing `1` to PPI Port B bit 6, the keyboard will send the special scancode `0xAA` about 6-8ms later. If the keyboard internally detects a physically stuck key, it will send the scancode of that key 10ms after sending `0xAA`.[^mzd-kb].
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/traces/kbd_reset_byte.png"
+       alt="Logic analyzer trace of the keyboard reset byte 0xAA"
+       style="max-width: 100%; height: auto; cursor: pointer;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>Figure 1.2: Keyboard reset byte 0xAA timing trace (Click to zoom)</em></p>
+</div>
 
 If you fail to emulate sending the reset scancode `0xAA` at the appropriate time, the BIOS will emit a `POST error code 301`.
 
@@ -80,7 +90,7 @@ The IBM BIOS keyboard routines will filter typematic events for Ctrl, Shift, Alt
 
 ## The Keyboard Interface
 
-Serial data from the keyboard is first read into a shift register on the motherboard, then ultimately read out in a parallel fashion via the [8255 PPI](../support-chips/ppi-8255.md)'s Port A. See the chapter on the [IBM PC's Keyboard Interface](../motherboard/keyboard-interface.md) for more details.
+Serial data from the keyboard is first read into a shift register on the motherboard, then ultimately read out in a parallel fashion via the [8255 PPI](../support-chips/ppi-8255.md)'s Port A. See the chapter on the [IBM PC/XT Keyboard Interface](../motherboard/keyboard-interface.md) for more details.
 
 ## SDL Scancode Table
 
