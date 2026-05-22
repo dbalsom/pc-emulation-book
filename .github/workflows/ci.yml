@@ -58,12 +58,52 @@ jobs:
         name: book
         path: book
 
-  deploy:
+  deploy-preview:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
+    concurrency:
+      group: pages-preview-pr-${{ github.event.number }}
+      cancel-in-progress: true
+    environment:
+      name: "preview / PR #${{ github.event.number }}"
+      url: https://pr-${{ github.event.number }}.pc-emulation-book.pages.dev
+
+    steps:
+    - name: Download book artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: book
+        path: book
+
+    - name: Deploy preview to Cloudflare Pages
+      id: deploy
+      uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        command: pages deploy book --project-name=pc-emulation-book --branch=pr-${{ github.event.number }}
+        wranglerVersion: '3'
+
+    - name: Add preview URL to summary
+      run: echo "Preview deployment: https://pr-${{ github.event.number }}.pc-emulation-book.pages.dev" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    concurrency:
+      group: pages-production
+      cancel-in-progress: false
+    environment:
+      name: production
 
     steps:
     - name: Download book artifact
@@ -79,5 +119,5 @@ jobs:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        command: pages deploy book --project-name=pc-emulation-book
+        command: pages deploy book --project-name=pc-emulation-book --branch=main
         wranglerVersion: '3'
