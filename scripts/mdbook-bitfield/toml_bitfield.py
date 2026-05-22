@@ -65,6 +65,10 @@ class FieldDef(BaseModel):
     color: str = ""  # optional
     css_class: str = ""  # optional override
 
+    # markdown_after field will emit the specified markdown after the field table, auto-generating
+    # a link to it. 
+    markdown_after: Optional[str] = PField(None, alias="markdown-after")
+
     @property
     def msb(self) -> int:
         return self.lsb + self.width - 1
@@ -360,6 +364,8 @@ def generate_md_table(reg: RegisterDef) -> str:
     
     lines = [header, sep]
     
+    appended_blocks = []
+    
     for f in fields:
         if f.name.lower() in ["reserved", "res"]:
              desc = f.description or "Reserved"
@@ -367,8 +373,27 @@ def generate_md_table(reg: RegisterDef) -> str:
              # Process description for links
              desc = transform_links(f.description, render_markdown=True)
              
+        if f.markdown_after:
+             anchor_name = slugify(f"{reg.name}-{f.name}")
+             
+             # Use the name: description format for the link and header
+             # Use plain text description for the link label to avoid nested markdown links
+             if f.name.lower() in ["reserved", "res"]:
+                 plain_desc = f.description or "Reserved"
+             else:
+                 plain_desc = transform_links(f.description, render_markdown=False)
+
+             display_full = f"{f.name}: {plain_desc}" if f.name and plain_desc else (f.name or plain_desc)
+             desc = f"[{display_full}](#{anchor_name})"
+             
+             block = f"\n<a name=\"{anchor_name}\"></a>\n\n#### {display_full}\n\n{f.markdown_after.strip()}\n"
+             appended_blocks.append(block)
+
         if f.name:
-             name_str = f"**{f.name}**"
+             if f.name.startswith('/'):
+                 name_str = f"**<span style=\"text-decoration: overline\">{f.name[1:]}</span>**"
+             else:
+                 name_str = f"**{f.name}**"
         else:
              name_str = reg.style.fallback_name
              
@@ -385,7 +410,11 @@ def generate_md_table(reg: RegisterDef) -> str:
         row += f" {desc} |"
         lines.append(row)
         
-    return "\n".join(lines) + "\n"
+    res = "\n".join(lines) + "\n"
+    if appended_blocks:
+        res += "".join(appended_blocks)
+        
+    return res
 
 
 def render_svg(reg: RegisterDef, render_table: bool) -> str:
@@ -600,14 +629,23 @@ def render_svg(reg: RegisterDef, render_table: bool) -> str:
         cx = x_left + width_px / 2
         cy = y_fields + field_h / 2 + 5
 
+        is_active_low = False
         display_name = f.name if f.name else reg.style.fallback_name
+        if f.name and f.name.startswith('/'):
+            display_name = f.name[1:]
+            is_active_low = True
 
         if width_px < 40:
             t = dwg.text(display_name, insert=(cx, cy), text_anchor="middle", class_=reg.style.field_name_class)
+            if is_active_low:
+                t["text-decoration"] = "overline"
             t.rotate(-90, center=(cx, cy))
             dwg.add(t)
         else:
-            dwg.add(dwg.text(display_name, insert=(cx, y_fields + field_h / 2 + 4), text_anchor="middle", class_=reg.style.field_name_class))
+            t = dwg.text(display_name, insert=(cx, y_fields + field_h / 2 + 4), text_anchor="middle", class_=reg.style.field_name_class)
+            if is_active_low:
+                t["text-decoration"] = "overline"
+            dwg.add(t)
 
         if f.name.upper() not in ("RESERVED", "UNUSED", "UNDEFINED") and width_px >= 85 and field_h >= 40:
             meta_parts = []
@@ -668,13 +706,20 @@ def render_svg(reg: RegisterDef, render_table: bool) -> str:
         
         for f in legend_fields:
             bits = f.bit_range_str(ascending=not is_descending)
+            is_active_low = False
             name = f.name if f.name else reg.style.fallback_name
+            if f.name and f.name.startswith('/'):
+                name = f.name[1:]
+                is_active_low = True
             access = f.access or reg.default_access or ""
             reset = f.reset or ""
             desc = transform_links(f.description, render_markdown=False) if f.description else ""
             
             dwg.add(dwg.text(bits, insert=(col_x["bits"], y_row), class_=reg.style.legend_text_class))
-            dwg.add(dwg.text(name, insert=(col_x["name"], y_row), class_=reg.style.legend_text_class))
+            t_name = dwg.text(name, insert=(col_x["name"], y_row), class_=reg.style.legend_text_class)
+            if is_active_low:
+                t_name["text-decoration"] = "overline"
+            dwg.add(t_name)
             
             if has_access:
                 dwg.add(dwg.text(access, insert=(col_x["access"], y_row), class_=reg.style.legend_text_class))

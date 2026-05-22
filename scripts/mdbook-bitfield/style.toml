@@ -1,3 +1,5 @@
+# Style definitions for bitfield output
+
 font_family = "Verdana, sans-serif"
 reserved_color = "#eeeeee"
 undefined_color = "#cccccc"
@@ -18,7 +20,7 @@ header_desc_gap = 6.0
 header_addr_gap = 15.0
 table_gap = 40.0
 
-# CSS Classes
+# CSS Classes to use in SVG output
 header_class = "reg-header"
 description_class = "reg-desc"
 bit_class = "reg-bit-num"
@@ -30,6 +32,8 @@ legend_text_class = "legend"
 reserved_class = "field-reserved"
 undefined_class = "field-undefined"
 
+# If no color is specified and field is not Reserved or Unused, randomly 
+# roll through these color classes, starting back at 0 after the last class.
 field_classes = [
     "field-color-0",
     "field-color-1",
@@ -38,5 +42,5 @@ field_classes = [
     "field-color-4",
     "field-color-5",
     "field-color-6",
-    "field-color-7"
+    "field-color-7",
 ]

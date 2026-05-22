@@ -77,8 +77,8 @@ def main():
     src_dir = book_config.get('src', 'src')
     base_dir = os.path.join(root_dir, src_dir)
 
-    # Process every section
-    for section in book['sections']:
+    # Process every top-level item
+    for section in book['items']:
         if 'Chapter' in section:
             process_chapter(section['Chapter'], base_dir)
             

@@ -16,11 +16,11 @@ The phosphors on the screen only stay fully lit during the period at which the e
  - **horizontal blanking period:** - The period in which the electron beam is turned off at the left and right edges of the screen or beyond.
  - **vertical blanking period:** - The period in which the display is turned off at the top and bottom edges of the screen or beyond.
  - **horizontal retrace:** - The period in which the electron beam is being moved from the right side of the screen to the left side. Occurs during the horizontal blanking period. Also called a **horizontal refresh**.
- - **vertical retrace:** - The period in which the electron beam is being moved from the bottom-right of the screen to the top-left side. Occurs duing the vertical blanking period. Also called a **vertical refresh**.
+ - **vertical retrace:** - The period in which the electron beam is being moved from the bottom-right of the screen to the top-left side. Occurs during the vertical blanking period. Also called a **vertical refresh**.
  - **horizontal front porch:** - The period of the horizontal blanking period immediately before the horizontal retrace period.
  - **horizontal back porch:** - The period of the horizontal blanking period immediately after the horizontal retrace period.
  - **vertical front porch:** - The period of the vertical blanking period immediately before the vertical retrace period.
- - **vertical back porch:** - The period of the verttical blanking period immediately after the vertical retrace period.
+ - **vertical back porch:** - The period of the vertical blanking period immediately after the vertical retrace period.
  - **hsync:** - A signal the display adapter may send to the monitor to initiate the horizontal retrace period.
  - **vsync:** - A signal the display adapter may send to the monitor to initiate the vertical retrace period.
  - **horizontal refresh rate:** - The frequency at which the monitor displays an entire scanline, ending in an hsync. Expressed in KHz.

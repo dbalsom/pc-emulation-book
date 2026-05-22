@@ -34,7 +34,7 @@
 
 - [Floppy Disk Controller](./storage-devices/floppy-controller.md)
 - [Hard Disk Controllers](./storage-devices/hard-disk-controllers.md)
-  - [IBM/Xebec Hard Disk Controler](./storage-devices/ibm-xebec-controller.md)
+  - [IBM/Xebec Hard Disk Controller](./storage-devices/ibm-xebec-controller.md)
   - [XTIDE](./storage-devices/xtide-controller.md)
 
 # Part VI: Video Devices

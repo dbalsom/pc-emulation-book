@@ -1,0 +1,143 @@
+[registers.miscellaneous-output-register]
+name = "Miscellaneous Output Register"
+bits = 8
+description = "Controls basic hardware configuration such as IO address and clock selection"
+register = [{ address = "3C2", access = "Write-Only" }]
+[[registers.miscellaneous-output-register.fields]]
+name = "VSP"
+lsb = 7
+width = 1
+description = "Vertical Sync Polarity (0=Pos, 1=Neg)"
+
+[[registers.miscellaneous-output-register.fields]]
+name = "HSP"
+lsb = 6
+width = 1
+description = "Horizontal Sync Polarity (0=Pos, 1=Neg)"
+
+[[registers.miscellaneous-output-register.fields]]
+name = "PAGE"
+lsb = 5
+width = 1
+description = "Page bit for Odd/Even mode"
+
+[[registers.miscellaneous-output-register.fields]]
+name = "DISABLE"
+lsb = 4
+width = 1
+description = "Disable Video Drivers (1=Disable)"
+
+[[registers.miscellaneous-output-register.fields]]
+name = "CLK"
+lsb = 2
+width = 2
+description = "Clock Select"
+markdown-after = """
+| Value  | Meaning  |
+| :----: | :------- |
+| **00** | 14MHz    |
+| **01** | 16MHz    |
+| **10** | External |
+| **11** | Unused   |
+"""
+
+[[registers.miscellaneous-output-register.fields]]
+name = "ERAM"
+lsb = 1
+width = 1
+description = "Enable RAM (1=Enabled)"
+
+[[registers.miscellaneous-output-register.fields]]
+name = "IO"
+lsb = 0
+width = 1
+description = "I/O Address (0=3Bx mono, 1=3Dx color)"
+
+[registers.feature-control-register]
+name = "Feature Control Register"
+bits = 8
+description = "Set control signals sent to the EGA Feature Connector"
+register = [{ address = "3BA / 3DA", access = "Write-Only" }]
+fields = [
+    { name = "FC0", lsb = 0, width = 1, description = "Feature Control Bit 0" },
+    { name = "FC1", lsb = 1, width = 1, description = "Feature Control Bit 1" },
+    { name = "Reserved", lsb = 2, width = 2, description = "Reserved" },
+    { lsb = 4, width = 4, description = "Unused" },
+]
+
+[registers.input-status-register-0]
+name = "Input Status Register 0"
+bits = 8
+description = "Read DIP switches and interrupt status"
+register = [{ address = "3C2", access = "Read-Only" }]
+fields = [
+    { lsb = 0, width = 4, description = "Unused" },
+    { name = "SENSE", lsb = 4, width = 1, description = "Switch Sense - State of selected configuration switch" },
+    { name = "FEAT0", lsb = 5, width = 1, description = "State of FEAT0 pin on Feature Connector" },
+    { name = "FEAT1", lsb = 6, width = 1, description = "State of FEAT1 pin on Feature Connector" },
+    { name = "INT", lsb = 7, width = 1, description = "CRT Interrupt Pending (1=Yes)" },
+]
+
+[registers.attribute-palette-entry]
+name = "Attribute Palette Entry"
+bits = 8
+description = "Used by the Attribute Controller to look up an output color from a 4bpp pixel index"
+register = [{ address = "3C0 Index 0-Fh", access = "Write-Only" }]
+fields = [
+    { name = "B", lsb = 0, width = 1, description = "Blue", color = "0000AA" },
+    { name = "G", lsb = 1, width = 1, description = "Green", color = "00AA00" },
+    { name = "R", lsb = 2, width = 1, description = "Red", color = "AA0000" },
+    { name = "SB/I", lsb = 3, width = 1, description = "Secondary Blue / Mono Intensity", color = "5555FF" },
+    { name = "SG/I", lsb = 4, width = 1, description = "Secondary Green / Intensity", color = "55FF55" },
+    { name = "SR", lsb = 5, width = 1, description = "Secondary Red", color = "FF5555" },
+    { name = "Unused", lsb = 6, width = 2, description = "Unused" },
+]
+
+[registers.attribute-mode-control]
+name = "Attribute Mode Control"
+bits = 8
+description = "Specifies general mode options for Attribute Controller operation"
+register = [{ address = "3C0 Index 10h", access = "Write-Only" }]
+fields = [
+    { name = "G/A", lsb = 0, width = 1, description = "**Video Mode:**<br>**1**: Graphics Mode<br>**0**: Alphanumeric Mode" },
+    { name = "DT", lsb = 1, width = 1, description = "**Text Attribute Type:**<br>**0**: Color<br>**1**: MDA" },
+    { name = "LG", lsb = 2, width = 1, description = "Enable Line Graphics Characters" },
+    { name = "B/I", lsb = 3, width = 1, description = "**Attribute Bit 7 interpreted as:**<br>**1**: Blink Enabled<br>**0**: Background Intensity" },
+    { name = "Unused", lsb = 4, width = 4, description = "Unused" },
+]
+
+[registers.overscan-color-register]
+name = "Overscan Color Register"
+bits = 8
+description = "Selects the color to use when drawing the overscan area"
+register = [{ address = "3C0 Index 11h", access = "Write-Only" }]
+fields = [
+    { name = "B", lsb = 0, width = 1, description = "Blue", color = "0000AA" },
+    { name = "G", lsb = 1, width = 1, description = "Green", color = "00AA00" },
+    { name = "R", lsb = 2, width = 1, description = "Red", color = "AA0000" },
+    { name = "SB/I", lsb = 3, width = 1, description = "Secondary Blue", color = "5555FF" },
+    { name = "SG/I", lsb = 4, width = 1, description = "Secondary Green / Intensity", color = "55FF55" },
+    { name = "SR", lsb = 5, width = 1, description = "Secondary Red", color = "FF5555" },
+    { name = "Unused", lsb = 6, width = 2, description = "Unused" },
+]
+
+[registers.color-plane-enable-register]
+name = "Color Plane Enable Register"
+bits = 8
+description = "Controls which bits are enabled when addressing the palette registers"
+register = [{ address = "3C0 Index 12h", access = "Write-Only" }]
+fields = [
+    { name = "ECP", lsb = 0, width = 4, description = "**Enable Color Planes**<br>Each bit set in this field enables the corresponding plane 0-3." },
+    { name = "MUX", lsb = 4, width = 2, description = "Video Status MUX" },
+    { name = "Unused", lsb = 6, width = 2, description = "Unused" },
+]
+
+[registers.pel-panning-register]
+name = "Horizontal Pel Panning Register"
+bits = 8
+description = "Shifts the display horizontally to the left"
+register = [{ address = "3C0 Index 13h", access = "Write-Only" }]
+fields = [
+    { name = "PAN", lsb = 0, width = 4, description = "**Horizontal Pel Panning Value**<br>EGA Mode: 0-7<br>Monochrome Mode: 8,0-7" },
+    { name = "Unused", lsb = 4, width = 4, description = "Unused" },
+]

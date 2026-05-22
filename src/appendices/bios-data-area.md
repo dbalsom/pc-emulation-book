@@ -6,7 +6,7 @@ It is used by the BIOS to store system variables and state.
 
 {{#csvtable bda.csv}}
 
-```toml_bitfield
+```bitfield
 name = "Equipment List Flags"
 anchor = "equipment-list-flags"
 bits = 16
@@ -84,7 +84,7 @@ description = "Floppy drive installed"
 | `10` | 80x25 color |
 | `11` | 80x25 monochrome |
 
-```toml_bitfield
+```bitfield
 name = "Keyboard Flag Byte 0"
 anchor = "keyboard-flag-byte-0"
 bits = 8
@@ -142,7 +142,7 @@ width = 1
 description = "Right Shift key depressed"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Keyboard Flag Byte 1"
 anchor = "keyboard-flag-byte-1"
 bits = 8
@@ -200,7 +200,7 @@ width = 1
 description = "Left CTRL key depressed"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Floppy Recalibration Status"
 anchor = "floppy-recalibrate-status"
 bits = 8
@@ -245,7 +245,7 @@ width = 1
 description = "1 = Recalibrate drive 0"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Floppy Motor Status"
 anchor = "floppy-motor-status"
 bits = 8
@@ -290,7 +290,7 @@ width = 1
 description = "1 = Drive 0 motor on"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Floppy Controller Status"
 anchor = "floppy-controller-status"
 bits = 8
@@ -348,7 +348,7 @@ width = 1
 description = "Invalid floppy controller command"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Video Mode Options (EGA+)"
 anchor = "video-mode-options"
 bits = 8
@@ -398,7 +398,7 @@ width = 1
 description = "1 = Alphanumeric cursor emulation enabled"
 ```
 
-```toml_bitfield
+```bitfield
 name = "EGA DIP and Feature Switches"
 anchor = "ega-dip-switches"
 bits = 8
@@ -457,7 +457,7 @@ description = "EGA SW1 config (1=off)"
 ```
 
 
-```toml_bitfield
+```bitfield
 name = "Video Display Data (MCGA/VGA)"
 anchor = "video-display-data"
 bits = 8
@@ -508,7 +508,7 @@ width = 1
 description = "1 = VGA is active"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Floppy Media Control"
 anchor = "floppy-media-control"
 bits = 8
@@ -535,7 +535,7 @@ width = 4
 description = "Reserved"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Floppy Media Status"
 anchor = "floppy-media-status"
 bits = 8
@@ -574,7 +574,7 @@ width = 3
 description = "Drive/Media State"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Keyboard Mode/Type"
 anchor = "keyboard-mode-byte"
 bits = 8
@@ -632,7 +632,7 @@ width = 1
 description = "Last code was the E1 hidden code"
 ```
 
-```toml_bitfield
+```bitfield
 name = "Keyboard LED Flags"
 anchor = "keyboard-led-state"
 bits = 8
@@ -691,7 +691,7 @@ description = "Scroll-Lock indicator"
 ```
 
 
-```toml_bitfield
+```bitfield
 name = "RTC Wait Function Flags"
 anchor = "rtc-wait-flags"
 bits = 8
