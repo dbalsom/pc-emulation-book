@@ -56,7 +56,7 @@ To get the most out of this book, you should have:
 
 ## License
 
-This book is open-source and all content is licensed under the CC0 1.0 Creative Commons Public Domain license, except where otherwise noted.
+This book is open-source and all content is licensed under the Creative Commons CC BY 4.0 license, except where otherwise noted. See LICENSE.
 
 ## Contributing
 
