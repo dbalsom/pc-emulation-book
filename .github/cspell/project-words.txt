@@ -115,4 +115,4 @@ rebadged
 pinout
 retriggerable
 triggerable
-
+scanout

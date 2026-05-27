@@ -96,7 +96,7 @@ When a monitor loses horizontal synchronization, the effect on the picture is mu
 
 ## Digital vs. Analog
 
-Video signals can often be described as digital or analog. The digital video signals of the 1980's were not like those of today. When we talk about a digital video signal in the context of the orginal PC, it simply refers to TTL-level output on dedicated color and intensity pins. Video cards could sometimes emit both digital and analog signals. The DE-9 connector on MDA, CGA, and EGA cards carries a digital video signal - on the CGA, this signal is converted to an analog composite signal on the card's composite output jack. 
+Video signals can often be described as digital or analog. The digital video signals of the 1980's were not like those of today. When we talk about a digital video signal in the context of the original PC, it simply refers to TTL-level output on dedicated color and intensity pins. Video cards could sometimes emit both digital and analog signals. The DE-9 connector on MDA, CGA, and EGA cards carries a digital video signal - on the CGA, this signal is converted to an analog composite signal on the card's composite output jack. 
 
 The VGA card introduced analog video to the PC. The VGA's analog signal allowed a wider range of colors to be displayed without a drastic increase in pin count, by modulating voltage on each pin dedicated to the primary colors instead of relying on discrete intensity pins like with CGA and EGA.
 
