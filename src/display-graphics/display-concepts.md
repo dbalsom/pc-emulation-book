@@ -76,7 +76,7 @@ When the beam has reached the bottom of the screen, **vertical retrace** occurs,
 
 ## Phosphor Decay
 
-The phosphors on the screen are only fully lit during the period in which the electron beam is directly illuminating them, after which they immediately begin to fade. Different phosphors fade more slowly than others — the phosphors used in older monochrome monitors were **long persistence** phosphors, meaning they faded slowly enough that scrolling text could leave a smeary after-image or trail on the screen. The long persistence phosphors on monochrome displays made up for the slower refresh rates. On color displays, fast=responding phosphors were preferred. 
+The phosphors on the screen are only fully lit during the period in which the electron beam is directly illuminating them, after which they immediately begin to fade. Different phosphors fade more slowly than others — the phosphors used in older monochrome monitors were **long persistence** phosphors, meaning they faded slowly enough that scrolling text could leave a smeary after-image or trail on the screen. The long persistence phosphors on monochrome displays made up for slower refresh rates. On color displays, fast-responding phosphors were preferred. 
 
 To a high speed camera, a CRT will look like a bright line trailed by a fading image, however a quirk of human perception called [persistence of vision](https://en.wikipedia.org/wiki/Persistence_of_vision) means that we perceive the display as having a fixed, steady image. That said, many people experience eye strain using monitors with lower refresh rates.
 
@@ -99,6 +99,10 @@ When a monitor loses horizontal synchronization, the effect on the picture is mu
 Video signals can often be described as digital or analog. The digital video signals of the 1980's were not like those of today. When we talk about a digital video signal in the context of the original PC, it simply refers to TTL-level output on dedicated color and intensity pins. Video cards could sometimes emit both digital and analog signals. The DE-9 connector on MDA, CGA, and EGA cards carries a digital video signal - on the CGA, this signal is converted to an analog composite signal on the card's composite output jack. 
 
 The VGA card introduced analog video to the PC. The VGA's analog signal allowed a wider range of colors to be displayed without a drastic increase in pin count, by modulating voltage on each pin dedicated to the primary colors instead of relying on discrete intensity pins like with CGA and EGA.
+
+## Light Pens
+
+The operation of raster displays allows for a unique and conceptually simple input device to be constructed. A [light pen](https://en.wikipedia.org/wiki/Light_pen) is constructed of a lens, photodiode, and filtering circuitry. When a light pen is held to the surface of a CRT, the photodiode within the tip detects the passing of the electron beam directly beneath it, causing a pulse or **strobe** signal to be generated. The position of the pen can be calculated on the horizontal axis by the time elapsed since the last HSYNC, and on the vertical axis by counting each scanline. A light pen often had a switch at the tip of the pen that would be pressed when held against the screen to initiate a drawing operation, separate from cursor movement.
 
 ## Emulation Considerations
 
