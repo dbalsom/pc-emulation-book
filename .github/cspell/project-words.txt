@@ -116,3 +116,4 @@ pinout
 retriggerable
 triggerable
 scanout
+vhold
