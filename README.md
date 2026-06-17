@@ -30,7 +30,7 @@ I could certainly use help documenting everything - there's a lot of material to
 
 ## License
 
- - Except where otherwise noted, all content in this book is released into the public domain under Creative Commons CC0 1.0. See LICENSE. 
+ - Except where otherwise noted, all content in this book is released into the public domain under Creative Commons CC-BY-SA 4.0. See LICENSE. 
 
 ## Special Thanks To
 
