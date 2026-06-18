@@ -79,6 +79,7 @@
 
 # Appendices
 
+- [Electronics Concepts](./appendices/electronics-concepts.md)
 - [ASCII Table](./appendices/ascii-table.md)
 - [Memory Map](./appendices/memory-map.md)
 - [BIOS Data Area](./appendices/bios-data-area.md)

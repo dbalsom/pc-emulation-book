@@ -7,16 +7,26 @@ This document aims to become a comprehensive guide to emulating the original mod
 - The IBM Model 5150 Personal Computer
 - The IBM Model 5160 Personal Computer XT
 
-When we refer to the original "IBM PC", we are technically referring to the IBM Model 5150.  However, the slightly improved IBM Model 5160 (otherwise known as the IBM XT) is similar enough in design and function that they are often lumped together. In this book, we will refer to the 5160 or XT interchangeably, when a distinction between the PC and XT is important. Otherwise, consider any reference to the "IBM PC" as referring to either model.
+When we refer to the original "IBM PC", we are technically referring to the IBM Model 5150.  However, the slightly improved IBM Model 5160 (otherwise known as the IBM XT) is similar enough in design and function that they are often lumped together. In this book, we will refer to the XT when a distinction between the PC and XT is important. Otherwise, consider any reference to the "PC" as referring to either model.
 
 ## 🚧 **UNDER CONSTRUCTION!** 🚧
 
 You'll notice that many of the pages in this book are empty stubs.
 Content is still being fleshed out. Here is a list of some of the more complete pages:
 
- - [The Intel 8253 Programmable Interval Timer](support-chips/timer-8253.md)
- - [The Intel 8259 Programmable Interrupt Controller](support-chips/pic-8259.md)
- - [The Keyboard](io-devices/keyboard.md)
+ - [The Intel 8253 Programmable Interval Timer](./support-chips/timer-8253.md)
+ - [The Intel 8259 Programmable Interrupt Controller](./support-chips/pic-8259.md)
+ - [The Keyboard](./io-devices/keyboard.md)
+ - [The Keyboard Interface](./motherboard/keyboard-interface.md)
+ - [Display Concepts](./display-graphics/display-concepts.md)
+
+Additionally, many of the appendices contain useful reference information:
+
+ - [ASCII Table](./appendices/ascii-table.md)
+ - [BIOS Data Area](./appendices/bios-data-area.md)
+ - [BIOS Interrupts](./appendices/bios-interrupts.md)
+ - [BIOS VIdoe Modes](./appendices/bios-video-modes.md)
+ - [IO Ports](./appendices/io-ports.csv)
 
 ## Why Emulate the PC?
 
@@ -50,6 +60,8 @@ To get the most out of this book, you should have:
 
 - A basic understanding of computer architecture concepts
 - Familiarity with a high-performance programming language (C, C++, Rust, or similar)
+- Basic electronics knowledge 
+  - This is minimal, but you should understand the concepts of voltage, the function of resistors, and what a tri-state output is. If you need it, a refresher can be found in the appendices: [Electronics Concepts](./appendices/electronics-concepts.md).
 - Basic understanding of digital logic
 - Some experience with emulation
   - If you have never programmed an emulator before, it is recommended that you start with the CHIP-8, a simple system that teaches basic emulation concepts. You can find a guide [here](https://tobiasvl.github.io/blog/write-a-chip-8-emulator/). 
