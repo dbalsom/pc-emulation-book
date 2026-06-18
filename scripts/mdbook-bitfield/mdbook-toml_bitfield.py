@@ -63,12 +63,13 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
             block_lines = []
             continue
             
-        # Check for {{#bitfield file.toml#anchor}}
-        bitfield_match = re.search(r'\{\{#bitfield\s+([^#]+)(?:#([^}]+))?\}\}', line)
+        # Check for {{#bitfield [h2-h6] file.toml#anchor}}
+        bitfield_match = re.search(r'\{\{#bitfield\s+(?:(h[2-6])\s+)?([^#\s}]+)(?:#([^}]+))?\}\}', line)
         if bitfield_match:
             found_bitfield = True
-            filename = bitfield_match.group(1).strip()
-            anchor = bitfield_match.group(2)
+            heading_tag = bitfield_match.group(1)
+            filename = bitfield_match.group(2).strip()
+            anchor = bitfield_match.group(3)
             if anchor:
                 anchor = anchor.strip()
                 
@@ -171,6 +172,9 @@ def process_chapter(chapter_data, exclude_files=None, config=None):
                         svg_output += "\n\n" + md_table + "\n"
                         
                     svg_output = f'<div class="toml-bitfield-wrapper">\n{svg_output}\n</div>'
+                    if heading_tag:
+                        heading_level = int(heading_tag[1])
+                        svg_output = f"{'#' * heading_level} {reg.name}\n\n{svg_output}"
                     all_svg_outputs.append(svg_output)
                 
                 # Replace the match in the line with the combined outputs
