@@ -62,6 +62,7 @@ VTAC
 MOSFET
 photodiode
 scanout
+lowres
 
 # brand names
 Amstrad
@@ -94,6 +95,7 @@ Trixter
 Smitelli
 Gulotta
 Heirophant
+Pooler
 
 # Software
 HELPPC
