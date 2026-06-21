@@ -333,6 +333,6 @@ The first 16 colors of the default VGA palette correspond to the traditional 16 
 </table>
 <!-- cSpell:enable -->
 
-## Primary Emulation Resources
+## Primary References
 
 - (int10h.org) [The IBM 5153's True CGA Palette and Color Output](https://int10h.org/blog/2022/06/ibm-5153-color-true-cga-palette/)

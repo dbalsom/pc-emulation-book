@@ -105,6 +105,6 @@ It's not necessary to emulate the way a monitor scans out the screen to emulate 
     - On analog television sets, the [overscan](https://en.wikipedia.org/wiki/Overscan) is part of the video signal that may be hidden by the display's bezels. 
     - On digital computer monitors, 'overscan' typically refers to the part of the video signal which lies outside of the region where addressable pixels are displayed, which may lie partially within the borders of the monitor's bezels, and partially outside it. The overscan can often be set to a particular color, depending on the adapter.
 
-## Primary Emulation Resources:
+## Primary References:
 
  - (cosmodoc.org) [People Don’t Like Electrons Shooting At Their Face](https://cosmodoc.org/topics/ega-functions/#people-dont-like-electrons-shooting-at-their-face)
