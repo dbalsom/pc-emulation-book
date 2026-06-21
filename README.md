@@ -32,11 +32,13 @@ I could certainly use help documenting everything - there's a lot of material to
 
  - Except where otherwise noted, all content in this book is released into the public domain under Creative Commons CC0 1.0. See LICENSE. 
 
-## Special Thanks To
+## Acknowledgements / Special Thanks
 
  - modem7 of [minuszerodegrees.net](https://www.minuszerodegrees.net/), which remains the single best resource documenting the IBM 5150 and 5160 (and more)
  - The late David Jurgens for authoring [HELPPC](https://helppc.netcore2k.net/)
  - Ralf Brown for his many contributions [documenting the PC](https://www.cs.cmu.edu/~ralf/files.html)
- - Ken Shirriff for documenting all the things silicon
- - reenigne for being an amazing code wizard
- - Trixter for the constant encouragement and deep historical knowledge
+ - Ken Shirriff for documenting [all the things silicon](https://righto.com)
+ - [reenigne]((https://reenigne.org) for being an amazing code wizard
+ - [Trixter](https://trixter.oldskool.org/) for the constant encouragement and deep historical knowledge
+ - Scott Smitelli for the excellent [Cosmodoc](https://cosmodoc.org/) from which some material has been adapted, with permission.
+ - John Elliott for curating a beautiful collection of vintage PC documentation at [seasip.info](https://www.seasip.info/VintagePC/index.html)

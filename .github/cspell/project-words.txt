@@ -2,9 +2,11 @@
 
 # framework stuff
 mdbook
+mathrm
 peaceiris
 
 # technical terms
+Kbit
 bitfield
 bitfields
 regs
@@ -89,6 +91,9 @@ Shirriff
 reenigne
 Ralf
 Trixter
+Smitelli
+Gulotta
+Heirophant
 
 # Software
 HELPPC

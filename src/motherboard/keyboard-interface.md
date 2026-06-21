@@ -42,30 +42,6 @@ Here is a simplified schematic:
 
 ![kbd_clock_schematic_01](../images/schematics/keyboard_clock_line_01.svg)
 
-<!-- Modal for image zoom -->
-<div id="imageModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);" onclick="closeModal()">
-  <img id="modalImg" style="max-width: 95%; max-height: 95%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-  <div style="position: absolute; top: 15px; right: 35px; color: white; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeModal()">&times;</div>
-</div>
-
-<script>
-function openModal(img) {
-    document.getElementById('imageModal').style.display = 'block';
-    document.getElementById('modalImg').src = img.src;
-}
-
-function closeModal() {
-    document.getElementById('imageModal').style.display = 'none';
-}
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeModal();
-    }
-});
-</script>
-
 See the [Model F](../io-devices/keyboard.md) section for more specific details, but if the keyboard clock line is held low for 20ms the keyboard will perform a reset/self-test. The BIOS sometimes does this, but applications usually do not.
 
 The keyboard interface is a typical two-wire serial connection with a clock and a data line.  Both of these are pulled high, with either the PC or the keyboard able to drive the lines low. The PC drives the lines low with dedicated drivers; the keyboard takes advantage of the open-collector outputs of its 8048 microcontroller.

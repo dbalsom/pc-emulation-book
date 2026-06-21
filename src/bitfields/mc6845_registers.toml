@@ -1,0 +1,66 @@
+[registers.r8-interlace-mode]
+name = "Interlace Mode and Skew"
+bits = 8
+description = "Controls the MC6845's Interlaced Modes of Operation"
+register = [{ address = "R8", access = "Write-Only" }]
+[[registers.r8-interlace-mode.fields]]
+name = "IS"
+lsb = 0
+width = 1
+description = "Interlaced Sync (0=Normal, 1=Interlaced)"
+[[registers.r8-interlace-mode.fields]]
+name = "IV"
+lsb = 1
+width = 1
+description = "Interlaced Video (0=Normal, 1=Interlaced)*"
+markdown-after = """
+***Note**: The `IV` bit is only meaningful if the `IS` bit is set. Otherwise it is ignored.
+
+| IV | IS | Mode                      |
+| -- | -- | ------------------------- |
+| 0  | 0  | Normal sync and video     |
+| 1  | 0  | Normal sync and video     |
+| 0  | 1  | Interlaced sync only      | 
+| 1  | 1  | Interlaced sync and video |
+"""
+[[registers.r8-interlace-mode.fields]]
+name = "Unused"
+lsb = 2
+width = 6
+description = "Unused"
+
+[registers.r10-cursor-start]
+name = "Cursor Start Register"
+bits = 8
+description = "Defines the starting scanline of the cursor and various blink control flags."
+register = [{ address = "R10", access = "Write-Only" }]
+[[registers.r10-cursor-start.fields]]
+name = "CUR_START"
+lsb =  0
+width = 5
+description = "Cursor Start Line"
+[[registers.r10-cursor-start.fields]]
+name = "P"
+lsb =  5
+width = 1
+description = "Blink Period"
+[[registers.r10-cursor-start.fields]]
+name = "B"
+lsb =  6
+width = 1
+description = "Blinking Enable"
+markdown-after = """
+
+| B | P | Cursor Display Mode |
+| - | - | ------------------- |
+| 0 | 0 | Non-blink |
+| 0 | 1 | Cursor non-display |
+| 1 | 0 | Blink at 1/16 field rate |
+| 1 | 1 | Blink at 1/32 field rate |
+
+"""
+[[registers.r10-cursor-start.fields]]
+name = "Unused"
+lsb =  7
+width = 1
+description = "Unused"

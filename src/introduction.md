@@ -70,6 +70,28 @@ To get the most out of this book, you should have:
 
 This book is open-source and all content is licensed under the Creative Commons CC BY 4.0 license, except where otherwise noted. See LICENSE.
 
+## Acknowledgements
+
+Several resources have been invaluable references in both my development of my emulator and in curating material for this book. I would like to thank the following for graciously providing permission to directly adapt or include their work:
+
+ - **modem7** of [minuszerodegrees.net](https:///minuszerodegrees.net)
+ - **Scott Smitelli** of [cosmodoc.org](https://cosmodoc.org)
+ - **Francis Gulotta** of [roborooter.com](https://roborooter.com/)
+
+Other invaluable resources for PC information include:
+
+ - John Elliott's [seasip.org](https://www.seasip.info/VintagePC/index.html)
+ - Ken Shirriff's blog at [righto.org](https://righto.org)
+ - Reenigne's blog at [reenigne.org](https://reenigne.org)
+ - Great Heirophant's blog at [nerdlypleasures.blogspot.com](https://nerdlypleasures.blogspot.com/)
+ - VileR's [int10h.org](https://int10h.org/)
+
 ## Contributing
 
-The main source repository for the PC Emulation Book can be found [here](https://github.com/dbalsom/pc-emulation-book).
+The main source repository for the PC Emulation Book can be found [here](https://github.com/dbalsom/pc-emulation-book). PRs are welcome.
+
+### AI Policy
+
+The PC Emulation Book strives to maintain accurate and authentically voiced information. To that end, all content contributed to the PC Emulation book should be written by human beings. Don't worry if English is not your first language - I will be glad to perform editorial duties for you.
+
+

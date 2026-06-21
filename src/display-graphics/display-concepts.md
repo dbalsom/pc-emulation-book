@@ -18,30 +18,6 @@ The electron beam can be **deflected** (moved around) by magnets, since electron
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>CRT vertical deflection (Click to zoom)</em></p>
 </div>
 
-<!-- Modal for image zoom -->
-<div id="imageModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);" onclick="closeModal()">
-  <img id="modalImg" style="max-width: 95%; max-height: 95%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-  <div style="position: absolute; top: 15px; right: 35px; color: white; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeModal()">&times;</div>
-</div>
-
-<script>
-function openModal(img) {
-    document.getElementById('imageModal').style.display = 'block';
-    document.getElementById('modalImg').src = img.src;
-}
-
-function closeModal() {
-    document.getElementById('imageModal').style.display = 'none';
-}
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeModal();
-    }
-});
-</script>
-
 ## Vector Displays
 
 Some CRTs could use a deflection yoke to move the beam around in arbitrary directions to draw figures on the screen precisely - these were called [vector displays](https://en.wikipedia.org/wiki/Vector_monitor). You may be familiar with the more famous examples used in early arcade games like [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) or the [Vectrex](https://en.wikipedia.org/wiki/Vectrex) video game console.
