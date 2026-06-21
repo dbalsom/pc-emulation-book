@@ -846,15 +846,19 @@ The key point is that medium-resolution graphics mode bit-pairs do not form pale
 
 ### Graphics Mode Function
 
-If you have read the [MC6845 chapter](./6845.md), you may have been curious how a text-oriented display controller can be utilized to implement graphics mode. The MC6845 still counts out word addresses, and for each **low resolution character clock**, two bytes are fetched and 8 pixels are emitted. The CGA utilizes the same pair of byte serializers that it uses to serialize the character glyph byte and character attribute byte in text mode, although the **color multiplexer** is set for input 2.
+If you have read the [MC6845 chapter](./6845.md), you may be curious how a text-oriented display controller can be utilized to implement a graphics-oriented mode. The MC6845 still counts out word addresses on the CGA, and for each **low-resolution character clock**, two bytes are fetched and 8 pixels are emitted. The CGA utilizes the same pair of byte serializers that it uses to serialize the character glyph byte and character attribute byte in text mode, although the **color multiplexer** is set for input 2.
 
-This is all fine for scanning out individual rows of graphics data, but one immediate issue is present: the vertical total, vertical displayed, and vertical character counters of the MC6845 are all 7-bit quantities. That limits us to a total of 128 logical rows. Medium-resolution graphics mode is 320x200. 200 will not fit into 128. 
+This is all fine for scanning out individual rows of graphics data, but one immediate issue is present: the vertical total register, vertical displayed register, and vertical character counters of the MC6845 are all only 7 bits. That limits us to a total of 128 logical rows. Medium-resolution graphics mode is 320x200. Clearly, 200 will not fit into 128, so some workaround is needed.
 
 #### The 8KiB Interleave
 
-IBM came up with a clever solution to this problem, but one that would make programming the CGA's graphics mode fairly annoying. In graphics mode, rows are set to be two scanlines tall by configuring **R9** as `1` (recall this defines the line height of a character row, minus 1).  The memory address line **A13** is then exchanged for the row counter bit **RA0**. This substitution is made when the `GFX` bit of the [mode control](#mode-control-register) is set. 
+IBM came up with a clever solution to this problem, but one that would make programming software for the CGA's graphics mode fairly cumbersome. In standard graphics modes, rows are set to be two scanlines tall by configuring **R9** as `1` (recall this defines the line height of a character row, minus 1). The number of displayed rows, **R6**, is then set to `100`. 
 
-This creates an **8KiB offset** in memory for all odd scanlines. Since an extra row-counting bit has been added, we can now define up to **256** scanlines, easily fitting in our 200-line graphics mode, at the cost of an annoying interleaving scheme.
+This creates 100 logical rows, each two scanlines tall, to give us the desired 200 total visible scanlines. The MC6845 will scan out each logical row twice, with the MC6845's row counter pin 0, `RA0`, counting from `0` to `1` for the second scanline.
+
+The memory address line **A13** is then exchanged for **RA0**. This substitution is made when the `GFX` bit of the [mode control](#mode-control-register) is set. 
+
+This creates an **8KiB offset** in memory for all odd scanlines. Since an extra row-counting bit has been added, we can now define up to **256** scanlines, easily fitting in our 200-line graphics mode, at the cost of an annoying interleaving scheme. Programmers could not simply copy bitmaps or sprites into the CGA's video memory without taking this interleaving into account.
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/bitmaps/cga_8k_offset_01.png"
@@ -875,6 +879,61 @@ You can, of course, leave the color defined in the color control register set to
 Like medium-resolution graphics mode, an 8KiB offset is created between odd and even scanlines via substitution of `A13` with `RA0`.
 
 High-resolution graphics mode is enabled by setting the `GFX` and `HIRES_GFX` bits in the [mode control register](#mode-control-register).  Interestingly, the `HIRES_GFX` bit controls the rapid toggling of the CGA's color multiplexers, and it is possible to enable this mode at other times - such as in 80-column text mode, and watch as the CGA dutifully toggles the screen on and off as text mode is drawn, leading to a bizarre, striped appearance. 
+
+## Low-Resolution "Graphics" Mode
+
+Although not actually a graphics mode at all, some games on the PC effectively created a low-resolution graphics mode by setting up a tweaked text mode to display pixel art at an effective resolution of either **80x100** or **160x100**.
+
+It is important to differentiate this mode from BIOS video mode `08h` which is a true 160x100 graphics mode available only on IBM PCjr and Tandy 1000 systems. 
+
+The trick of this mode is to fill video memory with either of two specific CGA character codes:
+
+<div class="cga-ascii-table-wrap">
+<table class="cga-ascii-table cga-lowres-glyph-table">
+  <tr>
+    <th scope="col">Hex</th>
+    <th scope="col">Glyph</th>
+  </tr>
+  <tr>
+    <td>DD</td>
+    <td class="glyph-cell"><span class="glyph" tabindex="0" title="DD" aria-label="DD" style="background-position: -5304px 0px;"></span></td>
+  </tr>
+  <tr>
+    <td>DE</td>
+    <td class="glyph-cell"><span class="glyph" tabindex="0" title="DE" aria-label="DE" style="background-position: -5328px 0px;"></span></td>
+  </tr>
+</table>
+</div>
+
+<style>
+.cga-lowres-glyph-table .glyph-cell {
+  height: 52px;
+  width: 52px;
+}
+.cga-lowres-glyph-table .glyph {
+  transform: scale(2);
+}
+.cga-lowres-glyph-table .glyph:hover,
+.cga-lowres-glyph-table .glyph:focus {
+  transform: scale(4.0);
+}
+</style>
+
+Each of these glyphs evenly divides the 8-pixel span of a character cell into half foreground and half background. 
+
+Next, the value of **R9** on the CRTC is set to `1`, making each logical row of character cells two scanlines tall. 
+
+Since we can independently control foreground and background colors via **character attribute bytes**, this essentially creates an all-points-addressable display, with each character cell forming two 4x2 pixel wide 'pixels'. Updating the screen now involves writing only to the CGA attribute bytes. 
+
+Given the CGA's drastically stretched aspect ratio, these end up displaying as square - as seen below in an aspect-corrected screenshot of the PC shareware title, [Round 42](https://www.mobygames.com/game/209/round-42/):
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/screenshots/round42_ac_01.png"
+       alt="A screenshot of the video game 'Round 42' by Mike Pooler displaying 160x100 'graphics'"
+       style="max-height: 480px;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>Low-resolution "Graphics" mode in <a href="https://www.mobygames.com/game/209/round-42/">Round 42</a> by Mike Pooler</em></p>
+</div>
 
 ## Display Timings
 
@@ -997,7 +1056,7 @@ The PC BIOS maintains video services via the `int 10h` service. The first functi
     <td>Graphics</td>
     <td>640x200</td>
     <td>Mono</td>
-    <td>2 colors</td>
+    <td>1 color</td>
     <td>16x2</td>
   </tr>
   </tbody>
