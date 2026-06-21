@@ -49,22 +49,25 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
 <br>
 
 <table class="styTablePadded_1_4px_center" style="overflow:hidden; white-space:nowrap;">
+       <thead>
        <tr>
          <th style="text-align:center; width: 50px;">&nbsp;</th>
-         <th style="text-align:center; width: 70px;">Text /<br>Graphics</th>
-         <th style="text-align:center; width:100px;">Size</th>
-         <th style="text-align:center; width:120px;">Mono / Color /<br>Grayscale</th>
-         <th style="text-align:center; width:120px;">IBM MDA card</th>
-         <th style="text-align:center; width:120px;">IBM EGA<br>with<br>MDA monitor<br>(see note 1)</th>
-         <th style="text-align:center; width:120px;">IBM CGA card</th>
-         <th style="text-align:center; width:120px;">IBM PCjr /<br>Tandy 1000</th>
-         <th style="text-align:center; width:140px;">IBM EGA card<br>with<br>CGA monitor<br>(see note 1)</th>
-         <th style="text-align:center; width:140px;">IBM EGA card<br>with<br>EGA monitor</th>
-         <th style="text-align:center; width:140px;">MCGA</th>
-         <th style="text-align:center; width:140px;">Standard<br>VGA</th>
+         <th scope="col" style="text-align:center; width: 70px;">Text /<br>Graphics</th>
+         <th scope="col" style="text-align:center; width:100px;">Size</th>
+         <th scope="col" style="text-align:center; width:120px;">Mono / Color /<br>Grayscale</th>
+         <th scope="col" style="text-align:center; width:120px;">IBM MDA card</th>
+         <th scope="col" style="text-align:center; width:120px;">IBM EGA<br>with<br>MDA monitor<br>(see note 1)</th>
+         <th scope="col" style="text-align:center; width:120px;">IBM CGA card</th>
+         <th scope="col" style="text-align:center; width:120px;">IBM PCjr /<br>Tandy 1000</th>
+         <th scope="col" style="text-align:center; width:140px;">IBM EGA card<br>with<br>CGA monitor<br>(see note 1)</th>
+         <th scope="col" style="text-align:center; width:140px;">IBM EGA card<br>with<br>EGA monitor</th>
+         <th scope="col" style="text-align:center; width:140px;">MCGA</th>
+         <th scope="col" style="text-align:center; width:140px;">Standard<br>VGA</th>
        </tr>
+       </thead>
+       <tbody>
        <tr>
-         <th>00h</th>
+         <th scope="row">00h</th>
          <td>Text</td>
          <td>40x25 chars</td>
          <td>Grayscale</td>
@@ -78,7 +81,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>shades:16<br>360x400<br>char:9x16</td>
        </tr>
        <tr>
-         <th>01h</th>
+         <th scope="row">01h</th>
          <td>Text</td>
          <td>40x25 chars</td>
          <td>Color</td>
@@ -92,7 +95,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>Colors:16<br>360x400<br>char:9x16</td>
        </tr>
        <tr>
-         <th>02h</th>
+         <th scope="row">02h</th>
          <td>Text</td>
          <td>80x25 chars</td>
          <td>Grayscale</td>
@@ -106,7 +109,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>shades:16<br>720x400<br>char:9x16</td>
        </tr>
        <tr>
-         <th>03h</th>
+         <th scope="row">03h</th>
          <td>Text</td>
          <td>80x25 chars</td>
          <td>Color</td>
@@ -120,7 +123,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>Colors:16<br>720x400<br>char:9x16</td>
        </tr>
        <tr>
-         <th>04h</th>
+         <th scope="row">04h</th>
          <td>Graphics</td>
          <td>320x200</td>
          <td>Color</td>
@@ -134,7 +137,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>Colors:4</td>
        </tr>
        <tr>
-         <th>05h</th>
+         <th scope="row">05h</th>
          <td>Graphics</td>
          <td>320x200</td>
          <td>Grayscale</td>
@@ -148,7 +151,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>shades:4</td>
        </tr>
        <tr>
-         <th>06h</th>
+         <th scope="row">06h</th>
          <td>Graphics</td>
          <td>640x200</td>
          <td>Mono</td>
@@ -162,7 +165,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes</td>
        </tr>
        <tr>
-         <th>07h</th>
+         <th scope="row">07h</th>
          <td>Text</td>
          <td>80x25 chars</td>
          <td>Mono</td>
@@ -176,7 +179,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="dash_entry__">-</td>
        </tr>
        <tr>
-         <th>08h</th>
+         <th scope="row">08h</th>
          <td>Graphics</td>
          <td>160x200</td>
          <td>Color</td>
@@ -190,7 +193,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="dash_entry__">-</td>
        </tr>
        <tr>
-         <th>09h</th>
+         <th scope="row">09h</th>
          <td>Graphics</td>
          <td>320x200</td>
          <td>Color</td>
@@ -204,7 +207,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="dash_entry__">-</td>
        </tr>
        <tr>
-         <th>0Ah</th>
+         <th scope="row">0Ah</th>
          <td>Graphics</td>
          <td>640x200</td>
          <td>Color</td>
@@ -218,7 +221,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="dash_entry__">-</td>
        </tr>
        <tr>
-         <th>0Bh</th>
+         <th scope="row">0Bh</th>
          <td>&nbsp;</td>
          <td>&nbsp;</td>
          <td>&nbsp;</td>
@@ -232,7 +235,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="dash_entry__">-</td>
        </tr>
        <tr>
-         <th>0Ch</th>
+         <th scope="row">0Ch</th>
          <td>&nbsp;</td>
          <td>&nbsp;</td>
          <td>&nbsp;</td>
@@ -246,7 +249,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="dash_entry__">-</td>
        </tr>
        <tr>
-         <th>0Dh</th>
+         <th scope="row">0Dh</th>
          <td>Graphics</td>
          <td>320x200</td>
          <td>Color</td>
@@ -260,7 +263,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>Colors:16</td>
        </tr>
        <tr>
-         <th>0Eh</th>
+         <th scope="row">0Eh</th>
          <td>Graphics</td>
          <td>640x200</td>
          <td>Color</td>
@@ -274,7 +277,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>Colors:16</td>
        </tr>
        <tr>
-         <th>0Fh</th>
+         <th scope="row">0Fh</th>
          <td>Graphics</td>
          <td>640x350</td>
          <td>Mono</td>
@@ -288,7 +291,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes</td>
        </tr>
        <tr>
-         <th>10h</th>
+         <th scope="row">10h</th>
          <td>Graphics</td>
          <td>640x350</td>
          <td>Color</td>
@@ -302,7 +305,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>Colors:16</td>
        </tr>
        <tr>
-         <th>11h</th>
+         <th scope="row">11h</th>
          <td>Graphics</td>
          <td>640x480</td>
          <td>Mono</td>
@@ -316,7 +319,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_5">Yes</td>
        </tr>
        <tr>
-         <th>12h</th>
+         <th scope="row">12h</th>
          <td>Graphics</td>
          <td>640x480</td>
          <td>Color</td>
@@ -330,7 +333,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_5">Yes<br>Colors:16</td>
        </tr>
        <tr>
-         <th>13h</th>
+         <th scope="row">13h</th>
          <td>Graphics</td>
          <td>320x200</td>
          <td>Color</td>
@@ -343,6 +346,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="sync_freqs_4">Yes<br>Colors:256</td>
          <td class="sync_freqs_4">Yes<br>Colors:256</td>
        </tr>
+       </tbody>
 </table>
 </div>
 
@@ -359,6 +363,6 @@ Register and attribute behavior is not quite the same as an MDA card. For more i
 #### Note 3:
 4 Colors if 64KB of RAM fitted to EGA video card; 16 Colors if 128KB (or more) of RAM fitted.
 
-## Primary Emulation Resources
+## Primary References
 
  - (minuszerodegrees.net) [BIOS Video Modes](https://www.minuszerodegrees.net/video/bios_video_modes.htm)
