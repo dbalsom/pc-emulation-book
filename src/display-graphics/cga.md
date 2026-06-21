@@ -7,6 +7,7 @@ The IBM Color Graphics Adapter (CGA) was one of the first video adapters availab
 | Item                    | Description                                      |
 | ----------------------- | ------------------------------------------------ |
 | Video memory            | **16KB** at `B800:0000`; mirrored at `BC00:0000` |
+| Expansion ROM           | None                                             |
 | Font ROM                | **8KB** character generator ROM                  |
 | Main display outputs    | TTL RGBI on DE-9; NTSC composite video jack      |
 | Typical text modes      | **40x25** and **80x25**, 16 colors               |
@@ -20,14 +21,15 @@ The IBM Color Graphics Adapter (CGA) was one of the first video adapters availab
 | Interrupts              | None                                             |
 | DMA                     | None                                             |
 
-
 The CGA could be connected to a regular North American television set via its composite output connector. A digital DE-9 connection eventually allowed it to be connected to the IBM 5153 Color Display, once that was finally released. IBM left owners of the CGA waiting a bit for a proper monitor - it was only released in 1983, two years after the CGA's debut.
 
 The CGA has 16KB of DRAM dedicated to video memory, and an 8KB font ROM that holds bit patterns for drawing text glyphs.
 
+The CGA has no on-board **video BIOS** or expansion ROM. All PC-compatible BIOS implementations must therefore know how to identify, initialize and operate a CGA card in order to provide standard [int 10h](https://en.wikipedia.org/wiki/INT_10H) services.
+
 In text mode, the CGA card was capable of outputting 16 colors. In graphics mode, it was limited to 3 palettes of 3 fixed colors each, with a selectable background color. The CGA also had a high-resolution mode, with a single, selectable foreground color on black.
 
-Like the MDA, the CGA is built around the [Motorola MC6845 CRTC](6845.md). See that chapter first for a basic understanding of how that chip is used to define display geometry. The MC6845 will be referred to as the **CRTC** for the rest of this chapter.
+Like the MDA, the CGA is built around the [Motorola MC6845 CRTC](6845.md). See that chapter first for a basic understanding of how that chip is used to define display geometry.
 
 The CGA card has 16KiB of RAM at segment `B800:0`. This is decoded twice through the range `B800:0-C000:0`, causing a mirror of video memory that begins at `BC00:0`. You can use this mirroring to your advantage in certain circumstances.
 
@@ -842,6 +844,26 @@ The palette is enabled by setting the `BW` bit in the [mode register](#mode-cont
 
 The key point is that medium-resolution graphics mode bit-pairs do not form palette indices in the more typical sense. Instead, they directly form part of an RGBI signal that is completed by the bits in color control register or alternate external logic.
 
+### Graphics Mode Function
+
+If you have read the [MC6845 chapter](./6845.md), you may have been curious how a text-oriented display controller can be utilized to implement graphics mode. The MC6845 still counts out word addresses, and for each **low resolution character clock**, two bytes are fetched and 8 pixels are emitted. The CGA utilizes the same pair of byte serializers that it uses to serialize the character glyph byte and character attribute byte in text mode, although the **color multiplexer** is set for input 2.
+
+This is all fine for scanning out individual rows of graphics data, but one immediate issue is present: the vertical total, vertical displayed, and vertical character counters of the MC6845 are all 7-bit quantities. That limits us to a total of 128 logical rows. Medium-resolution graphics mode is 320x200. 200 will not fit into 128. 
+
+#### The 8KiB Interleave
+
+IBM came up with a clever solution to this problem, but one that would make programming the CGA's graphics mode fairly annoying. In graphics mode, rows are set to be two scanlines tall by configuring **R9** as `1` (recall this defines the line height of a character row, minus 1).  The memory address line **A13** is then exchanged for the row counter bit **RA0**. This substitution is made when the `GFX` bit of the [mode control](#mode-control-register) is set. 
+
+This creates an **8KiB offset** in memory for all odd scanlines. Since an extra row-counting bit has been added, we can now define up to **256** scanlines, easily fitting in our 200-line graphics mode, at the cost of an annoying interleaving scheme.
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/bitmaps/cga_8k_offset_01.png"
+       alt="A visualization of the 8KiB offset on the IBM CGA displaying the video game 'Digger'"
+       style="max-height: 480px;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The CGA graphics mode 8KiB offset - video memory visualized side by side with gameplay of 'Digger'</em></p>
+</div>
+
 ## High-Resolution Graphics Mode
 
 This is a 640x200 monochromatic, 1bpp graphics mode. The CGA operates at the **low-resolution character clock** in this mode, despite the 640 columns of resolution. Each character clock, two bytes from video memory are fetched and **16 pixels** are emitted. The color used for drawing `1` bits is the color defined in the [color control register](#color-control-register).  
@@ -849,6 +871,8 @@ This is a 640x200 monochromatic, 1bpp graphics mode. The CGA operates at the **l
 This is sometimes referred to as the foreground color in this mode, but it is actually still the background color. If that sounds paradoxical, it is explained by the way that this mode is implemented: in high-resolution graphics mode, the CGA's color multiplexers are set to always draw the border/overscan color. The CGA then *rapidly enables and disables the color multiplexers themselves*. So in this mode, the foreground is actually the background, and the background is actually just "off."
 
 You can, of course, leave the color defined in the color control register set to 0, but you will not see anything drawn.
+
+Like medium-resolution graphics mode, an 8KiB offset is created between odd and even scanlines via substitution of `A13` with `RA0`.
 
 High-resolution graphics mode is enabled by setting the `GFX` and `HIRES_GFX` bits in the [mode control register](#mode-control-register).  Interestingly, the `HIRES_GFX` bit controls the rapid toggling of the CGA's color multiplexers, and it is possible to enable this mode at other times - such as in 80-column text mode, and watch as the CGA dutifully toggles the screen on and off as text mode is drawn, leading to a bizarre, striped appearance. 
 
@@ -874,13 +898,249 @@ The horizontal retrace rate can be calculated as:
 
 $$f_{hsync} = \frac{14{,}318{,}181}{912} = 15.70 \text{ kHz}$$
 
-This is a significant number in that you will often hear monitors capable of displaying 200-line resolution modes produced by the CGA and EGA video cards described as [15KHz displays](https://www.dosdays.co.uk/topics/15khz_monitors.php).
+This is a significant number in that you will often hear monitors capable of displaying 200-line resolution modes produced by the CGA and EGA video cards described as [15kHZ displays](https://www.dosdays.co.uk/topics/15khz_monitors.php).
 
-## The Dot Clock
+## CGA Clocks
 
-The 14.31818MHz clock of the CGA can be used directly as the dot clock, which is the case in the CGA's high resolution **80-column** text mode. Alternatively, it can be divided by two to produce a 7.159MHz dot clock, which is done in **40-column** text mode, and for all of the CGA's **graphics modes**. When using the native clock - or **hclock** - the card typically outputs 640 pixels per scanline. When using the halved clock - or **lclock** - the card typically outputs 320 pixels per scanline, as the effective width of each pixel is doubled since the raster beam continues to scan out the screen at the same rate. The CGA's **high resolution graphics mode** is an exception to this, as it has a little trick up its sleeve. 
+The 14.31818MHz clock of the CGA can be used directly as the dot clock, which is the case in the CGA's high-resolution **80-column** text mode. Alternatively, it can be divided by two to produce a 7.159MHz dot clock, which is done in **40-column** text mode, and for all of the CGA's graphics modes. The effect of halving the dot clock effectively doubles the width of each pixel, as the card toggles its RGBI outputs at half the rate, while the monitor continues scanning out at the same rate as always.
+
+The CGA further divides the dot clock by 8 to produce a **character clock**. In 80-column text mode, this clock runs at 1.79MHz and is called the high-resolution character clock, or **hclock**. In graphics mode, or 40-column text mode, the CGA accordingly uses the low-resolution character clock or **lclock** that runs at 895kHZ.
+
+When using the **hclock**, the CGA typically outputs 640 pixels per scanline. When using the **lclock**, the card typically outputs 320 pixels per scanline, as the effective width of each pixel is doubled since the raster beam continues to scan out the screen at the same rate. The CGA's **high resolution graphics mode** is an exception to this, as it has a little trick up its sleeve - it draws by modulating the CGA's color multiplexers on and off at a rate driven by the original 14MHz dot clock.
+
+Since both the dot and character clocks have the same relationships, it can be useful to discuss the CGA's effective **clock divisor** for a given mode. This is fairly easy: for 80-column text mode, the clock divisor is `1` or undivided - for all other modes it is `2`.
 
 With either clock, the number of vertical scanlines remains the same, but the horizontal timings programmed into the CRTC must be adjusted to account for the particular dot clock in use.
+
+## BIOS Video Modes
+
+The PC BIOS maintains video services via the `int 10h` service. The first function available, `00`, requests that a video mode be set. This led to several [standard video mode definitions](https://book.martypc.net/appendices/bios-video-modes), the first seven of which, `00h-06h`, are modes compatible with the CGA. 
+
+<style>
+.bios-video-modes-cga {
+  overflow-x: auto;
+}
+.bios-video-modes-cga table {
+  font-size: 0.85em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.bios-video-modes-cga td,
+.bios-video-modes-cga th {
+  padding: 2px 4px;
+}
+</style>
+
+<div class="bios-video-modes-cga">
+<table>
+  <thead>
+  <tr>
+    <th style="text-align:center; width: 50px;">&nbsp;</th>
+    <th scope="col" style="text-align:center; width: 70px;">Text /<br>Graphics</th>
+    <th scope="col" style="text-align:center; width:100px;">Size</th>
+    <th scope="col" style="text-align:center; width:120px;">Mono / Color /<br>Grayscale</th>
+    <th scope="col" style="text-align:center; width:90px;">Colors</th>
+    <th scope="col" style="text-align:center; width:110px;">Character Cell</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th scope="row">00h</th>
+    <td>Text</td>
+    <td>40x25 chars</td>
+    <td>Grayscale</td>
+    <td>16 shades</td>
+    <td>8x8</td>
+  </tr>
+  <tr>
+    <th scope="row">01h</th>
+    <td>Text</td>
+    <td>40x25 chars</td>
+    <td>Color</td>
+    <td>16 colors</td>
+    <td>8x8</td>
+  </tr>
+  <tr>
+    <th scope="row">02h</th>
+    <td>Text</td>
+    <td>80x25 chars</td>
+    <td>Grayscale</td>
+    <td>16 shades</td>
+    <td>8x8</td>
+  </tr>
+  <tr>
+    <th scope="row">03h</th>
+    <td>Text</td>
+    <td>80x25 chars</td>
+    <td>Color</td>
+    <td>16 colors</td>
+    <td>8x8</td>
+  </tr>
+  <tr>
+    <th scope="row">04h</th>
+    <td>Graphics</td>
+    <td>320x200</td>
+    <td>Color</td>
+    <td>4 colors</td>
+    <td>8x2</td>
+  </tr>
+  <tr>
+    <th scope="row">05h</th>
+    <td>Graphics</td>
+    <td>320x200</td>
+    <td>Grayscale</td>
+    <td>4 shades</td>
+    <td>8x2</td>
+  </tr>
+  <tr>
+    <th scope="row">06h</th>
+    <td>Graphics</td>
+    <td>640x200</td>
+    <td>Mono</td>
+    <td>2 colors</td>
+    <td>16x2</td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+## CRTC Parameters
+
+For each video mode, the MC6845 CRTC needs to be configured with the correct parameters for registers **R0—R9**. The standard CRTC parameters are given below.
+
+<style>
+.crtc-params-table {
+  border-collapse: collapse;
+}
+.crtc-params-table th,
+.crtc-params-table td {
+  padding: 2px 6px;
+}
+.crtc-params-table .mode-group {
+  border-left: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  border-top: 1px solid currentColor;
+}
+.crtc-params-table .mode-col {
+  border-bottom: 1px solid currentColor;
+}
+.crtc-params-table .mode-first {
+  border-left: 1px solid currentColor;
+}
+.crtc-params-table .mode-last {
+  border-right: 1px solid currentColor;
+}
+</style>
+
+<table class="crtc-params-table">
+  <thead>
+    <tr>
+      <th rowspan="2">Register</th>
+      <th rowspan="2">Name</th>
+      <th class="mode-group" colspan="3">Text Mode</th>
+      <th class="mode-group" colspan="2">Graphics Mode</th>
+    </tr>
+    <tr>
+      <th class="mode-col mode-first">40 Column</th>
+      <th class="mode-col">80 Column</th>
+      <th class="mode-col mode-last">"160x100"</th>
+      <th class="mode-col mode-first">320x200</th>
+      <th class="mode-col mode-last">640x200</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>R0</th>
+      <td>HorizontalTotal</td>
+      <td>56</td>
+      <td>113</td>
+      <td>113</td>
+      <td>56</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>R1</th>
+      <td>HorizontalDisplayed</td>
+      <td>40</td>
+      <td>80</td>
+      <td>80</td>
+      <td>40</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>R2</th>
+      <td>HorizontalSyncPosition</td>
+      <td>45</td>
+      <td>90</td>
+      <td>90</td>
+      <td>45</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>R3</th>
+      <td>SyncWidth</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>R4</th>
+      <td>VerticalTotal</td>
+      <td>31</td>
+      <td>31</td>
+      <td>127</td>
+      <td>127</td>
+      <td>127</td>
+    </tr>
+    <tr>
+      <th>R5</th>
+      <td>VerticalTotalAdjust</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>R6</th>
+      <td>VerticalDisplayed</td>
+      <td>25</td>
+      <td>25</td>
+      <td>100</td>
+      <td>100</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>R7</th>
+      <td>VerticalSync</td>
+      <td>28</td>
+      <td>28</td>
+      <td>112</td>
+      <td>112</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th>R8</th>
+      <td>InterlaceMode</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>R9</th>
+      <td>MaximumScanLineAddress</td>
+      <td>7</td>
+      <td>7</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Video Memory
 
@@ -898,12 +1158,16 @@ In high-resolution text mode, attempts to access video memory by the CPU while t
 
 IBM worked around this in BIOS routines that scrolled the screen - such as when you execute the `DIR` command in DOS - by rapidly disabling and re-enabling the display, causing noticeable flicker. Some people find this flicker more annoying than the snow itself!
 
+## Primary References
 
-
-## Primary Emulation Resources
-
-<!-- cSpell:disable-next-line -->
  - (seasip.info) [Colour Graphics Adapter: Notes](https://www.seasip.info/VintagePC/cga.html)
+ - (int10h.org) [The IBM 5153's True CGA Palette and Color Output](https://int10h.org/blog/2022/06/ibm-5153-color-true-cga-palette/)
+ - (int10h.org) [8088 MPH Final: Old vs. New CGA (and Other Gory Details)](https://int10h.org/blog/2015/08/8088-mph-final-old-vs-new-cga-gory-details/)
+ - (int10h.org) [CGA in 1024 Colors - a New Mode: the Illustrated Guide](https://int10h.org/blog/2015/04/cga-in-1024-colors-new-mode-illustrated/)
+ - (github.org) [IBM Colour Graphics Adapter schematics redrawn in KiCad](https://github.com/hkzlab/CGA_Schematics)
+ - (nerdlypleasures.blogspot.com) [CGA 16 Color RGB Graphics Modes](https://nerdlypleasures.blogspot.com/2014/09/cga-16-color-rgb-graphics-modes.html)
 
+### Additional Reading
 
-
+ - (reenigne.org) [CRTC emulation for MESS](https://www.reenigne.org/blog/crtc-emulation-for-mess/)
+ - (martypc.blogspot.com) [Exploring CGA Wait States](https://martypc.blogspot.com/2023/05/exploring-cga-wait-states.html)
