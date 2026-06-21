@@ -7,6 +7,7 @@ The `mdbook-bitfield` plugin converts TOML bitfield definitions into SVG diagram
 There are two ways to generate a bitfield diagram from a TOML specification:
  - An inline TOML bitfield definition can be specified using `` ```bitfield`` to start a code block.
  - A bitfield can be rendered from a definition in an external file via the syntax `{{#bitfield filename.toml#specific-register-definition}}`
+ - To emit a heading before an external bitfield, add `h2` through `h6` before the filename, such as `{{#bitfield h3 filename.toml#specific-register-definition}}`.
 
 ## mdbook-csvtable
 

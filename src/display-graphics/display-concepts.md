@@ -18,30 +18,6 @@ The electron beam can be **deflected** (moved around) by magnets, since electron
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>CRT vertical deflection (Click to zoom)</em></p>
 </div>
 
-<!-- Modal for image zoom -->
-<div id="imageModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);" onclick="closeModal()">
-  <img id="modalImg" style="max-width: 95%; max-height: 95%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-  <div style="position: absolute; top: 15px; right: 35px; color: white; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeModal()">&times;</div>
-</div>
-
-<script>
-function openModal(img) {
-    document.getElementById('imageModal').style.display = 'block';
-    document.getElementById('modalImg').src = img.src;
-}
-
-function closeModal() {
-    document.getElementById('imageModal').style.display = 'none';
-}
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeModal();
-    }
-});
-</script>
-
 ## Vector Displays
 
 Some CRTs could use a deflection yoke to move the beam around in arbitrary directions to draw figures on the screen precisely - these were called [vector displays](https://en.wikipedia.org/wiki/Vector_monitor). You may be familiar with the more famous examples used in early arcade games like [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) or the [Vectrex](https://en.wikipedia.org/wiki/Vectrex) video game console.
@@ -76,7 +52,7 @@ When the beam has reached the bottom of the screen, **vertical retrace** occurs,
 
 ## Phosphor Decay
 
-The phosphors on the screen are only fully lit during the period in which the electron beam is directly illuminating them, after which they immediately begin to fade. Different phosphors fade more slowly than others — the phosphors used in older monochrome monitors were **long persistence** phosphors, meaning they faded slowly enough that scrolling text could leave a smeary after-image or trail on the screen. The long persistence phosphors on monochrome displays made up for the slower refresh rates. On color displays, fast=responding phosphors were preferred. 
+The phosphors on the screen are only fully lit during the period in which the electron beam is directly illuminating them, after which they immediately begin to fade. Different phosphors fade more slowly than others — the phosphors used in older monochrome monitors were **long persistence** phosphors, meaning they faded slowly enough that scrolling text could leave a smeary after-image or trail on the screen. The long persistence phosphors on monochrome displays made up for slower refresh rates. On color displays, fast-responding phosphors were preferred. 
 
 To a high speed camera, a CRT will look like a bright line trailed by a fading image, however a quirk of human perception called [persistence of vision](https://en.wikipedia.org/wiki/Persistence_of_vision) means that we perceive the display as having a fixed, steady image. That said, many people experience eye strain using monitors with lower refresh rates.
 
@@ -99,6 +75,10 @@ When a monitor loses horizontal synchronization, the effect on the picture is mu
 Video signals can often be described as digital or analog. The digital video signals of the 1980's were not like those of today. When we talk about a digital video signal in the context of the original PC, it simply refers to TTL-level output on dedicated color and intensity pins. Video cards could sometimes emit both digital and analog signals. The DE-9 connector on MDA, CGA, and EGA cards carries a digital video signal - on the CGA, this signal is converted to an analog composite signal on the card's composite output jack. 
 
 The VGA card introduced analog video to the PC. The VGA's analog signal allowed a wider range of colors to be displayed without a drastic increase in pin count, by modulating voltage on each pin dedicated to the primary colors instead of relying on discrete intensity pins like with CGA and EGA.
+
+## Light Pens
+
+The operation of raster displays allows for a unique and conceptually simple input device to be constructed. A [light pen](https://en.wikipedia.org/wiki/Light_pen) is constructed of a lens, photodiode, and filtering circuitry. When a light pen is held to the surface of a CRT, the photodiode within the tip detects the passing of the electron beam directly beneath it, causing a pulse or **strobe** signal to be generated. The position of the pen can be calculated on the horizontal axis by the time elapsed since the last HSYNC, and on the vertical axis by counting each scanline. A light pen often had a switch at the tip of the pen that would be pressed when held against the screen to initiate a drawing operation, separate from cursor movement.
 
 ## Emulation Considerations
 

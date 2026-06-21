@@ -2,9 +2,11 @@
 
 # framework stuff
 mdbook
+mathrm
 peaceiris
 
 # technical terms
+Kbit
 bitfield
 bitfields
 regs
@@ -20,6 +22,7 @@ scanline
 freqs
 HSYNC
 VSYNC
+crtc
 CRTC
 CRTC's
 grayscale
@@ -52,8 +55,16 @@ DACK
 LSBMSB
 hdot
 vsync
+vhold
+hblank
+vblank
+VTAC
+MOSFET
+photodiode
+scanout
 
 # brand names
+Amstrad
 Centronics
 Gameboy
 Tandy
@@ -72,6 +83,7 @@ wikipedia
 alldatasheet
 osdev
 netcore
+sourceforge
 
 # People
 Jurgens
@@ -79,12 +91,14 @@ Shirriff
 reenigne
 Ralf
 Trixter
+Smitelli
+Gulotta
+Heirophant
 
 # Software
 HELPPC
 helppc
 bochs
-sourceforge
 
 # Enumerations
 SCRL
@@ -115,5 +129,5 @@ rebadged
 pinout
 retriggerable
 triggerable
-scanout
-vhold
+demoscene
+datasheet

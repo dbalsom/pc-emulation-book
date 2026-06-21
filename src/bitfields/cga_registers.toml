@@ -1,0 +1,97 @@
+[registers.mode-control-register]
+name = "Mode Control Register"
+anchor = "mode-control-register"
+bits = 8
+description = "Controls CGA display modes and video output"
+register = [{ address = "3D8", access = "Write-Only" }]
+fields = [
+    { name = "HIRES", lsb = 0, width = 1, description = "**80-Column Text Mode Timings Enabled:**<br>**0**: Normal Timings<br>**1**: 80-column Timings" },
+    { name = "GFX", lsb = 1, width = 1, description = "**Display Mode:**<br>**0**: Text<br>**1**: Graphics" },
+    { name = "B/W", lsb = 2, width = 1, description = "**Black-and-White Mode**<br>**0**: Enable color burst<br>**1**: On composite output, disables the color burst. In medium-resolution graphics mode, selects the alternate red/cyan/white palette." },
+    { name = "VIDEO", lsb = 3, width = 1, description = "**Enable Video Serializers**<br>**0**: Video Serializers Disabled <br>**1**: Video Serializers Enabled" },
+    { name = "HIRES_GFX", lsb = 4, width = 1, description = "**High-Resolution Graphics MUX Control:**<br>**0**: Disabled<br>**1**: High-Resolution Graphics Mode Enabled" },
+    { name = "BLINK_EN", lsb = 5, width = 1, description = "**Text Blinking Control**<br>**0**: Attribute bit `7` controls background intensity<br>**1**: Attribute bit `7` controls blinking" },
+    { name = "Unused", lsb = 6, width = 2, description = "Unused" },
+]
+
+[registers.color-control-register]
+name = "Color Control Register"
+bits = 8
+description = "Selects border/background colors in text mode, and controls palette signals in graphics modes"
+register = [{ address = "3D9", access = "Write-Only" }]
+[[registers.color-control-register.fields]]
+name = "B"
+lsb = 0
+width = 1
+description = "**Blue** component of the border/background color"
+color = "0000AA"
+
+[[registers.color-control-register.fields]]
+name = "G"
+lsb = 1
+width = 1
+description = "**Green** component of the border/background color"
+color = "00AA00"
+
+[[registers.color-control-register.fields]]
+name = "R"
+lsb = 2
+width = 1
+description = "**Red** component of the border/background color"
+color = "AA0000"
+
+[[registers.color-control-register.fields]]
+name = "I"
+lsb = 3
+width = 1
+description = "**Intensity** component of the border/background color"
+color = "AAAAAA"
+
+[[registers.color-control-register.fields]]
+name = "PAL_I"
+lsb = 4
+width = 1
+description = "Drives the **Intensity** signal in graphics mode, effectively creating a brighter version of the current palette."
+
+[[registers.color-control-register.fields]]
+name = "PAL_B"
+lsb = 5
+width = 1
+description = "Drives the **Blue** signal in graphics mode, effectively creating a new palette."
+
+[[registers.color-control-register.fields]]
+name = "Unused"
+lsb = 6
+width = 2
+description = "Unused"
+
+[registers.status-register]
+name = "Status Register"
+bits = 8
+description = "Reports display timing and light-pen status"
+register = [{ address = "3DA", access = "Read-Only" }]
+fields = [
+    { name = "/DE", lsb = 0, width = 1, description = "**Inverted display-enable signal from CRTC.**<br>**0**:CRTC is scanning outside of the active display area<br>**1**:CRTC is scanning within the active display area." },
+    { name = "LPT", lsb = 1, width = 1, description = "**Light-pen trigger state**<br>**0**: Light pen trigger not fired<br>**1**: Light pen trigger has fired" },
+    { name = "LPS", lsb = 2, width = 1, description = "**Light-pen switch status**<br>**0**: Light pen switch on (active-low)<br>**1**: Light pen switch off." },
+    { name = "VR", lsb = 3, width = 1, description = "**Vertical retrace status**<br>**0**: VS pin of CRTC is low<br>**1**: VS pin of CRTC is high (in vertical blank)" },
+    { name = "Unused", lsb = 4, width = 4, description = "Unused" },
+]
+
+[registers.light-pen-latch-clear]
+name = "Light Pen Latch Clear"
+bits = 8
+description = "Clears the light-pen trigger latch"
+register = [{ address = "3DB", access = "Write-Only" }]
+fields = [
+    { name = "Strobe", lsb = 0, width = 8, description = "Data bits are not meaningful; writing any value clears the latch." },
+]
+
+[registers.light-pen-latch-preset]
+name = "Light Pen Latch Preset"
+bits = 8
+description = "Sets the light-pen trigger latch"
+register = [{ address = "3DC", access = "Write-Only" }]
+fields = [
+    { name = "Strobe", lsb = 0, width = 8, description = "Data bits are not meaningful; writing any value sets the light pen latch." },
+]

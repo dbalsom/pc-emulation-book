@@ -7,16 +7,26 @@ This document aims to become a comprehensive guide to emulating the original mod
 - The IBM Model 5150 Personal Computer
 - The IBM Model 5160 Personal Computer XT
 
-When we refer to the original "IBM PC", we are technically referring to the IBM Model 5150.  However, the slightly improved IBM Model 5160 (otherwise known as the IBM XT) is similar enough in design and function that they are often lumped together. In this book, we will refer to the 5160 or XT interchangeably, when a distinction between the PC and XT is important. Otherwise, consider any reference to the "IBM PC" as referring to either model.
+When we refer to the original "IBM PC", we are technically referring to the IBM Model 5150.  However, the slightly improved IBM Model 5160 (otherwise known as the IBM XT) is similar enough in design and function that they are often lumped together. In this book, we will refer to the XT when a distinction between the PC and XT is important. Otherwise, consider any reference to the "PC" as referring to either model.
 
 ## 🚧 **UNDER CONSTRUCTION!** 🚧
 
 You'll notice that many of the pages in this book are empty stubs.
 Content is still being fleshed out. Here is a list of some of the more complete pages:
 
- - [The Intel 8253 Programmable Interval Timer](support-chips/timer-8253.md)
- - [The Intel 8259 Programmable Interrupt Controller](support-chips/pic-8259.md)
- - [The Keyboard](io-devices/keyboard.md)
+ - [The Intel 8253 Programmable Interval Timer](./support-chips/timer-8253.md)
+ - [The Intel 8259 Programmable Interrupt Controller](./support-chips/pic-8259.md)
+ - [The Keyboard](./io-devices/keyboard.md)
+ - [The Keyboard Interface](./motherboard/keyboard-interface.md)
+ - [Display Concepts](./display-graphics/display-concepts.md)
+
+Additionally, many of the appendices contain useful reference information:
+
+ - [ASCII Table](./appendices/ascii-table.md)
+ - [BIOS Data Area](./appendices/bios-data-area.md)
+ - [BIOS Interrupts](./appendices/bios-interrupts.md)
+ - [BIOS VIdoe Modes](./appendices/bios-video-modes.md)
+ - [IO Ports](./appendices/io-ports.csv)
 
 ## Why Emulate the PC?
 
@@ -50,6 +60,8 @@ To get the most out of this book, you should have:
 
 - A basic understanding of computer architecture concepts
 - Familiarity with a high-performance programming language (C, C++, Rust, or similar)
+- Basic electronics knowledge 
+  - This is minimal, but you should understand the concepts of voltage, the function of resistors, and what a tri-state output is. If you need it, a refresher can be found in the appendices: [Electronics Concepts](./appendices/electronics-concepts.md).
 - Basic understanding of digital logic
 - Some experience with emulation
   - If you have never programmed an emulator before, it is recommended that you start with the CHIP-8, a simple system that teaches basic emulation concepts. You can find a guide [here](https://tobiasvl.github.io/blog/write-a-chip-8-emulator/). 
@@ -58,6 +70,28 @@ To get the most out of this book, you should have:
 
 This book is open-source and all content is licensed under the Creative Commons CC BY 4.0 license, except where otherwise noted. See LICENSE.
 
+## Acknowledgements
+
+Several resources have been invaluable references in both my development of my emulator and in curating material for this book. I would like to thank the following for graciously providing permission to directly adapt or include their work:
+
+ - **modem7** of [minuszerodegrees.net](https:///minuszerodegrees.net)
+ - **Scott Smitelli** of [cosmodoc.org](https://cosmodoc.org)
+ - **Francis Gulotta** of [roborooter.com](https://roborooter.com/)
+
+Other invaluable resources for PC information include:
+
+ - John Elliott's [seasip.org](https://www.seasip.info/VintagePC/index.html)
+ - Ken Shirriff's blog at [righto.org](https://righto.org)
+ - Reenigne's blog at [reenigne.org](https://reenigne.org)
+ - Great Heirophant's blog at [nerdlypleasures.blogspot.com](https://nerdlypleasures.blogspot.com/)
+ - VileR's [int10h.org](https://int10h.org/)
+
 ## Contributing
 
-The main source repository for the PC Emulation Book can be found [here](https://github.com/dbalsom/pc-emulation-book).
+The main source repository for the PC Emulation Book can be found [here](https://github.com/dbalsom/pc-emulation-book). PRs are welcome.
+
+### AI Policy
+
+The PC Emulation Book strives to maintain accurate and authentically voiced information. To that end, all content contributed to the PC Emulation book should be written by human beings. Don't worry if English is not your first language - I will be glad to perform editorial duties for you.
+
+

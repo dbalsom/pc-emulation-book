@@ -15,7 +15,8 @@ mathjax-support = true
 no-section-label = false
 git-repository-url = "https://github.com/dbalsom/pc-emulation-book"
 edit-url-template = "https://github.com/dbalsom/pc-emulation-book/edit/main/{path}"
-additional-css = ["src/custom.css"]
+additional-css = ["src/custom.css", "src/image-modal.css"]
+additional-js = ["src/image-modal.js"]
 hash-files = true
 
 [output.html.search]

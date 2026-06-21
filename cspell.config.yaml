@@ -4,6 +4,8 @@ language: en
 patterns:
   - name: hostname
     pattern: /\b[a-z0-9-]+(?:\.[a-z0-9-]+)+\b/gi
+  - name: html-src-attribute
+    pattern: /\bsrc\s*=\s*(["'])[^"']*\1/gi
 
 dictionaries:
   - project-words
@@ -30,3 +32,4 @@ languageSettings:
 
 ignoreRegExpList:
   - hostname
+  - html-src-attribute

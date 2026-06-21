@@ -22,5 +22,5 @@ img-src
 /scripts/*.egg-info/
 *.egg-info/
 
-# ignore local cpsell - we should set up spell check as CI?
+# ignore local cspell - we should set up spell check as CI?
 .cspell

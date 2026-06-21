@@ -1,0 +1,14 @@
+[registers.attribute-byte]
+name = "Character Attribute Byte"
+bits = 8
+description = "Determines the foreground and background color of a text-mode character"
+fields = [
+    { name = "FGB", lsb = 0, width = 1, description = "Blue Foreground", color = "4E4EDC" },
+    { name = "FGG", lsb = 1, width = 1, description = "Green Foreground", color = "00C400" },
+    { name = "FGR", lsb = 2, width = 1, description = "Red Foreground", color = "C40000" },
+    { name = "FGI", lsb = 3, width = 1, description = "Foreground Intensity", color = "EEEEEE" },
+    { name = "BGB", lsb = 4, width = 1, description = "Blue Background", color = "4E4EDC" },
+    { name = "BGG", lsb = 5, width = 1, description = "Green Background", color = "00C400" },
+    { name = "BGR", lsb = 6, width = 1, description = "Red Background", color = "C40000" },
+    { name = "BGI / BL", lsb = 7, width = 1, description = "Background Intensity/Blink", color = "EEEEEE" },
+]
