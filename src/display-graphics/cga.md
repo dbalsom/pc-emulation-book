@@ -269,7 +269,7 @@ The CGA only has one true palette register as we typically define one, as in a r
 
 The **CGA Mode Register** generates the main control signals that drive the logic of the card. Most descriptions of what these bits do, even in IBM's own references, only give you an approximation of their actual function. To enter a standard graphics mode, besides reprogramming the CRTC, the correct mode bits must be set. 
 
-- The **HIRES** bit enables the 14.31818MHz dot clock and high-resolution character clock for 80-column text mode. It should not be used in conjunction with the `GFX` or `HIRES_GFX` bits.
+- The **HIRES** bit enables the 14.31818MHz dot clock and high-resolution character clock for 80-column text mode. It should not be used in conjunction with the **GFX** or **HIRES_GFX** bits.
 - The **GFX** bit enables graphics mode, and triggers replacement of memory address `A13` with `RA0`; a further explanation is given in the [medium-resolution graphics section](#medium-resolution-graphics-mode-1).
 - The **B/W** bit disables the **composite color burst**. It will produce a black and white or grayscale image on a composite monitor or television set. RGBI displays such as the IBM 5153 Color Display will still display color as normal with this bit set, although a third graphics palette can be selected via this bit in medium-resolution graphics mode.
 - The **VIDEO** bit is described by IBM as disabling the video signal - **this is not accurate**. This bit pulls low the \\(\overline{\mathrm{CLR}}\\) pins of the CGA's graphics serializers, U7 and U8. The effect of this is the appearance that all video memory contains `0`.  This often does result in a black screen, but where conditions allow display of color, such as the border/overscan color being set, color will still be displayed.
@@ -285,13 +285,13 @@ There are several combinations of mode bits that are invalid, and may have stran
 | `00001`   | Mode 3       | 80-Column, Color Text Mode                |
 | `00011`   | invalid      | Glitched mode: "Text and Graphics"        |
 | `00010`   | Mode 4       | 320x200 Graphics Mode                     |
-| `00110`   | Mode 5       | 320x200 Graphics Mode 'Alternate' Palette |
+| `00110`   | Mode 5       | 320x200 Graphics Mode (Alternate Palette) |
 | `10110`   | Mode 6       | 640x200 Graphics Mode                     |
 | `10001`   | Invalid      | Glitched mode: Text Mode with black bars  | 
 
 {{#bitfield cga_registers.toml#color-control-register}}
 
-The **color control** (or **color select**) register contains the CGA's only real color palette entry - an RGBI color may be specified that provides the background/overscan color.  This color definition has three distinct use cases - in text mode, it provides the border/overscan color. In medium-resolution graphics mode, it provides the color to use when a pair of bits are both 0, in addition to providing the border/overscan color. In high-resolution graphics mode, it controls the color used to represent `1` pixels. Note that I have deliberately avoided calling this the 'foreground color'. See the section on high-resolution graphics mode for the reason why.
+The **color control** (or **color select**) register contains the CGA's only real color palette entry - an RGBI color may be specified that provides the background/overscan color.  This color definition has three distinct use cases - in text mode, it provides the border/overscan color. In medium-resolution graphics mode, it provides the color to use when a pair of bits are both `0`, in addition to providing the border/overscan color. In high-resolution graphics mode, it controls the color used to represent `1` pixels. Note that I have deliberately avoided calling this the "foreground color". See the section on high-resolution graphics mode for the reason why.
 
 The **overscan** or **border** is an infamously large area around the visible or **active display area** of the IBM CGA. Here is a fairly accurate representation of its extents on an IBM 5153 monitor. If you look closely, you can even see the command that has just set the overscan color to cyan:
 
@@ -325,7 +325,7 @@ The following diagram may help clarify the values of these two status bits at di
 </div>
 
 The two other bits in the CGA status register concern themselves with **light pen** operation. 
- - The **LPT** bit is the state of the **light pen strobe** trigger. The term 'trigger' can evoke the sense of a physical trigger or button on the light pen, but this is not the case. The light pen 'trigger' is fired when the **photodiode** within the attached light pen detects light (the **strobe**) from the CRT raster beam. When this bit is `1`, the MC6845's **light pen latch** registers should contain the valid approximate position of the light pen. This bit is latched via a flip-flop on the CGA, and will remain set indefinitely unless cleared by writing any value to port `3DBh`, after which a new strobe trigger may fire and a new light-pen position latched by the MC6845. The strobe trigger may be manually fired without input from the pen by writing to port `3DCh`.  It is possible to crudely determine the current raster position of the display with this method, but it is highly unreliable. Even so, it didn't stop games like [Jungle Hunt](https://www.mobygames.com/game/133/jungle-king/) from using it to perform mid-frame palette swaps.
+ - The **LPT** bit is the state of the **light pen strobe** trigger. The term *trigger* can evoke the sense of a physical trigger or button on the light pen, but this is not the case. The light pen trigger is fired when the **photodiode** within the attached light pen detects light (the **strobe**) from the CRT raster beam. When this bit is `1`, the MC6845's **light pen latch** registers should contain the valid approximate position of the light pen. This bit is latched via a flip-flop on the CGA, and will remain set indefinitely unless cleared by writing any value to port `3DBh`, after which a new strobe trigger may fire and a new light-pen position latched by the MC6845. The strobe trigger may be manually fired without input from the pen by writing to port `3DCh`.  It is possible to crudely determine the current raster position of the display with this method, but it is highly unreliable. Even so, it didn't stop games like [Jungle Hunt](https://www.mobygames.com/game/133/jungle-king/) from using it to perform mid-frame palette swaps.
 
  - The **LPS** bit is the immediate state of any switch connected to the light pen header's switch pin. The light pen switch signal is **active-low**, explaining why this bit is logically reversed. This is simply the immediate state of any switch present on the light pen - this switch may be at the tip of the pen on high-quality light pens. The switch is typically used for taking actions such as initiating a drawing operation. IBM's documentation warns us that this signal is not debounced in any way, but a high quality pen should debounce the switch for us.
 
@@ -497,7 +497,7 @@ If the MC6845's cursor blinking is enabled at either rate, as you can imagine th
 
 In the CGA's 320x200, 4-color graphics mode, pairs of bits (referred to as **C0** and **C1**) are interpreted by the CGA's **color multiplexer** more-or-less directly as **red** and **green**.
 
-This is an important distinction - the CGA has no traditional graphics palettes as we typically understand them, other than the palette entry used for the background color (when both **C0** and **C1** are `0`). Two bits of each color to be emitted by the CGA are provided from video memory, with the other two bits provided by the PAL_B and PAL_I bits of the **color control** register. 
+This is an important distinction - the CGA has no traditional graphics palettes as we typically understand them, other than the palette entry used for the background color (when both **C0** and **C1** are `0`). Two bits of each color to be emitted by the CGA are provided from video memory, with the other two bits provided by the **PAL_B** and **PAL_I** bits of the **color control** register. 
 
 Medium-resolution graphics mode is enabled by setting the `GFX` bit in the [mode control register](#mode-control-register).
 
@@ -996,7 +996,7 @@ In 2022, a demo for the PC was released that pushed this technique to its absolu
   <thead>
     <tr>
       <th scope="col">R9==7</th>
-      <th scope="col">R9==2</th>
+      <th scope="col">R9==1</th>
     </tr>
   </thead>
   <tbody>
