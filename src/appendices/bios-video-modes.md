@@ -300,7 +300,7 @@ This table is courtesy of [minuszerodegrees.net]((https://www.minuszerodegrees.n
          <td class="dash_entry__">-</td>
          <td class="dash_entry__">-</td>
          <td class="dash_entry__">-</td>
-         <td class="sync_freqs_3">Yes<br>Colors:<br>4 for 64KB<br>16 for 128KB<br>(see note 3)</td>
+         <td class="sync_freqs_3">Yes<br>Colors:<br>4 for 64KiB<br>16 for 128KiB<br>(see note 3)</td>
          <td class="dash_entry__">-</td>
          <td class="sync_freqs_4">Yes<br>Colors:16</td>
        </tr>
@@ -361,7 +361,7 @@ Changing the monitor type on an IBM EGA card requires that switches on the IBM E
 Register and attribute behavior is not quite the same as an MDA card. For more info, read the first page of the document [here](https://www.minuszerodegrees.net/video/PC%20Magazine%20Article%20-%20The%20EGA%20board%20-%20March1986.pdf).
 
 #### Note 3:
-4 Colors if 64KB of RAM fitted to EGA video card; 16 Colors if 128KB (or more) of RAM fitted.
+4 Colors if 64KiB of RAM fitted to EGA video card; 16 Colors if 128KiB (or more) of RAM fitted.
 
 ## Primary References
 

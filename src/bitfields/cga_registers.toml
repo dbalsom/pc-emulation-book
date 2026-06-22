@@ -71,10 +71,10 @@ bits = 8
 description = "Reports display timing and light-pen status"
 register = [{ address = "3DA", access = "Read-Only" }]
 fields = [
-    { name = "/DE", lsb = 0, width = 1, description = "**Inverted display-enable signal from CRTC.**<br>**0**:CRTC is scanning outside of the active display area<br>**1**:CRTC is scanning within the active display area." },
-    { name = "LPT", lsb = 1, width = 1, description = "**Light-pen trigger state**<br>**0**: Light pen trigger not fired<br>**1**: Light pen trigger has fired" },
-    { name = "LPS", lsb = 2, width = 1, description = "**Light-pen switch status**<br>**0**: Light pen switch on (active-low)<br>**1**: Light pen switch off." },
-    { name = "VR", lsb = 3, width = 1, description = "**Vertical retrace status**<br>**0**: VS pin of CRTC is low<br>**1**: VS pin of CRTC is high (in vertical blank)" },
+    { name = "/DE", lsb = 0, width = 1, description = "**Inverted display-enable signal from CRTC.**<br>**0**: CRTC is scanning **inside** the active display area.<br>**1**: CRTC is scanning **outside of** the active display area." },
+    { name = "LPT", lsb = 1, width = 1, description = "**Light-pen trigger state**<br>**0**: Light pen trigger has *not* fired<br>**1**: Light pen trigger has fired." },
+    { name = "LPS", lsb = 2, width = 1, description = "**Light-pen switch status**<br>**0**: Light pen switch **on**<br>**1**: Light pen switch **off**." },
+    { name = "VR", lsb = 3, width = 1, description = "**Vertical retrace status**<br>**0**: VS pin of CRTC is **low**<br>**1**: VS pin of CRTC is **high** (in vertical blank)" },
     { name = "Unused", lsb = 4, width = 4, description = "Unused" },
 ]
 

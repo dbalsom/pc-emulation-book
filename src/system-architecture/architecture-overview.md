@@ -8,11 +8,11 @@ IBM chose the Intel 8088 for the 5150, which is also used in the 5160. The 8088 
 
 The 8088 has 20 address lines, allowing it to address \\(2^{20}\\) bytes, or 1MB.
 
-IBM chose to reserve addresses above `0xA0000`, leading to the infamous "640KB" memory limit that is often mistakenly blamed on Microsoft.
+IBM chose to reserve addresses above `0xA0000`, leading to the infamous "640KiB" memory limit that is often mistakenly blamed on Microsoft.
 
 ## Memory
 
-Depending on the model and revision, the PC could be fitted with up to 256K of RAM on the motherboard. Memory expansion cards to bring a system up to the maximum 640KB were quite commonplace in the latter years of the PC's life. **Multi-function cards** provided RAM upgrades along with extra peripherals such as printer, serial, and game ports.
+Depending on the model and revision, the PC could be fitted with up to 256K of RAM on the motherboard. Memory expansion cards to bring a system up to the maximum 640KiB were quite commonplace in the latter years of the PC's life. **Multi-function cards** provided RAM upgrades along with extra peripherals such as printer, serial, and game ports.
 
 The memory used in the PC is common [dynamic RAM](https://en.wikipedia.org/wiki/Dynamic_random-access_memory) (DRAM). The PC lacks dedicated refresh circuitry to maintain the contents of DRAM, and must use some of its accessory hardware to perform this task. The process of DRAM refresh makes the entire system approximately 6% slower.
 

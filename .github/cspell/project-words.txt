@@ -63,6 +63,7 @@ MOSFET
 photodiode
 scanout
 lowres
+LPSTB
 
 # brand names
 Amstrad
@@ -73,6 +74,7 @@ Tseng
 Seequa
 Vectrex
 XTIDE
+Macrocom
 
 # websites
 minuszerodegrees
@@ -85,6 +87,7 @@ alldatasheet
 osdev
 netcore
 sourceforge
+Nerdly
 
 # People
 Jurgens

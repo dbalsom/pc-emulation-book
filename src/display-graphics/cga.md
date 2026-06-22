@@ -6,9 +6,9 @@ The IBM Color Graphics Adapter (CGA) was one of the first video adapters availab
 
 | Item                    | Description                                      |
 | ----------------------- | ------------------------------------------------ |
-| Video memory            | **16KB** at `B800:0000`; mirrored at `BC00:0000` |
+| Video memory            | **16KiB** at `B800:0000`; mirrored at `BC00:0000` |
 | Expansion ROM           | None                                             |
-| Font ROM                | **8KB** character generator ROM                  |
+| Font ROM                | **8KiB** character generator ROM                  |
 | Main display outputs    | TTL RGBI on DE-9; NTSC composite video jack      |
 | Typical text modes      | **40x25** and **80x25**, 16 colors               |
 | Standard graphics modes | **320x200**, 4 colors; **640x200**, 2 colors     |
@@ -21,9 +21,9 @@ The IBM Color Graphics Adapter (CGA) was one of the first video adapters availab
 | Interrupts              | None                                             |
 | DMA                     | None                                             |
 
-The CGA could be connected to a regular North American television set via its composite output connector. A digital DE-9 connection eventually allowed it to be connected to the IBM 5153 Color Display, once that was finally released. IBM left owners of the CGA waiting a bit for a proper monitor - it was only released in 1983, two years after the CGA's debut.
+The CGA could be connected to a regular North American television set via its composite output connector, although most sets of the time would require an [RF modulator](https://en.wikipedia.org/wiki/RF_modulator) to do so. A [DE-9](https://en.wikipedia.org/wiki/DE9) connector provided a digital RGBI signal that could be used with an IBM 5153 Color Display. IBM left owners of the CGA waiting a bit for that particular monitor - it was only released in 1983, two years after the CGA's debut.
 
-The CGA has 16KB of DRAM dedicated to video memory, and an 8KB font ROM that holds bit patterns for drawing text glyphs.
+The CGA has 16KiB of DRAM dedicated to video memory, and an 8KiB font ROM that holds bit patterns for drawing text glyphs.
 
 The CGA has no on-board **video BIOS** or expansion ROM. All PC-compatible BIOS implementations must therefore know how to identify, initialize and operate a CGA card in order to provide standard [int 10h](https://en.wikipedia.org/wiki/INT_10H) services.
 
@@ -91,9 +91,9 @@ The cursor is disabled in this mode.
 
 ## The RGBI Color Gamut
 
-The CGA controls four output pins; one for each of the primary colors: Red, Green, Blue, and an Intensity signal. Four bits give us \\(2^4\\) or **16** possible colors on CGA's digital DE-9 output connector. The intensity pin is treated as the MSB, providing a repeat of the first eight colors, but brighter. 
+The CGA has a digital DE-9 output connector. To produce color, the CGA controls four output pins, one for each of the primary colors: Red, Green, Blue, and an Intensity signal. Four bits give us \\(2^4\\) or **16** possible colors. The intensity pin provides a repeat of the first eight colors, but brighter. 
 
-The odd duck out here is non-intense yellow, which has been conspicuously replaced with brown. This was a deliberate decision by IBM, who perhaps found the rather sickly dim yellow was unpleasant, or at least that a brown color would be more useful. Speculation abounds as to the rationale of this replacement, but the interesting thing to note is that it is not performed by the CGA at all - the color was converted inside the circuitry of the **IBM 5153 Color Display** itself, and third party PC-compatible monitor manufacturers largely followed suit. You may see the original yellow color on RGBI monitors not intended to be CGA compatible, such as the [Commodore 1084](https://crtdatabase.com/crts/commodore/commodore-1084) series.
+The odd duck out here is non-intensified yellow, which has been conspicuously replaced with brown. This was a deliberate decision by IBM, who perhaps found the rather sickly dim yellow unpleasant, or at least believed that a brown color would be more useful. Speculation abounds, but the interesting thing to note is that the conversion circuit to turn yellow into brown is not actually present on the CGA at all - the circuitry is within the **IBM 5153 Color Display** itself, and third party PC-compatible monitor manufacturers largely followed suit. You may see the original yellow color on RGBI monitors not intended to be CGA compatible, such as the [Commodore 1084](https://crtdatabase.com/crts/commodore/commodore-1084) series.
 
 <!-- cSpell:disable -->
 <table>
@@ -257,18 +257,23 @@ The odd duck out here is non-intense yellow, which has been conspicuously replac
 </table>
 <!-- cSpell:enable -->
 
-In text mode, any of these sixteen colors can be referenced within the **character attribute byte**.
+In text mode, any of these sixteen colors can be referenced within a **character attribute byte**.
 
 In graphics modes, the CGA operates in what we might term **direct color mode**, where the bits set in video memory directly influence the Red and Green output pins.
 
 The CGA only has one true palette register as we typically define one, as in a register that holds an arbitrary color. It is the background/overscan color field in the **Color Control Register**.
-
 
 ## The CGA Registers
 
 {{#bitfield h3 cga_registers.toml#mode-control-register}}
 
 The **CGA Mode Register** generates the main control signals that drive the logic of the card. Most descriptions of what these bits do, even in IBM's own references, only give you an approximation of their actual function. To enter a standard graphics mode, besides reprogramming the CRTC, the correct mode bits must be set. 
+
+- The **HIRES** bit enables the 14.31818MHz dot clock and high-resolution character clock for 80-column text mode. It should not be used in conjunction with the `GFX` or `HIRES_GFX` bits.
+- The **GFX** bit enables graphics mode, and triggers replacement of memory address `A13` with `RA0`; a further explanation is given in the [medium-resolution graphics section](#medium-resolution-graphics-mode-1).
+- The **B/W** bit disables the **composite color burst**. It will produce a black and white or grayscale image on a composite monitor or television set. RGBI displays such as the IBM 5153 Color Display will still display color as normal with this bit set, although a third graphics palette can be selected via this bit in medium-resolution graphics mode.
+- The **VIDEO** bit is described by IBM as disabling the video signal - **this is not accurate**. This bit pulls low the \\(\overline{\mathrm{CLR}}\\) pins of the CGA's graphics serializers, U7 and U8. The effect of this is the appearance that all video memory contains `0`.  This often does result in a black screen, but where conditions allow display of color, such as the border/overscan color being set, color will still be displayed.
+- The **HIRES_GFX** bit enables logic on the card to rapidly enable and disable the CGA's **color multiplexers**. This bit should not be used in conjunction with **HIRES** or the text on the screen will become corrupted.
 
 There are several combinations of mode bits that are invalid, and may have strange and interesting effects.
 
@@ -280,11 +285,9 @@ There are several combinations of mode bits that are invalid, and may have stran
 | `00001`   | Mode 3       | 80-Column, Color Text Mode                |
 | `00011`   | invalid      | Glitched mode: "Text and Graphics"        |
 | `00010`   | Mode 4       | 320x200 Graphics Mode                     |
-| `00110`   | Mode 4       | 320x200 Graphics Mode 'Alternate' Palette |
+| `00110`   | Mode 5       | 320x200 Graphics Mode 'Alternate' Palette |
 | `10110`   | Mode 6       | 640x200 Graphics Mode                     |
 | `10001`   | Invalid      | Glitched mode: Text Mode with black bars  | 
-
-
 
 {{#bitfield cga_registers.toml#color-control-register}}
 
@@ -304,6 +307,27 @@ The other two bits in the color control register, **PAL_I** and **PAL_B**, provi
 
 
 {{#bitfield cga_registers.toml#status-register}}
+
+The CGA **status register** contains two essential bits for synchronizing graphics with the display. Bit `0`, \\(\overline{\mathrm{DE}}\\), is the inverted `DE` pin from MC6845. Therefore it will be `0` when the MC6845 is scanning across the active display area, when the native `DE` pin is `1`.  
+
+Bit `3`, **VR**, is the non-inverted `VS` pin from MC6845 latched on the next **hclock**. When **VR** is `1` we are in the MC6845's **vertical blanking** period. Note that, unless some serious CRTC abuse is occurring, \\(\overline{\mathrm{DE}}\\) will always be `1` when **VR** is `1`.
+
+The CGA's memory access and rasterization latency produces one character of **display enable skew**. Therefore, \\(\overline{\mathrm{DE}}\\) will flip to `0` one character clock before the CGA starts drawing the active display area, and will flip back to `1` one character clock before the end of the active display area is drawn. 
+
+The following diagram may help clarify the values of these two status bits at different points on the screen:
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/diagrams/cga_status_register_01.svg"
+       alt="A visualization of the /DE and VR bits in the CGA Status Register"
+       style="max-height: 480px;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>A visualization of the /DE and VR bits in the CGA Status Register (Click to Zoom)</em></p>
+</div>
+
+The two other bits in the CGA status register concern themselves with **light pen** operation. 
+ - The **LPT** bit is the state of the **light pen strobe** trigger. The term 'trigger' can evoke the sense of a physical trigger or button on the light pen, but this is not the case. The light pen 'trigger' is fired when the **photodiode** within the attached light pen detects light (the **strobe**) from the CRT raster beam. When this bit is `1`, the MC6845's **light pen latch** registers should contain the valid approximate position of the light pen. This bit is latched via a flip-flop on the CGA, and will remain set indefinitely unless cleared by writing any value to port `3DBh`, after which a new strobe trigger may fire and a new light-pen position latched by the MC6845. The strobe trigger may be manually fired without input from the pen by writing to port `3DCh`.  It is possible to crudely determine the current raster position of the display with this method, but it is highly unreliable. Even so, it didn't stop games like [Jungle Hunt](https://www.mobygames.com/game/133/jungle-king/) from using it to perform mid-frame palette swaps.
+
+ - The **LPS** bit is the immediate state of any switch connected to the light pen header's switch pin. The light pen switch signal is **active-low**, explaining why this bit is logically reversed. This is simply the immediate state of any switch present on the light pen - this switch may be at the tip of the pen on high-quality light pens. The switch is typically used for taking actions such as initiating a drawing operation. IBM's documentation warns us that this signal is not debounced in any way, but a high quality pen should debounce the switch for us.
 
 ## Text Mode
 
@@ -394,6 +418,8 @@ The character code, combined with the vertical line counter of the CRTC, is used
 </div>
 <!-- cSpell:enable -->
 
+The standard CGA font implements [IBM Code Page 437](https://en.wikipedia.org/wiki/Code_page_437). The vast majority of CGA cards were shipped with this font ROM, however there were variants sold for the international market that contained alternate code pages.[^1]
+
 The CGA ostensibly provides a second "thin" font selectable by a jumper, but on most examples of the IBM CGA this jumper is not populated on the PCB, requiring some soldering to actually utilize. Why IBM changed their mind about making this font user-selectable is up for debate. However, an emulator author can certainly choose to make the font more easily selectable.
 
 A visualization of the character font ROM is shown below, with bytes reversed and wrapping vertically to fit into a square image. The first half of the ROM is dedicated to the MDA's 8x14 font, each glyph of which is split into two parts. The latter half of the ROM consists of the 'hidden' thin font, followed by the standard CGA font.
@@ -401,10 +427,13 @@ A visualization of the character font ROM is shown below, with bytes reversed an
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/bitmaps/5788005.u33.png"
        alt="A visualization of the CGA's character font ROM"
-       style="max-height: 480px;">
+       data-modal-rendering="pixelated"
+       style="max-height: 480px;"
+       onclick="openModal(this)">
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The MDA/CGA character font ROM (byte-reversed)</em></p>
 </div>
 
+The character font ROM is not accessible from the host PC. It can only be read by the CGA itself. `int 10h` services include routines for drawing text in graphics modes - to accomplish this, a copy of the standard CGA font is present in the IBM PC BIOS as well. 
 
 {{#bitfield h3 attribute_byte.toml#attribute-byte}}
 
@@ -417,7 +446,7 @@ The **character attribute byte** defines the foreground and background colors th
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>CGA attribute byte visualization</em></p>
 </div>
 
-Since each character cell has a character code and attribute byte, each character takes one 16-bit word of memory. Thus it takes 4KiB of memory to display a single 80x25 text mode screen. This means up to four text-mode screens can fit in the CGA's 16KB of memory, and a program can switch between each screen by adjusting the CRTC's start address registers. 
+Since each character cell has a character code and attribute byte, each character takes one 16-bit word of memory. Thus it takes 4KiB of memory to display a single 80x25 text mode screen. This means up to four text-mode screens can fit in the CGA's 16KiB of memory, and a program can switch between each screen by adjusting the CRTC's start address registers. 
 
 When multiple screens can be fit into video memory, they are called **video pages**. Switching between video pages is referred to as **page-switching** or **page-flipping** when used for fast animation, but there are many other uses - a help page could be stored separately from a text editor's main interface, allowing the program to switch to the help screen and back without having to redraw either page.
 
@@ -842,7 +871,7 @@ The palette is enabled by setting the `BW` bit in the [mode register](#mode-cont
 </div>
 <!-- cSpell:enable -->
 
-The key point is that medium-resolution graphics mode bit-pairs do not form palette indices in the more typical sense. Instead, they directly form part of an RGBI signal that is completed by the bits in color control register or alternate external logic.
+The key point is that medium-resolution graphics mode bit-pairs do not form palette indices in the more typical sense. Instead, they directly form part of an RGBI signal that is completed by the bits in the color control register or alternate external logic.
 
 ### Graphics Mode Function
 
@@ -863,6 +892,7 @@ This creates an **8KiB offset** in memory for all odd scanlines. Since an extra 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/bitmaps/cga_8k_offset_01.png"
        alt="A visualization of the 8KiB offset on the IBM CGA displaying the video game 'Digger'"
+       data-modal-rendering="pixelated"
        style="max-height: 480px;"
        onclick="openModal(this)">
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The CGA graphics mode 8KiB offset - video memory visualized side by side with gameplay of 'Digger'</em></p>
@@ -930,10 +960,66 @@ Given the CGA's drastically stretched aspect ratio, these end up displaying as s
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/screenshots/round42_ac_01.png"
        alt="A screenshot of the video game 'Round 42' by Mike Pooler displaying 160x100 'graphics'"
+       data-modal-rendering="pixelated"
        style="max-height: 480px;"
        onclick="openModal(this)">
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>Low-resolution "Graphics" mode in <a href="https://www.mobygames.com/game/209/round-42/">Round 42</a> by Mike Pooler</em></p>
 </div>
+
+Of course, nothing strictly limits you to only using the two convenient 'split-block' characters. If we consider using the top two rows of the standard CGA font, many potentially useful patterns can be found:
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/bitmaps/cga_font_top_two_rows_2x.png"
+       alt="A visualization of the standard CGA font with the top two rows highlighted"
+       data-modal-rendering="pixelated"
+       style="max-height: 480px;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The top two rows of the IBM CGA code page 437 character set</em></p>
+</div>
+
+Several titles by the developer [Macrocom](https://www.mobygames.com/company/132/macrocom-inc/) utilized this technique, and so it became known in some circles as the "Macrocom Method", or alternatively, "ANSI from Hell"[^2].
+
+Here's an example of how the player character 'sprite' in Macrocom's [ICON: Quest for the Ring](https://www.mobygames.com/game/178/icon-quest-for-the-ring/) is built up from standard character glyphs, as seen with varying values for the MC6845's Maximum Scanline register, **R9**:
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/bitmaps/cga_icon_effect_01.gif"
+       alt="A visualization of the ASCII-rendered player character in Macrocom's ICON"
+       data-modal-rendering="pixelated"
+       style="max-height: 480px;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>A visualization of the the ASCII-rendered player character in Macrocom's ICON: Quest for the Ring</em></p>
+</div>
+
+In 2022, a demo for the PC was released that pushed this technique to its absolute limits: [Area 5150](https://www.pouet.net/prod.php?which=91938). Through many clever additional CRTC tricks, it was able to make it nearly impossible to tell that any of the demo's effects were actually running in text mode. 
+
+<table style="width: 100%; margin: 1.5em 0;">
+  <thead>
+    <tr>
+      <th scope="col">R9==7</th>
+      <th scope="col">R9==2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="width: 50%; text-align: center; vertical-align: middle;">
+        <img src="../images/bitmaps/intro_ibm_memory_01.png"
+             alt="IBM PC memory intro screen"
+             data-modal-rendering="pixelated"
+             style="max-width: 100%; height: auto;"
+             onclick="openModal(this)">
+      </td>
+      <td style="width: 50%; text-align: center; vertical-align: middle;">
+        <img src="../images/bitmaps/intro_ibm_02.png"
+             alt="IBM PC intro screen"
+             data-modal-rendering="pixelated"
+             style="max-width: 100%; height: auto;"
+             onclick="openModal(this)">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+For a rather comprehensive review of the various titles that have used a tweaked text-mode over the years, see [this excellent post on the blog Nerdly Pleasures](https://nerdlypleasures.blogspot.com/2014/09/cga-16-color-rgb-graphics-modes.html).
 
 ## Display Timings
 
@@ -959,11 +1045,19 @@ $$f_{hsync} = \frac{14{,}318{,}181}{912} = 15.70 \text{ kHz}$$
 
 This is a significant number in that you will often hear monitors capable of displaying 200-line resolution modes produced by the CGA and EGA video cards described as [15kHZ displays](https://www.dosdays.co.uk/topics/15khz_monitors.php).
 
+## Aspect Ratio
+
+The CGA's display field of 912x262 is quite far from square. The IBM 5153 Color Display has an aspect ratio of approximately **4:3**, but this is hardly the final word on the matter - see [this VCF forum thread](https://forum.vcfed.org/index.php?threads/what-is-the-proper-aspect-ratio-adjustment-of-the-ibm-5153-cga-monitor.52357/) for a surprisingly in-depth discussion of the topic. 
+
+The CGA's aspect ratio is of primary importance when displaying circles - non-circular circles will be immediately obvious to the user. Many monitors had vertical and horizontal adjustment knobs, which a user could use to adjust their display if circles appeared more like ellipses; however, they might find that different adjustments were needed for different software applications that made different assumptions. An emulator author could do worse than to make the effective aspect ratio user-configurable. 
+
+A 4:3 aspect ratio applied to a 640-pixel wide image produces the familiar 640x480 resolution. The images in this chapter have all been aspect-corrected to 4:3.
+
 ## CGA Clocks
 
 The 14.31818MHz clock of the CGA can be used directly as the dot clock, which is the case in the CGA's high-resolution **80-column** text mode. Alternatively, it can be divided by two to produce a 7.159MHz dot clock, which is done in **40-column** text mode, and for all of the CGA's graphics modes. The effect of halving the dot clock effectively doubles the width of each pixel, as the card toggles its RGBI outputs at half the rate, while the monitor continues scanning out at the same rate as always.
 
-The CGA further divides the dot clock by 8 to produce a **character clock**. In 80-column text mode, this clock runs at 1.79MHz and is called the high-resolution character clock, or **hclock**. In graphics mode, or 40-column text mode, the CGA accordingly uses the low-resolution character clock or **lclock** that runs at 895kHZ.
+The CGA further divides the dot clock by 8 to produce a **character clock**. In 80-column text mode, this clock runs at 1.79MHz and is called the high-resolution character clock, or **hclock**. In graphics mode, or 40-column text mode, the CGA accordingly uses the low-resolution character clock or **lclock** that runs at 895kHz.
 
 When using the **hclock**, the CGA typically outputs 640 pixels per scanline. When using the **lclock**, the card typically outputs 320 pixels per scanline, as the effective width of each pixel is doubled since the raster beam continues to scan out the screen at the same rate. The CGA's **high resolution graphics mode** is an exception to this, as it has a little trick up its sleeve - it draws by modulating the CGA's color multiplexers on and off at a rate driven by the original 14MHz dot clock.
 
@@ -1007,7 +1101,7 @@ The PC BIOS maintains video services via the `int 10h` service. The first functi
     <th scope="row">00h</th>
     <td>Text</td>
     <td>40x25 chars</td>
-    <td>Grayscale</td>
+    <td>Grayscale*</td>
     <td>16 shades</td>
     <td>8x8</td>
   </tr>
@@ -1062,6 +1156,9 @@ The PC BIOS maintains video services via the `int 10h` service. The first functi
   </tbody>
 </table>
 </div>
+
+**\*** Grayscale video will only be displayed on a composite monitor or television set.
+
 
 ## CRTC Parameters
 
@@ -1203,7 +1300,7 @@ For each video mode, the MC6845 CRTC needs to be configured with the correct par
 
 ## Video Memory
 
-The 16KiB of DRAM on the CGA is not expandable. It is also **single-ported**, meaning that only either the CPU or the CGA can access the video memory at any given time. This is a bit of a problem as the CGA needs to be reading video memory constantly as it rasterizes the screen. We will cover those issues in a later section, [Memory Contention](memory-contention)
+The 16KiB of DRAM on the CGA is not expandable. It is also **single-ported**, meaning that only either the CPU or the CGA can access the video memory at any given time. This is a bit of a problem as the CGA needs to be reading video memory constantly as it rasterizes the screen. We will cover those issues in the next section, [Memory Contention](#memory-contention)
 
 The 16KiB of video memory is composed of 8 separate 16Kbit DRAM chips, each of which provides a single bit. These bits are organized logically as a 128x128 grid - to address a single bit, a 7-bit **column address** must be provided followed by a 7-bit **row address**.  The CGA produces these **RAS** and **CAS** addresses from the `MA` pins of the 6845 with some additional manipulation, such as substituting `RA0` for `A13` in graphics modes.
 
@@ -1230,3 +1327,11 @@ IBM worked around this in BIOS routines that scrolled the screen - such as when 
 
  - (reenigne.org) [CRTC emulation for MESS](https://www.reenigne.org/blog/crtc-emulation-for-mess/)
  - (martypc.blogspot.com) [Exploring CGA Wait States](https://martypc.blogspot.com/2023/05/exploring-cga-wait-states.html)
+
+### Reference Implementations
+
+ - (github.com) [A digital logic simulation of the IBM CGA card](https://github.com/dbalsom/cga_sim)
+
+[^1]: VileR, [Name the Non-Standard PC Code Page](https://int10h.org/blog/2024/08/name-the-nonstandard-pc-codepage/), August 7, 2024.
+
+[^2]: VileR, [CGA in 1024 Colors - a New Mode: the Illustrated Guide](https://int10h.org/blog/2015/04/cga-in-1024-colors-new-mode-illustrated/#the_macrocom_method), April 2015.

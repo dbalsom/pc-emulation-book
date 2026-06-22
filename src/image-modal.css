@@ -24,6 +24,11 @@
     cursor: default;
 }
 
+#modalImg.image-modal-pixelated {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
 .image-modal-close {
     position: absolute;
     top: 15px;

@@ -50,6 +50,7 @@
 
         parts.image.src = sourceImage.currentSrc || sourceImage.src;
         parts.image.alt = sourceImage.alt || "";
+        parts.image.classList.toggle("image-modal-pixelated", sourceImage.dataset.modalRendering === "pixelated");
         parts.modal.classList.add("is-open");
     };
 
@@ -66,6 +67,7 @@
         if (image) {
             image.removeAttribute("src");
             image.alt = "";
+            image.classList.remove("image-modal-pixelated");
         }
     };
 
