@@ -51,6 +51,8 @@ underclock
 Hmos
 rgba
 kbps
+kbits
+Mbits
 keydown
 Vsync
 INTA
@@ -140,6 +142,19 @@ PAGEDOWN
 SLCT
 IRQEN
 
+# Bitfields
+HDSL
+INDX
+INTP
+MOTA
+MOTB
+MOTC
+MOTD
+NDMA
+NOPR
+RDAT
+WDAT
+
 # Normal words cspell doesn't handle for whatever reason
 rebadged
 pinout
@@ -149,6 +164,7 @@ demoscene
 datasheet
 biaxially
 photosensor
+precompensation
 
 # British English variations
 colour

@@ -9,7 +9,7 @@ Floppy disk
 : A removable magnetic storage medium made from a flexible, coated disk stored inside a protective jacket or shell.
 
 Cookie
-: The flexible Mylar disc witin a floppy disk, upon which magnetic signals are encoded.
+: The flexible Mylar disc within a floppy disk, upon which magnetic signals are encoded.
 
 Shutter
 : The spring-loaded, metal cover over the data window on a 3.5" floppy disk, that serves to protect the cookie from dust and damage.

@@ -423,7 +423,7 @@ The VGA's color registers are 18-bit, assigning 6 bits each to the primary color
 
 ## The Default VGA Palette
 
-Out of the 262,144 colors posible, the VGA can store 256 at a time in its color registers. The default VGA palette is shown below.
+Out of the 262,144 colors possible, the VGA can store 256 at a time in its color registers. The default VGA palette is shown below.
 
 The VGA still has the 16 Attribute Controller Palette registers, which are used in text mode and 4bpp modes, however they no longer store color information. Instead, they contain indexes into the 256 color registers of the DAC. This DAC lookup is always active. 
 
