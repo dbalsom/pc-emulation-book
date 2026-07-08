@@ -213,4 +213,4 @@ For example, an MFM *sector ID address marker* (IDAM) contains three specially-e
 
 # Primary References
 
- - (floppy.cafe) (MFM Encoding)[https://floppy.cafe/mfm.html]
+ - (floppy.cafe) [MFM Encoding](https://floppy.cafe/mfm.html)
