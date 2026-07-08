@@ -1,0 +1,1023 @@
+# NEC 765-compatible floppy controller registers and status bytes.
+
+
+# --------------------------------------------------------------------------------------------------
+# DOR
+# --------------------------------------------------------------------------------------------------
+[registers.digital-output-register]
+name = "Digital Output Register (DOR)"
+anchor = "digital-output-register"
+bits = 8
+description = "IBM-specific register used to select a drive, reset the controller, enable DMA/IRQ, and control drive motors."
+
+[[registers.digital-output-register.register]]
+address = "0x3F2"
+access = "Primary, Write-Only"
+
+[[registers.digital-output-register.register]]
+address = "0x372"
+access = "Secondary, Write-Only"
+
+[[registers.digital-output-register.fields]]
+name = "MOTD"
+lsb = 7
+width = 1
+description = "**Drive D motor control.**<br>**0**: Motor off<br>**1**: Motor on"
+
+[[registers.digital-output-register.fields]]
+name = "MOTC"
+lsb = 6
+width = 1
+description = "**Drive C motor control**<br>**0**: Motor off<br>**1**: Motor on"
+
+[[registers.digital-output-register.fields]]
+name = "MOTB"
+lsb = 5
+width = 1
+description = "**Drive B motor control**<br>**0**: Motor off<br>**1**: Motor on"
+
+[[registers.digital-output-register.fields]]
+name = "MOTA"
+lsb = 4
+width = 1
+description = "**Drive A motor control**<br>**0**: Motor off<br>**1**: Motor on"
+
+[[registers.digital-output-register.fields]]
+name = "DMA"
+lsb = 3
+width = 1
+description = "**DMA and interrupt request enable**<br>**0**: Disable DMA/IRQ<br>**1**: Enable DMA/IRQ"
+
+[[registers.digital-output-register.fields]]
+name = "/RESET"
+lsb = 2
+width = 1
+description = "**Controller reset gate**<br>**0**: Hold controller in reset<br>**1**: Enable controller"
+
+[[registers.digital-output-register.fields]]
+name = "DR"
+lsb = 0
+width = 2
+description = "**Selected drive.**"
+markdown-after = """
+| DR1 | DR0 | Drive |
+|:---:|:---:|:-----:|
+| 0 | 0 | 0 (A) |
+| 0 | 1 | 1 (B) |
+| 1 | 0 | 2 (C/D) |
+| 1 | 1 | 3 (D/E) |
+"""
+
+# --------------------------------------------------------------------------------------------------
+# MAIN STATUS REGISTER
+# --------------------------------------------------------------------------------------------------
+[registers.main-status-register]
+name = "Main Status Register (MSR)"
+anchor = "main-status-register"
+bits = 8
+description = "Main controller status register that reports data transfer direction and busy status."
+
+[[registers.main-status-register.register]]
+address = "0x3F4"
+access = "Read-Only, Primary"
+
+[[registers.main-status-register.register]]
+address = "0x374"
+access = "Read-Only, Secondary"
+
+[[registers.main-status-register.fields]]
+name = "MRQ"
+lsb = 7
+width = 1
+description = "**Main Request**<br>**0:** The controller is not expecting to send or receive data<br>**1:** The controller has data to send to the CPU, or is ready to receive the next byte of data"
+
+[[registers.main-status-register.fields]]
+name = "DIO"
+lsb = 6
+width = 1
+description = "**Data Input/Output Direction**<br>**0**: Host to controller<br>**1**: Controller to host"
+
+[[registers.main-status-register.fields]]
+name = "NDMA"
+lsb = 5
+width = 1
+description = "**Non-DMA execution mode indicator**<br>**0**: Controller in DMA mode<br>**1**: Controller in PIO (Non-DMA mode)"
+
+[[registers.main-status-register.fields]]
+name = "BUSY"
+lsb = 4
+width = 1
+description = "Controller is busy"
+
+[[registers.main-status-register.fields]]
+name = "D3B"
+lsb = 3
+width = 1
+description = "Drive 3 (D) is performing a seek or recalibrate operation"
+
+[[registers.main-status-register.fields]]
+name = "D2B"
+lsb = 2
+width = 1
+description = "Drive 2 (C) is performing a seek or recalibrate operation"
+
+[[registers.main-status-register.fields]]
+name = "D1B"
+lsb = 1
+width = 1
+description = "Drive 1 (B) is performing a seek or recalibrate operation"
+
+[[registers.main-status-register.fields]]
+name = "D0B"
+lsb = 0
+width = 1
+description = "Drive 0 (A) is performing a seek or recalibrate operation"
+
+# Data rate select register - not on original floppy controller
+
+[registers.data-rate-select-register]
+name = "Data Rate Select Register (DSR)"
+anchor = "data-rate-select-register"
+bits = 8
+description = "PS/2 output register at the MSR write address. The low bits select the controller data rate."
+
+[[registers.data-rate-select-register.register]]
+address = "0x3F4"
+access = "Write-Only"
+
+[[registers.data-rate-select-register.register]]
+address = "0x374"
+access = "Write-Only"
+
+[[registers.data-rate-select-register.fields]]
+name = "Reserved"
+lsb = 2
+width = 6
+description = "Reserved."
+
+[[registers.data-rate-select-register.fields]]
+name = "RAT"
+lsb = 0
+width = 2
+description = "Selected data transfer rate."
+markdown-after = """
+| RAT1 | RAT0 | Data Rate |
+|:----:|:----:|:---------:|
+| 0 | 0 | 500 kbits/s |
+| 0 | 1 | 300 kbits/s |
+| 1 | 0 | 250 kbits/s |
+| 1 | 1 | 1 Mbits/s |
+"""
+
+[registers.digital-input-register-at]
+name = "Digital Input Register (DIR, AT)"
+anchor = "digital-input-register-at"
+bits = 8
+description = "AT-compatible input register. The change line occupies bit 7."
+
+[[registers.digital-input-register-at.register]]
+address = "0x3F7"
+access = "Read-Only"
+
+[[registers.digital-input-register-at.register]]
+address = "0x377"
+access = "Read-Only"
+
+[[registers.digital-input-register-at.fields]]
+name = "CHAN"
+lsb = 7
+width = 1
+description = "Disk-change indicator."
+
+[[registers.digital-input-register-at.fields]]
+name = "Reserved"
+lsb = 0
+width = 7
+description = "Reserved."
+
+[registers.digital-input-register-ps2]
+name = "Digital Input Register (DIR, PS/2)"
+anchor = "digital-input-register-ps2"
+bits = 8
+description = "PS/2 input register, excluding Model 30 systems."
+
+[[registers.digital-input-register-ps2.register]]
+address = "0x3F7"
+access = "Read-Only"
+
+[[registers.digital-input-register-ps2.register]]
+address = "0x377"
+access = "Read-Only"
+
+[[registers.digital-input-register-ps2.fields]]
+name = "CHAN"
+lsb = 7
+width = 1
+description = "Disk-change indicator."
+
+[[registers.digital-input-register-ps2.fields]]
+name = "1"
+lsb = 3
+width = 4
+description = "Reserved bits that read as 1."
+
+[[registers.digital-input-register-ps2.fields]]
+name = "RAT"
+lsb = 1
+width = 2
+description = "Selected data transfer rate."
+markdown-after = """
+| RAT1 | RAT0 | Data Rate |
+|:----:|:----:|:---------:|
+| 0 | 0 | 500 kbits/s |
+| 0 | 1 | 300 kbits/s |
+| 1 | 0 | 250 kbits/s |
+| 1 | 1 | 1 Mbits/s |
+"""
+
+[[registers.digital-input-register-ps2.fields]]
+name = "HiDe"
+lsb = 0
+width = 1
+description = "High-density select/status bit."
+
+[registers.digital-input-register-ps2-model-30]
+name = "Digital Input Register (DIR, PS/2 Model 30)"
+anchor = "digital-input-register-ps2-model-30"
+bits = 8
+description = "PS/2 Model 30 input register variant."
+
+[[registers.digital-input-register-ps2-model-30.register]]
+address = "0x3F7"
+access = "Read-Only"
+
+[[registers.digital-input-register-ps2-model-30.register]]
+address = "0x377"
+access = "Read-Only"
+
+[[registers.digital-input-register-ps2-model-30.fields]]
+name = "CHAN"
+lsb = 7
+width = 1
+description = "Disk-change indicator."
+
+[[registers.digital-input-register-ps2-model-30.fields]]
+name = "Reserved"
+lsb = 4
+width = 3
+description = "Reserved."
+
+[[registers.digital-input-register-ps2-model-30.fields]]
+name = "DMA"
+lsb = 3
+width = 1
+description = "DMA enable status."
+
+[[registers.digital-input-register-ps2-model-30.fields]]
+name = "NOPR"
+lsb = 2
+width = 1
+description = "No precompensation."
+
+[[registers.digital-input-register-ps2-model-30.fields]]
+name = "RAT"
+lsb = 0
+width = 2
+description = "Selected data transfer rate."
+markdown-after = """
+| RAT1 | RAT0 | Data Rate |
+|:----:|:----:|:---------:|
+| 0 | 0 | 500 kbits/s |
+| 0 | 1 | 300 kbits/s |
+| 1 | 0 | 250 kbits/s |
+| 1 | 1 | 1 Mbits/s |
+"""
+
+[registers.configuration-control-register]
+name = "Configuration Control Register (CCR)"
+anchor = "configuration-control-register"
+bits = 8
+description = "AT and PS/2 output register used to select the FDC data rate."
+
+[[registers.configuration-control-register.register]]
+address = "0x3F7"
+access = "Write-Only"
+
+[[registers.configuration-control-register.register]]
+address = "0x377"
+access = "Write-Only"
+
+[[registers.configuration-control-register.fields]]
+name = "Reserved"
+lsb = 2
+width = 6
+description = "Reserved."
+
+[[registers.configuration-control-register.fields]]
+name = "RAT"
+lsb = 0
+width = 2
+description = "Selected data transfer rate."
+markdown-after = """
+| RAT1 | RAT0 | Data Rate |
+|:----:|:----:|:---------:|
+| 0 | 0 | 500 kbits/s |
+| 0 | 1 | 300 kbits/s |
+| 1 | 0 | 250 kbits/s |
+| 1 | 1 | 1 Mbits/s |
+"""
+
+[registers.configuration-control-register-model-30]
+name = "Configuration Control Register (CCR, PS/2 Model 30)"
+anchor = "configuration-control-register-model-30"
+bits = 8
+description = "PS/2 Model 30 CCR variant."
+
+[[registers.configuration-control-register-model-30.register]]
+address = "0x3F7"
+access = "Write-Only"
+
+[[registers.configuration-control-register-model-30.register]]
+address = "0x377"
+access = "Write-Only"
+
+[[registers.configuration-control-register-model-30.fields]]
+name = "Reserved"
+lsb = 3
+width = 5
+description = "Reserved."
+
+[[registers.configuration-control-register-model-30.fields]]
+name = "NOPR"
+lsb = 2
+width = 1
+description = "No precompensation."
+
+[[registers.configuration-control-register-model-30.fields]]
+name = "RAT"
+lsb = 0
+width = 2
+description = "Selected data transfer rate."
+markdown-after = """
+| RAT1 | RAT0 | Data Rate |
+|:----:|:----:|:---------:|
+| 0 | 0 | 500 kbits/s |
+| 0 | 1 | 300 kbits/s |
+| 1 | 0 | 250 kbits/s |
+| 1 | 1 | 1 Mbits/s |
+"""
+
+[registers.status-register-a-ps2]
+name = "Status Register A (PS/2)"
+anchor = "status-register-a-ps2"
+bits = 8
+description = "PS/2-only status register A."
+
+[[registers.status-register-a-ps2.register]]
+address = "0x3F0"
+access = "Read-Only"
+
+[[registers.status-register-a-ps2.register]]
+address = "0x370"
+access = "Read-Only"
+
+[[registers.status-register-a-ps2.fields]]
+name = "INTP"
+lsb = 7
+width = 1
+description = "Interrupt pending."
+
+[[registers.status-register-a-ps2.fields]]
+name = "/DRV2"
+lsb = 6
+width = 1
+description = "Drive-count sense.<br>0: Two drives connected<br>1: One drive connected"
+
+[[registers.status-register-a-ps2.fields]]
+name = "STEP"
+lsb = 5
+width = 1
+description = "Step signal."
+
+[[registers.status-register-a-ps2.fields]]
+name = "/TRK0"
+lsb = 4
+width = 1
+description = "Track 0 signal, active low."
+
+[[registers.status-register-a-ps2.fields]]
+name = "HDSL"
+lsb = 3
+width = 1
+description = "Head-select signal."
+
+[[registers.status-register-a-ps2.fields]]
+name = "INDX"
+lsb = 2
+width = 1
+description = "Index signal."
+
+[[registers.status-register-a-ps2.fields]]
+name = "/WP"
+lsb = 1
+width = 1
+description = "Write-protect signal, active low."
+
+[[registers.status-register-a-ps2.fields]]
+name = "DIR"
+lsb = 0
+width = 1
+description = "Direction signal."
+
+[registers.status-register-a-model-30]
+name = "Status Register A (PS/2 Model 30)"
+anchor = "status-register-a-model-30"
+bits = 8
+description = "PS/2 Model 30 status register A variant."
+
+[[registers.status-register-a-model-30.register]]
+address = "0x3F0"
+access = "Read-Only"
+
+[[registers.status-register-a-model-30.register]]
+address = "0x370"
+access = "Read-Only"
+
+[[registers.status-register-a-model-30.fields]]
+name = "INTP"
+lsb = 7
+width = 1
+description = "Interrupt pending."
+
+[[registers.status-register-a-model-30.fields]]
+name = "DRQ"
+lsb = 6
+width = 1
+description = "DMA request."
+
+[[registers.status-register-a-model-30.fields]]
+name = "STEP"
+lsb = 5
+width = 1
+description = "Step signal."
+
+[[registers.status-register-a-model-30.fields]]
+name = "TRK0"
+lsb = 4
+width = 1
+description = "Track 0 signal."
+
+[[registers.status-register-a-model-30.fields]]
+name = "HDSL"
+lsb = 3
+width = 1
+description = "Head-select signal."
+
+[[registers.status-register-a-model-30.fields]]
+name = "INDX"
+lsb = 2
+width = 1
+description = "Index signal."
+
+[[registers.status-register-a-model-30.fields]]
+name = "WP"
+lsb = 1
+width = 1
+description = "Write-protect signal."
+
+[[registers.status-register-a-model-30.fields]]
+name = "DIR"
+lsb = 0
+width = 1
+description = "Direction signal."
+
+[registers.status-register-b-ps2]
+name = "Status Register B (PS/2)"
+anchor = "status-register-b-ps2"
+bits = 8
+description = "PS/2-only status register B."
+
+[[registers.status-register-b-ps2.register]]
+address = "0x3F1"
+access = "Read-Only"
+
+[[registers.status-register-b-ps2.register]]
+address = "0x371"
+access = "Read-Only"
+
+[[registers.status-register-b-ps2.fields]]
+name = "1"
+lsb = 6
+width = 2
+description = "Reserved bits that read as 1."
+
+[[registers.status-register-b-ps2.fields]]
+name = "DS0"
+lsb = 5
+width = 1
+description = "Drive select 0 signal."
+
+[[registers.status-register-b-ps2.fields]]
+name = "WDAT"
+lsb = 4
+width = 1
+description = "Write-data signal."
+
+[[registers.status-register-b-ps2.fields]]
+name = "RDAT"
+lsb = 3
+width = 1
+description = "Read-data signal."
+
+[[registers.status-register-b-ps2.fields]]
+name = "WE"
+lsb = 2
+width = 1
+description = "Write-enable signal."
+
+[[registers.status-register-b-ps2.fields]]
+name = "MOT1"
+lsb = 1
+width = 1
+description = "Motor enable 1 signal."
+
+[[registers.status-register-b-ps2.fields]]
+name = "MOT0"
+lsb = 0
+width = 1
+description = "Motor enable 0 signal."
+
+[registers.status-register-b-model-30]
+name = "Status Register B (PS/2 Model 30)"
+anchor = "status-register-b-model-30"
+bits = 8
+description = "PS/2 Model 30 status register B variant."
+
+[[registers.status-register-b-model-30.register]]
+address = "0x3F1"
+access = "Read-Only"
+
+[[registers.status-register-b-model-30.register]]
+address = "0x371"
+access = "Read-Only"
+
+[[registers.status-register-b-model-30.fields]]
+name = "/DRV2"
+lsb = 7
+width = 1
+description = "Drive-count sense, active low."
+
+[[registers.status-register-b-model-30.fields]]
+name = "/DS1"
+lsb = 6
+width = 1
+description = "Drive select 1 signal, active low."
+
+[[registers.status-register-b-model-30.fields]]
+name = "/DS0"
+lsb = 5
+width = 1
+description = "Drive select 0 signal, active low."
+
+[[registers.status-register-b-model-30.fields]]
+name = "WDAT"
+lsb = 4
+width = 1
+description = "Write-data signal."
+
+[[registers.status-register-b-model-30.fields]]
+name = "RDAT"
+lsb = 3
+width = 1
+description = "Read-data signal."
+
+[[registers.status-register-b-model-30.fields]]
+name = "WE"
+lsb = 2
+width = 1
+description = "Write-enable signal."
+
+[[registers.status-register-b-model-30.fields]]
+name = "/DS3"
+lsb = 1
+width = 1
+description = "Drive select 3 signal, active low."
+
+[[registers.status-register-b-model-30.fields]]
+name = "/DS2"
+lsb = 0
+width = 1
+description = "Drive select 2 signal, active low."
+
+# --------------------------------------------------------------------------------------------------
+# ST0
+# --------------------------------------------------------------------------------------------------
+[registers.status-register-0]
+name = "Status Register 0 (ST0)"
+anchor = "status-register-0"
+bits = 8
+description = "First status register returned during the result phase."
+
+[[registers.status-register-0.register]]
+address = "ST0"
+access = "Result Byte"
+
+[[registers.status-register-0.fields]]
+name = "IC"
+lsb = 6
+width = 2
+description = "Interrupt code"
+markdown-after = """
+| IC1 | IC0 | Meaning |
+|-----|-----|---------|
+| 0   | 0   | **Normal termination** |
+| 0   | 1   | **Abnormal termination**<br>The controller encountered an error condition during the execution phase. |
+| 1   | 0   | **Invalid command** |
+| 1   | 1   | **Abnormal termination caused by polling**<br>A drive became not-ready during the execution phase. |
+"""
+
+[[registers.status-register-0.fields]]
+name = "SE"
+lsb = 5
+width = 1
+description = "**Seek end**<br>**0:** No seek performed.<br>**1:** The controller successfully executed a seek or recalibrate operation.<br>This includes commands with an **implicit seek**."
+
+[[registers.status-register-0.fields]]
+name = "UC"
+lsb = 4
+width = 1
+description = "**Unit check**<br>**0:** No fault detected.<br>**1:** The target drive has a fault (track 0 sensor may be inoperable)"
+
+[[registers.status-register-0.fields]]
+name = "NR"
+lsb = 3
+width = 1
+description = "Drive not ready"
+
+[[registers.status-register-0.fields]]
+name = "HD"
+lsb = 2
+width = 1
+description = "Currently active drive head"
+
+[[registers.status-register-0.fields]]
+name = "US"
+lsb = 0
+width = 2
+description = "Unit select"
+markdown-after = """
+| US1 | US0 | Drive   |
+|-----|-----|---------|
+| 0   | 0   | 0 (A)   |
+| 0   | 1   | 1 (B)   |
+| 1   | 0   | 2 (C/D) |
+| 1   | 1   | 3 (D/E) |
+"""
+
+# --------------------------------------------------------------------------------------------------
+# ST1
+# --------------------------------------------------------------------------------------------------
+[registers.status-register-1]
+name = "Status Register 1 (ST1)"
+anchor = "status-register-1"
+bits = 8
+description = "Second status register returned during the result phase."
+
+[[registers.status-register-1.register]]
+address = "ST1"
+access = "Result Byte"
+
+[[registers.status-register-1.fields]]
+name = "EN"
+lsb = 7
+width = 1
+description = "**End of Cylinder**<br>**1:** The controller attempted to access a sector beyond the last sector on a track."
+
+[[registers.status-register-1.fields]]
+name = "Unused"
+lsb = 6
+width = 1
+description = "Unused, always 0"
+
+[[registers.status-register-1.fields]]
+name = "DE"
+lsb = 5
+width = 1
+description = "**Data error**<br>**1:** The controller detected a bad CRC in either the sector address or data fields."
+
+[[registers.status-register-1.fields]]
+name = "OR"
+lsb = 4
+width = 1
+description = "**Overrun/Timeout**<br>**1:** The controller was not serviced within the required time window, and the operation has failed."
+
+[[registers.status-register-1.fields]]
+name = "Unused"
+lsb = 3
+width = 1
+description = "Unused, always 0"
+
+[[registers.status-register-1.fields]]
+name = "ND"
+lsb = 2
+width = 1
+description = "**No Data**<br>**1:** A required sector ID was not found during the execution phase."
+
+[[registers.status-register-1.fields]]
+name = "NW"
+lsb = 1
+width = 1
+description = "**Not writable**<br>**1:** A write operation was attempted, but the drive reported the media is write-protected."
+
+[[registers.status-register-1.fields]]
+name = "MA"
+lsb = 0
+width = 1
+description = "Missing ID address mark."
+
+# --------------------------------------------------------------------------------------------------
+# ST2
+# --------------------------------------------------------------------------------------------------
+[registers.status-register-2]
+name = "Status Register 2 (ST2)"
+anchor = "status-register-2"
+bits = 8
+description = "Third status register returned during the result phase."
+
+[[registers.status-register-2.register]]
+address = "ST2"
+access = "Result Byte"
+
+[[registers.status-register-2.fields]]
+name = "Unused"
+lsb = 7
+width = 1
+description = "Unused"
+
+[[registers.status-register-2.fields]]
+name = "CM"
+lsb = 6
+width = 1
+description = "**Control Mark**<br>**1:** During `READ DATA` or `SCAN`, a **deleted data address mark** (DDAM) was encountered, OR<br>During `READ DELETED DATA` a normal data address mark (DAM) was encountered."
+
+[[registers.status-register-2.fields]]
+name = "DD"
+lsb = 5
+width = 1
+description = "**Data Error In Data Field**<br>**1:** The FDC encountered a bad data field CRC."
+
+[[registers.status-register-2.fields]]
+name = "WC"
+lsb = 4
+width = 1
+description = "**Wrong cylinder**<br>**1:** A sector ID was encountered specifying a `C` that does not match the requested `C`."
+
+[[registers.status-register-2.fields]]
+name = "SH"
+lsb = 3
+width = 1
+description = "**Scan Equal Hit**<br>**1:** The **EQUAL** condition was satisfied during execution of `SCAN`."
+
+[[registers.status-register-2.fields]]
+name = "SN"
+lsb = 2
+width = 1
+description = "**Scan Not Satisfied**<br>**1:** During execution of `SCAN`, no sector satisfying the scan condition could be located."
+
+[[registers.status-register-2.fields]]
+name = "BC"
+lsb = 1
+width = 1
+description = "**Bad cylinder**<br>**1:** A sector ID with a `C` of `FF` was encountered and not explicitly requested."
+
+[[registers.status-register-2.fields]]
+name = "MD"
+lsb = 0
+width = 1
+description = "**Missing Data**<br>**1:** The FDC could not find a data address mark (DAM) or deleted data address mark (DDAM)."
+
+# --------------------------------------------------------------------------------------------------
+# ST3
+# --------------------------------------------------------------------------------------------------
+[registers.status-register-3]
+name = "Status Register 3 (ST3)"
+anchor = "status-register-3"
+bits = 8
+description = "Drive status byte returned by Sense Drive Status."
+
+[[registers.status-register-3.register]]
+address = "ST3"
+access = "Result Byte"
+
+[[registers.status-register-3.fields]]
+name = "FT"
+lsb = 7
+width = 1
+description = "**Fault Signal**<br>**1:** The floppy drive is in a fault condition."
+
+[[registers.status-register-3.fields]]
+name = "WP"
+lsb = 6
+width = 1
+description = "**Write-protect status**<br>**1:** The floppy drive reports the media is write-protected."
+
+[[registers.status-register-3.fields]]
+name = "RY"
+lsb = 5
+width = 1
+description = "**Drive ready**<br>The **ready** signal from the floppy drive."
+
+[[registers.status-register-3.fields]]
+name = "T0"
+lsb = 4
+width = 1
+description = "**Track 0**<br>The **track 0** from the floppy drive."
+
+[[registers.status-register-3.fields]]
+name = "TS"
+lsb = 3
+width = 1
+description = "**Two-sided signal**<br>The **two side** signal from the floppy drive."
+
+[[registers.status-register-3.fields]]
+name = "HD"
+lsb = 2
+width = 1
+description = "**Head address**<br> The **side select** signal from the floppy drive."
+
+[[registers.status-register-3.fields]]
+name = "US"
+lsb = 0
+width = 2
+description = "**Unit select**<br>The state of the 765's **unit select** pins."
+markdown-after = """
+| US1 | US0 | Drive   |
+|-----|-----|---------|
+| 0   | 0   | 0 (A)   |
+| 0   | 1   | 1 (B)   |
+| 1   | 0   | 2 (C/D) |
+| 1   | 1   | 3 (D/E) |
+"""
+
+# --------------------------------------------------------------------------------------------------
+# Command Code Byte 0
+# --------------------------------------------------------------------------------------------------
+[registers.command-code-0]
+name = "Command Code Byte 0"
+anchor = "command-code-0"
+bits = 8
+description = "Command code byte 0 layout for commands with multi-track, MFM/FM, and skip flags."
+
+[[registers.command-code-0.register]]
+address = "Command Byte 0"
+access = "Write via Data Register"
+
+[[registers.command-code-0.fields]]
+name = "MT"
+lsb = 7
+width = 1
+description = "**Multi-track operation**<br>**1:** Request multi-track operation<br>**0:** Normal operation"
+
+[[registers.command-code-0.fields]]
+name = "MF"
+lsb = 6
+width = 1
+description = "**MFM/FM mode select**<br>**1:** MFM mode selected.<br>**0:** FM mode selected."
+
+[[registers.command-code-0.fields]]
+name = "SK"
+lsb = 5
+width = 1
+description = "Skip deleted data address marks"
+
+[[registers.command-code-0.fields]]
+name = "Command"
+lsb = 0
+width = 5
+description = "Five-bit command number"
+
+# --------------------------------------------------------------------------------------------------
+# Command Code Byte 1
+# --------------------------------------------------------------------------------------------------
+[registers.command-byte-drive-head]
+name = "Command Code Byte 1: Drive / Head"
+anchor = "command-byte-drive-head"
+bits = 8
+description = "Common command code byte 1 format for selecting a drive and head."
+
+[[registers.command-byte-drive-head.register]]
+address = "Command Byte 1"
+access = "Write via Data Register"
+
+[[registers.command-byte-drive-head.fields]]
+name = "Reserved"
+lsb = 3
+width = 5
+description = "Reserved"
+
+[[registers.command-byte-drive-head.fields]]
+name = "HD"
+lsb = 2
+width = 1
+description = "Head select"
+
+[[registers.command-byte-drive-head.fields]]
+name = "DR"
+lsb = 0
+width = 2
+description = "Drive select"
+markdown-after = """
+| US1 | US0 | Drive   |
+|-----|-----|---------|
+| 0   | 0   | 0 (A)   |
+| 0   | 1   | 1 (B)   |
+| 1   | 0   | 2 (C/D) |
+| 1   | 1   | 3 (D/E) |
+"""
+
+# --------------------------------------------------------------------------------------------------
+# SPECIFY Command Code Byte 1
+# --------------------------------------------------------------------------------------------------
+[registers.command-byte-specify-timing-0]
+name = "Command Byte 1: Specify Timing 0"
+anchor = "command-byte-specify-timing-0"
+bits = 8
+description = "Specify/Fix Drive Data timing parameter byte 0."
+
+[[registers.command-byte-specify-timing-0.register]]
+address = "Command Byte 1"
+access = "Write via Data Register"
+
+[[registers.command-byte-specify-timing-0.fields]]
+name = "SRT"
+lsb = 4
+width = 4
+description = "**Step rate time**<br>Time between step pulses in milliseconds"
+
+[[registers.command-byte-specify-timing-0.fields]]
+name = "HUT"
+lsb = 0
+width = 4
+description = "**Head unload time**<br>Time between end of execution phase and head unload, in units of 16 milliseconds"
+
+# --------------------------------------------------------------------------------------------------
+# SPECIFY Command Code Byte 2
+# --------------------------------------------------------------------------------------------------
+[registers.command-byte-specify-timing-1]
+name = "Command Byte 2: Specify Timing 1"
+anchor = "command-byte-specify-timing-1"
+bits = 8
+description = "Specify/Fix Drive Data timing parameter byte 1."
+
+[[registers.command-byte-specify-timing-1.register]]
+address = "Command Byte 1"
+access = "Write via Data Register"
+
+[[registers.command-byte-specify-timing-1.fields]]
+name = "HLT"
+lsb = 1
+width = 7
+description = "**Head Load Time**<br>Time between head load and start of read/write operation, in units of 2 milliseconds"
+
+[[registers.command-byte-specify-timing-1.fields]]
+name = "ND"
+lsb = 0
+width = 1
+description = "**Non-DMA Mode**<br>**0:** DMA mode selected<br>**1:** Non-DMA (PIO) mode selected"
+
+
+
+
+[registers.command-byte-verify-drive-head]
+name = "Command Byte 1: Verify Drive / Head"
+anchor = "command-byte-verify-drive-head"
+bits = 8
+description = "Verify command byte 1 layout."
+
+[[registers.command-byte-verify-drive-head.register]]
+address = "Command Byte 1"
+access = "Write via Data Register"
+
+[[registers.command-byte-verify-drive-head.fields]]
+name = "EC"
+lsb = 7
+width = 1
+description = "End-of-cylinder compare flag."
+
+[[registers.command-byte-verify-drive-head.fields]]
+name = "Reserved"
+lsb = 3
+width = 4
+description = "Reserved or don't-care bits."
+
+[[registers.command-byte-verify-drive-head.fields]]
+name = "HD"
+lsb = 2
+width = 1
+description = "Head select."
+
+[[registers.command-byte-verify-drive-head.fields]]
+name = "DR"
+lsb = 0
+width = 2
+description = "Drive select."

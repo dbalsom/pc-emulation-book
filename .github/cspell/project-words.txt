@@ -9,6 +9,8 @@ peaceiris
 Kbit
 bitfield
 bitfields
+bitstream
+bitcell
 regs
 scancode
 scancodes
@@ -48,6 +50,7 @@ Datasheet
 underclock
 Hmos
 rgba
+kbps
 keydown
 Vsync
 INTA
@@ -64,6 +67,11 @@ photodiode
 scanout
 lowres
 LPSTB
+luma
+MMFM
+DDAM
+IDAM
+nums
 
 # brand names
 Amstrad
@@ -75,6 +83,7 @@ Seequa
 Vectrex
 XTIDE
 Macrocom
+TEAC
 
 # websites
 minuszerodegrees
@@ -88,6 +97,7 @@ osdev
 netcore
 sourceforge
 Nerdly
+Wayback
 
 # People
 Jurgens
@@ -99,6 +109,7 @@ Smitelli
 Gulotta
 Heirophant
 Pooler
+Abrash
 
 # Software
 HELPPC
@@ -136,6 +147,8 @@ retriggerable
 triggerable
 demoscene
 datasheet
+biaxially
+photosensor
 
 # British English variations
 colour
