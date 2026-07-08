@@ -55,6 +55,19 @@ def transform_links(text: str, render_markdown: bool = True) -> str:
     return re.sub(pattern, replace_match, text)
 
 
+def split_at_html_break(text: str) -> Tuple[str, str]:
+    """Split text at the first HTML line break, preserving the break in the remainder."""
+    match = re.search(r"<br\s*/?>", text, flags=re.IGNORECASE)
+    if not match:
+        return text.strip(), ""
+    return text[:match.start()].strip(), text[match.start():]
+
+
+def text_before_html_break(text: str) -> str:
+    """Return the text before the first HTML line break."""
+    return split_at_html_break(text)[0]
+
+
 class FieldDef(BaseModel):
     name: str = ""
     lsb: int
@@ -384,9 +397,12 @@ def generate_md_table(reg: RegisterDef) -> str:
                  plain_desc = transform_links(f.description, render_markdown=False)
 
              display_full = f"{f.name}: {plain_desc}" if f.name and plain_desc else (f.name or plain_desc)
-             desc = f"[{display_full}](#{anchor_name})"
+             visible_full = f"{f.name}: {desc}" if f.name and desc else (f.name or desc)
+             display_link = text_before_html_break(display_full)
+             _, display_remainder = split_at_html_break(visible_full)
+             desc = f"[{display_link}](#{anchor_name}){display_remainder}"
              
-             block = f"\n<a name=\"{anchor_name}\"></a>\n\n#### {display_full}\n\n{f.markdown_after.strip()}\n"
+             block = f"\n<a name=\"{anchor_name}\"></a>\n\n#### {display_link}\n\n{f.markdown_after.strip()}\n"
              appended_blocks.append(block)
 
         if f.name:
@@ -417,6 +433,10 @@ def generate_md_table(reg: RegisterDef) -> str:
     return res
 
 
+def _is_reserved_or_undefined_name(field: FieldDef) -> bool:
+    return field.name.strip().lower() in ("reserved", "unused", "undefined")
+
+
 def render_svg(reg: RegisterDef, render_table: bool) -> str:
     p = _layout_params(reg, num_addresses=len(reg.reg_maps))
     bit_w = p["bit_w"]
@@ -443,19 +463,19 @@ def render_svg(reg: RegisterDef, render_table: bool) -> str:
         # Create a copy to modify
         f_new = FieldDef(**f.model_dump())
         
+        name_lower = f.name.strip().lower()
         desc_lower = (f.description or "").strip().lower()
-        is_undefined_desc = desc_lower in ("reserved", "unused", "undefined")
+        is_reserved_field = name_lower in ("reserved", "res") or desc_lower == "reserved"
+        is_unused_field = name_lower == "unused" or desc_lower == "unused"
+        is_undefined_field = name_lower == "undefined" or desc_lower == "undefined"
 
-        if is_undefined_desc:
-            if f.name == "RESERVED" or f.name == "UNUSED":
-              if not f_new.css_class:
-                  f_new.css_class = reg.style.reserved_class
-            if f.name == "UNDEFINED":
-              if not f_new.css_class:
-                  f_new.css_class = reg.style.undefined_class
-            
+        if is_unused_field or is_undefined_field:
+            f_new.css_class = reg.style.undefined_class
             # Force hatch pattern
             f_new.color = f"url(#{hatch_id})"
+        elif is_reserved_field:
+            if not f_new.css_class:
+                f_new.css_class = reg.style.reserved_class
         else:
             # Normal field
             if not f_new.css_class and not f_new.color:
@@ -471,9 +491,8 @@ def render_svg(reg: RegisterDef, render_table: bool) -> str:
 
     # Filter fields for legend/table
     is_descending = (reg.style.table_order == "descending")
-    is_undefined_name = f.name.strip().lower() in ("reserved", "unused", "undefined")
     legend_fields = [f for f in sorted(reg.fields, key=lambda x: (x.lsb, x.name), reverse=is_descending) 
-                     if not is_undefined_name]
+                     if not _is_reserved_or_undefined_name(f)]
 
     if render_table:
         # Title + Header + Rows
