@@ -154,6 +154,8 @@ NDMA
 NOPR
 RDAT
 WDAT
+LPEN
+
 
 # Normal words cspell doesn't handle for whatever reason
 rebadged

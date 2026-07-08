@@ -25,7 +25,7 @@ The IBM Monochrome Display Adapter (MDA) was one of the first video adapters ava
 | Interrupts              | No display interrupt; printer interface uses `IRQ7` |
 | DMA                     | None                                             |
 
-The MDA was intended for use with the **IBM 5151 Personal Computer Display**. This monitor plugged into the back of the PC's power supply and turned on and off with the system. The MDA card itself was only capapble of displaying **text mode**, but the monitor itself could display graphics, which cards like the **Hercules Graphics Adapter** took advantage of to provide a tempting upgrade for 5151 owners.
+The MDA was intended for use with the **IBM 5151 Personal Computer Display**. This monitor plugged into the back of the PC's power supply and turned on and off with the system. The MDA card itself was only capable of displaying **text mode**, but the monitor itself could display graphics, which cards like the **Hercules Graphics Adapter** took advantage of to provide a tempting upgrade for 5151 owners.
 
 The MDA has 4KiB of DRAM dedicated to video memory — enough to hold a single 80x25 screen's worth of text. It also has an 8KiB font ROM that holds bit patterns for drawing text glyphs.
 
