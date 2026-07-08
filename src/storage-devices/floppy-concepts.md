@@ -232,12 +232,6 @@ All floppy disks for the PC are *soft-sectored*. You may see this description as
 
 Sectors may be placed anywhere on a PC-formatted floppy disk, thus we can say they are the opposite of hard-sectored: *soft-sectored*.
 
-## Disk vs Disc
-
-These two terms are essentially interchangeable, but the frequency of their usage varied in context. Some 40 years later, it still doesn't feel quite right to read "floppy disc." The most commonly agreed rule today seems to be that *disk* is used to refer to magnetic or flash-based storage devices and media, whereas *disc* is used to refer to optical media. Therefore, *floppy disk* and *compact disc*. 
-
-This rule follows from a predominantly US-based perspective; other countries may have had different terminology. 
-
 ## Floppy Disk Specifications
 
 <div class="table-wrapper">
