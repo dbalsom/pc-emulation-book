@@ -4,10 +4,10 @@
 
 In color text modes, the CGA card can emit a total of 16 different colors - a combination of the four video signals: red, green, blue, and intensity - a signal that boosts the brightness of the previous three color signals. Note that the intensity bit also boosts the apparent brightness of pure black, creating a dim gray.
 
-> **NOTE:**
-> The standard CGA brown color is not actually a color emitted by the CGA card; the conversion of 'dark yellow' to brown occurs via special circuitry within the IBM 5153 Color Display and most CGA-compatible monitors.
+> [!NOTE]
+> The standard CGA brown color is not the same color emitted by the CGA card; the conversion of "dark yellow" to brown occurs via special circuitry within the **IBM 5153 Color Display** and most CGA-compatible monitors.
 
-### Full RGBI Palette
+### The Standard PC 4-bit RGBI Gamut
 
 <table>
 <thead>
@@ -44,7 +44,7 @@ In color text modes, the CGA card can emit a total of 16 different colors - a co
 
 The aforementioned palette represents "ideal" colors - theoretically perfect color outputs. Modern displays have no problem rendering such colors, but original CGA monitors such as the IBM 5153 Color Display had their own eccentricities. 
 
-Taking into account the electrical characteristics of the 5153, a more [visually authentic CGA palette](https://int10h.org/blog/2022/06/ibm-5153-color-true-cga-palette/) can be derived:
+Taking into account the electrical characteristics of the 5153, a more visually authentic CGA palette can be derived[^1]:
 
 <table>
 <thead>
@@ -133,7 +133,6 @@ The intensity bit, specified in the CGA Color Control register, provides two var
 </table>
 </div>
 
-
 </div>
 
 ### Secondary Palette (Blue Enabled)
@@ -181,7 +180,6 @@ The intensity bit, specified in the CGA Color Control register, provides two var
 </tbody>
 </table>
 </div>
-
 
 </div>
 
@@ -239,7 +237,130 @@ This palette is created by miscellaneous logic that enables the blue video outpu
 </div>
 <!-- cSpell:enable -->
 
-### EGA 6-bit Palette (64 Colors)
+### CGA Composite Colors
+
+These are the 16 primary colors produced via **composite artifact color** in the CGA's high-resolution graphics mode with a foreground color of white.
+This was the typical mode used to display graphics on composite monitors and television sets. The hexadecimal values are approximate. The actual appearance of colors could vary from display to display or a user's specific set adjustments — part of what earned **NTSC** the playful moniker, *Never The Same Color Twice*.
+
+Many more composite colors are possible in color modes - over 1000, in fact.[^2]
+
+The bit order is from left-to-right, as the raster travels. Four pixels fit into a single period of the NTSC color clock, so a four-pixel span gives a basic "color pixel". Emulation of composite artifact color is a complex topic, but in general, one cannot simply use these values as 4-bit palette lookups, but must simulate more advanced processes like luma and chroma signal separation.
+
+<!-- cSpell:disable -->
+<table>
+<thead>
+<tr>
+<th>B0</th>
+<th>B1</th>
+<th>B2</th>
+<th>B3</th>
+<th>Color</th>
+<th>Hex</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td style="background-color: #000000; width: 50px;">&nbsp;</td><td>000000</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td style="background-color: #00680C; width: 50px;">&nbsp;</td><td>00680C</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td style="background-color: #212BBD; width: 50px;">&nbsp;</td><td>212BBD</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td style="background-color: #0D9ED5; width: 50px;">&nbsp;</td><td>0D9ED5</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td style="background-color: #85096C; width: 50px;">&nbsp;</td><td>85096C</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td style="background-color: #757376; width: 50px;">&nbsp;</td><td>757376</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td><td style="background-color: #AF36FF; width: 50px;">&nbsp;</td><td>AF36FF</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>1</td><td style="background-color: #9BA9FF; width: 50px;">&nbsp;</td><td>9BA9FF</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td style="background-color: #514700; width: 50px;">&nbsp;</td><td>514700</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>1</td><td style="background-color: #42BD00; width: 50px;">&nbsp;</td><td>42BD00</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td style="background-color: #707470; width: 50px;">&nbsp;</td><td>707470</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>1</td><td style="background-color: #5DF47A; width: 50px;">&nbsp;</td><td>5DF47A</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td style="background-color: #E5541D; width: 50px;">&nbsp;</td><td>E5541D</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td style="background-color: #D7CB19; width: 50px;">&nbsp;</td><td>D7CB19</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>0</td><td style="background-color: #FF81F2; width: 50px;">&nbsp;</td><td>FF81F2</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td style="background-color: #FDFFFC; width: 50px;">&nbsp;</td><td>FDFFFC</td></tr>
+</tbody>
+</table>
+<!-- cSpell:enable -->
+
+The composite colors can alternatively be sorted by hue:
+
+<!-- cSpell:disable -->
+<table>
+<thead>
+<tr>
+<th>B0</th>
+<th>B1</th>
+<th>B2</th>
+<th>B3</th>
+<th>Color</th>
+<th>Hex</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td style="background-color: #00680C; width: 50px;">&nbsp;</td><td>00680C</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>1</td><td style="background-color: #42BD00; width: 50px;">&nbsp;</td><td>42BD00</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>1</td><td style="background-color: #5DF47A; width: 50px;">&nbsp;</td><td>5DF47A</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td style="background-color: #212BBD; width: 50px;">&nbsp;</td><td>212BBD</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td style="background-color: #0D9ED5; width: 50px;">&nbsp;</td><td>0D9ED5</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>1</td><td style="background-color: #9BA9FF; width: 50px;">&nbsp;</td><td>9BA9FF</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td style="background-color: #85096C; width: 50px;">&nbsp;</td><td>85096C</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td><td style="background-color: #AF36FF; width: 50px;">&nbsp;</td><td>AF36FF</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>0</td><td style="background-color: #FF81F2; width: 50px;">&nbsp;</td><td>FF81F2</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td style="background-color: #514700; width: 50px;">&nbsp;</td><td>514700</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td style="background-color: #E5541D; width: 50px;">&nbsp;</td><td>E5541D</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td style="background-color: #D7CB19; width: 50px;">&nbsp;</td><td>D7CB19</td></tr>
+</tbody>
+</table>
+<!-- cSpell:enable -->
+
+Or by hue and luminosity:
+
+<style>
+.composite-hue-luma-table :is(th, td):nth-child(6n + 1),
+.composite-hue-luma-table :is(th, td):nth-child(6n + 2),
+.composite-hue-luma-table :is(th, td):nth-child(6n + 3),
+.composite-hue-luma-table :is(th, td):nth-child(6n + 4) {
+  min-width: 1ch;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  text-align: center;
+  width: 1ch;
+}
+</style>
+
+<!-- cSpell:disable -->
+<table class="composite-hue-luma-table">
+<thead>
+<tr>
+<th>B0</th>
+<th>B1</th>
+<th>B2</th>
+<th>B3</th>
+<th>Color</th>
+<th>Hex</th>
+<th>B0</th>
+<th>B1</th>
+<th>B2</th>
+<th>B3</th>
+<th>Color</th>
+<th>Hex</th>
+<th>B0</th>
+<th>B1</th>
+<th>B2</th>
+<th>B3</th>
+<th>Color</th>
+<th>Hex</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td style="background-color: #00680C; width: 50px;">&nbsp;</td><td>00680C</td><td>1</td><td>0</td><td>0</td><td>1</td><td style="background-color: #42BD00; width: 50px;">&nbsp;</td><td>42BD00</td><td>1</td><td>0</td><td>1</td><td>1</td><td style="background-color: #5DF47A; width: 50px;">&nbsp;</td><td>5DF47A</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td style="background-color: #212BBD; width: 50px;">&nbsp;</td><td>212BBD</td><td>0</td><td>0</td><td>1</td><td>1</td><td style="background-color: #0D9ED5; width: 50px;">&nbsp;</td><td>0D9ED5</td><td>0</td><td>1</td><td>1</td><td>1</td><td style="background-color: #9BA9FF; width: 50px;">&nbsp;</td><td>9BA9FF</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td style="background-color: #85096C; width: 50px;">&nbsp;</td><td>85096C</td><td>0</td><td>1</td><td>1</td><td>0</td><td style="background-color: #AF36FF; width: 50px;">&nbsp;</td><td>AF36FF</td><td>1</td><td>1</td><td>1</td><td>0</td><td style="background-color: #FF81F2; width: 50px;">&nbsp;</td><td>FF81F2</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td style="background-color: #514700; width: 50px;">&nbsp;</td><td>514700</td><td>1</td><td>1</td><td>0</td><td>0</td><td style="background-color: #E5541D; width: 50px;">&nbsp;</td><td>E5541D</td><td>1</td><td>1</td><td>0</td><td>1</td><td style="background-color: #D7CB19; width: 50px;">&nbsp;</td><td>D7CB19</td></tr>
+</tbody>
+</table>
+<!-- cSpell:enable -->
+
+
+
+### EGA 6-bit Color Gamut (64 Colors)
 
 The EGA can display any 16 of these 64 colors simultaneously when connected to an EGA monitor and operating in 350 line mode, although there are exceptions that enable use of 6bpp color in 200 line modes with the right hardware.
 
@@ -288,9 +409,21 @@ The EGA can display any 16 of these 64 colors simultaneously when connected to a
 </table>
 <!-- cSpell:enable -->
 
+## The VGA Color Gamut
+
+The VGA's color registers are 18-bit, assigning 6 bits each to the primary colors red, green and blue. This produces a total of 262,144 colors, visualized as a 512x512 bitmap below.
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../../images/bitmaps/ibm_vga_full_gamut.png"
+       alt="The 262,144 colors possible on an IBM VGA visualized as repeating bands of red, green and blue."
+       style="max-width: 100%; height: auto; cursor: pointer;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The VGA color gamut</em></p>
+</div>
+
 ## The Default VGA Palette
 
-The VGA has a total palette of 256 out of 262,144 colors, making a full table a bit impractical. The default VGA palette is shown below.
+Out of the 262,144 colors possible, the VGA can store 256 at a time in its color registers. The default VGA palette is shown below.
 
 The VGA still has the 16 Attribute Controller Palette registers, which are used in text mode and 4bpp modes, however they no longer store color information. Instead, they contain indexes into the 256 color registers of the DAC. This DAC lookup is always active. 
 
@@ -333,6 +466,7 @@ The first 16 colors of the default VGA palette correspond to the traditional 16 
 </table>
 <!-- cSpell:enable -->
 
-## Primary References
 
-- (int10h.org) [The IBM 5153's True CGA Palette and Color Output](https://int10h.org/blog/2022/06/ibm-5153-color-true-cga-palette/)
+[^1]: VileR, [The IBM 5153's True CGA Palette and Color Output](https://int10h.org/blog/2022/06/ibm-5153-color-true-cga-palette/), June 2022.
+
+[^2]: VileR, [CGA in 1024 Colors - a New Mode: the Illustrated Guide](https://int10h.org/blog/2015/04/cga-in-1024-colors-new-mode-illustrated/), April 2015.

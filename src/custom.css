@@ -18,3 +18,47 @@
     font-size: 0.8em;
     border: 1px solid #444;
 }
+
+.mfm-marker-table {
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+    margin: 1em auto;
+}
+
+.mfm-marker-table th,
+.mfm-marker-table td {
+    min-width: 1.35rem;
+    padding: 0.15rem 0.35rem;
+    text-align: center;
+}
+
+.mfm-marker-table th:first-child {
+    padding-right: 0.65rem;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.mfm-marker-table tbody th {
+    font-weight: 400;
+}
+
+.mfm-fixed-width td {
+    font-family: var(--mono-font, "Cascadia Mono", Consolas, "Liberation Mono", monospace);
+}
+
+.mfm-marker-table .missing-clock {
+    background: #ffe2e2;
+    color: #9f1239;
+    background: light-dark(#ffe2e2, #4a1d24);
+    color: light-dark(#9f1239, #fecdd3);
+    font-weight: 700;
+}
+
+.floppy-format-group {
+    border: 2px solid var(--table-border-color);
+}
+
+.floppy-spec-table thead th:first-child,
+.floppy-spec-table tbody th:first-child {
+    text-align: left;
+}
