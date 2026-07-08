@@ -2,6 +2,9 @@
 
 The IBM Color Graphics Adapter (CGA) was one of the first video adapters available for the IBM PC, along with the IBM Monochrome Display Adapter and the third-party Hercules video adapter. It is perhaps the classic video card that comes to mind when people think of the IBM PC.
 
+> [!IMPORTANT] 
+> Like the MDA, the CGA is built around the [Motorola MC6845 CRTC](6845.md). Read that chapter first for a basic understanding of how the CRTC is used to define frame geometry and draw the screen.
+
 ## At a Glance
 
 | Item                    | Description                                      |
@@ -10,8 +13,10 @@ The IBM Color Graphics Adapter (CGA) was one of the first video adapters availab
 | Expansion ROM           | None                                             |
 | Font ROM                | **8KiB** character generator ROM                  |
 | Main display outputs    | TTL RGBI on DE-9; NTSC composite video jack      |
-| Typical text modes      | **40x25** and **80x25**, 16 colors               |
+| Typical text modes      | **40x25** and **80x25**, 16 colors, 8x8 character cell|
 | Standard graphics modes | **320x200**, 4 colors; **640x200**, 2 colors     |
+| Standard resolution     | **640x200** @ 60Hz                               |
+| Field Resolution        | **912x262**                                      |
 | I/O address range       | `3D0h`-`3DFh`                                    |
 | CRTC address port       | `3D4h` standard, `3D0h`, `3D2h`, `3D6h` alternate*|
 | CRTC data port          | `3D5h` standard, `3D1h`, `3D3h`, `3D7h` alternate*|
@@ -25,17 +30,18 @@ The CGA could be connected to a regular North American television set via its co
 
 The CGA has 16KiB of DRAM dedicated to video memory, and an 8KiB font ROM that holds bit patterns for drawing text glyphs.
 
+The CGA's 16KiB of DRAM at segment `B800:0` is incompletely decoded, causing a mirror of video memory that begins at `BC00:0`. You can use this mirroring to your advantage in certain circumstances.
+
 The CGA has no on-board **video BIOS** or expansion ROM. All PC-compatible BIOS implementations must therefore know how to identify, initialize and operate a CGA card in order to provide standard [int 10h](https://en.wikipedia.org/wiki/INT_10H) services.
 
 In text mode, the CGA card was capable of outputting 16 colors. In graphics mode, it was limited to 3 palettes of 3 fixed colors each, with a selectable background color. The CGA also had a high-resolution mode, with a single, selectable foreground color on black.
 
-Like the MDA, the CGA is built around the [Motorola MC6845 CRTC](6845.md). See that chapter first for a basic understanding of how that chip is used to define display geometry.
-
-The CGA card has 16KiB of RAM at segment `B800:0`. This is decoded twice through the range `B800:0-C000:0`, causing a mirror of video memory that begins at `BC00:0`. You can use this mirroring to your advantage in certain circumstances.
+The CGA's standard display resolution is **640x200** at a refresh rate of approximately **60Hz**.
 
 The CGA maps the [MC6845's two external registers](6845.md#mc6845-registers) at address `03D4h` for the address register and `03D5h` for the data register. 
 
-**\*** Incomplete decoding of the CRTC registers means the two CRTC ports are repeated four times. At least one known game, [Prohibition](https://www.mobygames.com/game/18785/prohibition/), relies on this incomplete decoding.
+> [!NOTE]
+> **\*** Incomplete decoding of the CRTC registers means the two CRTC ports are repeated four times. At least one known game, [Prohibition](https://www.mobygames.com/game/18785/prohibition/), relies on this incomplete decoding.
 
 ## Operational Modes
 
@@ -65,7 +71,7 @@ In medium-resolution graphics mode, the screen is composed of a 320x200 grid of 
 
 This is perhaps the most famous mode of the CGA, especially its cyan-magenta-white palette as seen in games like [Alley Cat](https://www.mobygames.com/game/190/alley-cat/).
 
-In this mode, three basic 'palettes' are available, two of which are notorious for being ugly. These are not actually palettes as they are typically understood - more on that below. Index 0, the background color, is usually black, but can be chosen from any of the CGA's 16 possible colors. Careful use of this 'extra' palette entry can create interesting effects, that also extend into the borders or **overscan** of the image. Games could use this color to indicate status, such as flashing it red to indicate your player character had taken damage.
+In this mode, three basic 'palettes' are available, two of which are notorious for being ugly. These are not actually palettes as they are typically understood - more on that below. What might be thought of as index `0`, specifies the background color. The background color is usually black, but can actually be chosen from any of the CGA's 16 possible colors. Careful use of this "extra" palette entry can create interesting effects that also extend into the borders (or **overscan**) of the screen. Games could use this color to indicate status, such as flashing it red to indicate your player character had taken damage. The color would create a frame around the addressable display area that could have a surprisingly dramatic effect.
 
 The cursor is disabled in this mode.
 
@@ -91,9 +97,9 @@ The cursor is disabled in this mode.
 
 ## The RGBI Color Gamut
 
-The CGA has a digital DE-9 output connector. To produce color, the CGA controls four output pins, one for each of the primary colors: Red, Green, Blue, and an Intensity signal. Four bits give us \\(2^4\\) or **16** possible colors. The intensity pin provides a repeat of the first eight colors, but brighter. 
+The CGA has a digital DE-9 output connector. To produce color, the CGA controls four output pins — one for each of the primary colors: Red, Green, and Blue, along with an "intensity" signal. Four bits give us \\(2^4\\) or **16** possible colors. The intensity pin provides a repeat of the first eight colors, but brighter. 
 
-The odd duck out here is non-intensified yellow, which has been conspicuously replaced with brown. This was a deliberate decision by IBM, who perhaps found the rather sickly dim yellow unpleasant, or at least believed that a brown color would be more useful. Speculation abounds, but the interesting thing to note is that the conversion circuit to turn yellow into brown is not actually present on the CGA at all - the circuitry is within the **IBM 5153 Color Display** itself, and third party PC-compatible monitor manufacturers largely followed suit. You may see the original yellow color on RGBI monitors not intended to be CGA compatible, such as the [Commodore 1084](https://crtdatabase.com/crts/commodore/commodore-1084) series.
+The odd duck out here is non-intensified yellow, which has been conspicuously darkened to become brown. This was a deliberate decision by IBM, who perhaps found the rather sickly dim yellow unpleasant, or at least believed that a brown color would be more useful. Speculation abounds, but the interesting thing to note is that the conversion circuit to turn yellow into brown is not actually present on the CGA at all - the circuitry is within the **IBM 5153 Color Display** itself, and third party PC-compatible monitor manufacturers largely followed suit. You may see the original yellow color instead on some non-CGA compatible monitors.
 
 <!-- cSpell:disable -->
 <table>
@@ -910,6 +916,8 @@ Like medium-resolution graphics mode, an 8KiB offset is created between odd and 
 
 High-resolution graphics mode is enabled by setting the `GFX` and `HIRES_GFX` bits in the [mode control register](#mode-control-register).  Interestingly, the `HIRES_GFX` bit controls the rapid toggling of the CGA's color multiplexers, and it is possible to enable this mode at other times - such as in 80-column text mode, and watch as the CGA dutifully toggles the screen on and off as text mode is drawn, leading to a bizarre, striped appearance. 
 
+If the `B/W`
+
 ## Low-Resolution "Graphics" Mode
 
 Although not actually a graphics mode at all, some games on the PC effectively created a low-resolution graphics mode by setting up a tweaked text mode to display pixel art at an effective resolution of either **80x100** or **160x100**.
@@ -1020,6 +1028,34 @@ In 2022, a demo for the PC was released that pushed this technique to its absolu
 </table>
 
 For a rather comprehensive review of the various titles that have used a tweaked text-mode over the years, see [this excellent post on the blog Nerdly Pleasures](https://nerdlypleasures.blogspot.com/2014/09/cga-16-color-rgb-graphics-modes.html).
+
+## Light Pen
+
+The IBM CGA provided a header for attaching a light pen. This header supported a pen with *active-low* **strobe** and **switch signals**.
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/photos/CGA_Light_Pen_Header.jpg"
+       alt="The light pen header (with attached cable) on the IBM CGA card."
+       data-modal-rendering="pixelated"
+       style="max-height: 480px;"
+       onclick="openModal(this)">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The light pen header (with attached cable) on the IBM CGA card.</em></p>
+</div>
+
+The header pinout is: 
+
+| Pin | Signal        |
+| --- | ------------- |
+| 1   | `/LPEN_INPUT` |
+| 2   | NC            |
+| 3   | `/LPEN_SW`    |
+| 4   | GND           |
+| 5   | +5V           |
+| 6   | +12V          |
+
+Since the light pen functionality was provided via the MC6845, resolution was limited to character cells. In text mode, this is perfectly acceptable - however it made the light pen less useful in graphics modes. In medium-resolution graphics mode, the horizontal resolution of the pen is limited to **80x200**. In high-resolution graphics mode, effective resolution drops to **40x200**.
+
+Light pen interface cards were offered by most light pen manufacturers to avoid these limitations. The light pen header on the CGA was rarely used, and very few software titles exist on the PC that natively support the light pen.
 
 ## Display Timings
 
@@ -1300,7 +1336,7 @@ For each video mode, the MC6845 CRTC needs to be configured with the correct par
 
 ## Video Memory
 
-The 16KiB of DRAM on the CGA is not expandable. It is also **single-ported**, meaning that only either the CPU or the CGA can access the video memory at any given time. This is a bit of a problem as the CGA needs to be reading video memory constantly as it rasterizes the screen. We will cover those issues in the next section, [Memory Contention](#memory-contention)
+The 16KiB of DRAM on the CGA is not expandable. It is also **single-ported**, meaning that only either the CPU or the CGA can access the video memory at any given time. This is a bit of a problem as the CGA needs to be reading video memory constantly as it rasterizes the screen. We will cover those issues in the next section, [Memory Contention](#memory-contention).
 
 The 16KiB of video memory is composed of 8 separate 16Kbit DRAM chips, each of which provides a single bit. These bits are organized logically as a 128x128 grid - to address a single bit, a 7-bit **column address** must be provided followed by a 7-bit **row address**.  The CGA produces these **RAS** and **CAS** addresses from the `MA` pins of the 6845 with some additional manipulation, such as substituting `RA0` for `A13` in graphics modes.
 
@@ -1310,9 +1346,15 @@ The CGA has some circuitry for attempting to arbitrate access to memory between 
 
 ### CGA Snow
 
-In high-resolution text mode, attempts to access video memory by the CPU while the CGA is rasterizing the active display area will cause a phenomenon called **snow** - random glitches will briefly appear on the screen, whenever the CGA happens to read data placed on its internal data bus by the CPU while it was attempting to read character glyphs or attribute bytes. 
+In 80-column text mode, attempts to access video memory by the CPU while the CGA is rasterizing the active display area will cause a phenomenon called **snow** - random glitches will briefly appear on the screen, whenever the CGA happens to read data placed on its internal data bus by the CPU while it was attempting to read character glyphs or attribute bytes. 
+
+Due to the CGA's wait state circuitry, even columns are protected from experiencing snow, which only appears on odd columns.
 
 IBM worked around this in BIOS routines that scrolled the screen - such as when you execute the `DIR` command in DOS - by rapidly disabling and re-enabling the display, causing noticeable flicker. Some people find this flicker more annoying than the snow itself!
+
+## Datasheet
+
+ - (archive.org) [IBM Color Graphics Monitor Adapter](https://archive.org/details/ibm_pc_datasheets/Expansion%20Cards/IBM%20Color%20Graphics%20Monitor%20Adapter/)
 
 ## Primary References
 
@@ -1327,7 +1369,8 @@ IBM worked around this in BIOS routines that scrolled the screen - such as when 
 
  - (reenigne.org) [CRTC emulation for MESS](https://www.reenigne.org/blog/crtc-emulation-for-mess/)
  - (martypc.blogspot.com) [Exploring CGA Wait States](https://martypc.blogspot.com/2023/05/exploring-cga-wait-states.html)
-
+ - (github.com) [CGA Accuracy Improvements](https://github.com/joncampbell123/dosbox-x/issues/256)
+ 
 ### Reference Implementations
 
  - (github.com) [A digital logic simulation of the IBM CGA card](https://github.com/dbalsom/cga_sim)
