@@ -232,7 +232,7 @@ All floppy disks for the PC are *soft-sectored*. You may see this description as
 
 Sectors may be placed anywhere on a PC-formatted floppy disk, thus we can say they are the opposite of hard-sectored: *soft-sectored*.
 
-## Floppy Disk Specifications
+## Standard PC Floppy Disk Specifications
 
 <div class="table-wrapper">
 <table class="floppy-spec-table">
