@@ -53,7 +53,7 @@ description = "Unused"
 [registers.status-register]
 name = "Status Register"
 bits = 8
-description = "Reports horizontal retrace and current video output status"
+description = "Reports horizontal retrace, light-pen status, and current video output status"
 
 [[registers.status-register.register]]
 address = "3BA"
@@ -66,18 +66,16 @@ width = 1
 description = "**Horizontal retrace status**<br>**0**: Horizontal retrace is inactive<br>**1**: Horizontal retrace is active"
 
 [[registers.status-register.fields]]
-name = "0"
+name = "LPT"
 lsb = 1
 width = 1
-color = "EEEEEE"
-description = "Always `0`."
+description = "**Light-pen trigger state (early revision only)**<br>**0**: Light pen trigger has *not* fired<br>**1**: Light pen trigger has fired."
 
 [[registers.status-register.fields]]
-name = "0"
+name = "LPS"
 lsb = 2
 width = 1
-color = "EEEEEE"
-description = "Always `0`."
+description = "**Light-pen switch status (early revision only)**<br>**0**: Light pen switch **on**<br>**1**: Light pen switch **off**."
 
 [[registers.status-register.fields]]
 name = "LVIDEO"
@@ -86,29 +84,7 @@ width = 1
 description = "**Video output status latch**<br>**0**: No active pixel is being output (black)<br>**1**: An active pixel is being output (normal or bright pixel)"
 
 [[registers.status-register.fields]]
-name = "1"
+name = "Unused"
 lsb = 4
-width = 1
-color = "EEEEEE"
-description = "Always `1`."
-
-[[registers.status-register.fields]]
-name = "1"
-lsb = 5
-width = 1
-color = "EEEEEE"
-description = "Always `1`."
-
-[[registers.status-register.fields]]
-name = "1"
-lsb = 6
-width = 1
-color = "EEEEEE"
-description = "Always `1`."
-
-[[registers.status-register.fields]]
-name = "1"
-lsb = 7
-width = 1
-color = "EEEEEE"
-description = "Always `1`."
+width = 4
+description = "Unused: Always `Fh`."
