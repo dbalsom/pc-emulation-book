@@ -29,7 +29,7 @@ The MDA was intended for use with the **IBM 5151 Personal Computer Display**. Th
 
 The MDA has 4KiB of DRAM dedicated to video memory — enough to hold a single 80x25 screen's worth of text. It also has an 8KiB font ROM that holds bit patterns for drawing text glyphs.
 
-The MDA's 4KiB of DRAM at segment `B000:0` is incompletely decoded, causing eight mirrors of video memory from `B000:0` through `B700:0`. This ends at the CGA's memory address of `B800`. Along with the different base IO address, this allowed one to install both an MDA card and a CGA card in the same system for an early dual-monitor setup.
+The MDA's 4KiB of DRAM at segment `B000:0` is incompletely decoded, causing eight mirrors of video memory from `B000:0` through `B700:FFFF`. This ends at the CGA's memory address of `B8000`. Along with the different base IO address, this allowed one to install both an MDA card and a CGA card in the same system for an early dual-monitor setup.
 
 The MDA has no on-board **video BIOS** or expansion ROM. All PC-compatible BIOS implementations must therefore know how to identify, initialize and operate an MDA card in order to provide standard [int 10h](https://en.wikipedia.org/wiki/INT_10H) services.
 
@@ -45,63 +45,6 @@ The IBM MDA card included a [parallel printer port](../io-devices/parallel.md). 
 ### MDA Character Glyphs (Standard Font)
 
 The standard MDA character glyphs are shown below.
-
-<style>
-.mda-ascii-table-wrap {
-  overflow-x: auto;
-  margin: 1em 0;
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-.mda-ascii-table {
-  border-collapse: separate;
-  border-spacing: 2px;
-  font-family: monospace;
-  font-size: 13px;
-  margin: 0 auto;
-}
-.mda-ascii-table th, .mda-ascii-table td {
-  border: 1px solid var(--table-border-color, #ddd);
-  padding: 2px;
-  text-align: center;
-}
-.mda-ascii-table th {
-  background-color: var(--table-header-bg, #f5f5f5);
-  font-weight: 600;
-  line-height: 1;
-  min-width: 20px;
-}
-.mda-ascii-table .corner {
-  background-color: transparent;
-  border-color: transparent;
-}
-.mda-ascii-table .glyph-cell {
-  height: 32px;
-  line-height: 0;
-  width: 20px;
-}
-.mda-ascii-table .glyph {
-  width: 16px;
-  height: 28px;
-  overflow: hidden;
-  display: inline-block;
-  position: relative;
-  background-image: url('../images/bitmaps/mda_font_linear_2x.png');
-  background-repeat: no-repeat;
-  background-size: 4096px 32px;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  transition: transform .2s, box-shadow .2s;
-  transform-origin: center;
-  z-index: 1;
-}
-.mda-ascii-table .glyph:hover,
-.mda-ascii-table .glyph:focus {
-  transform: scale(3.0);
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.22);
-  z-index: 2;
-}
-</style>
 
 <!-- cSpell:disable -->
 <div class="mda-ascii-table-wrap">
@@ -946,7 +889,7 @@ The standard MDA character glyphs are shown below.
 <!-- cSpell:enable -->
 
 
-A visualization of the character font ROM is shown below, with bytes reversed and wrapping vertically to fit into a square image. The first half of the ROM is dedicated to the MDA's 8x14 font, which is encoded into 8x16 cells for alignment, with each glyph of which is split into two parts.
+A visualization of the character font ROM is shown below, with bytes reversed and wrapping vertically to fit into a square image. The first half of the ROM is dedicated to the MDA's 8x14 font, which is encoded into 8x16 cells for alignment. Each cell is split into two 8x8 parts within the ROM due to addressing logic.
 
 The same character ROM image is used for both MDA and CGA, so the CGA fonts follow the MDA font in the latter half of the ROM.
 
@@ -961,6 +904,19 @@ The same character ROM image is used for both MDA and CGA, so the CGA fonts foll
 
 The character font ROM is not accessible from the host PC. It can only be read by the MDA itself.
 
+## Box Drawing Characters
+
+Character codes `C0h—DFh` receive special treatment. When one of these characters is being rasterized, the eighth column is repeated to form the ninth column on the display. This allows the box drawing characters to connect seamlessly together across a 9-pixel character cell. 
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/diagrams/mda_box_drawing_01.svg"
+       alt="A diagram showing how the MDA duplicates the 8th column of the character glyph for box drawing characters"
+       style="max-width: 100%; max-height: 640px; height: auto;">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>MDA box drawing character rendering</em></p>
+</div>
+
+Note that `B0h—B2h` do not receive this treatment, so areas shaded with these characters will still have one pixel gaps between each character glyph.
+
 ## The MDA Registers
 
 {{#bitfield h3 mda_registers.toml#mode-control-register}}
@@ -970,7 +926,20 @@ The character font ROM is not accessible from the host PC. It can only be read b
 
 Bit `0` of the mode control register selects the MDA's **dot clock**. When set to `1`, the onboard 16.257MHz crystal is used. If set to `0`, the clock is taken from an unpopulated pad. If the MDA's video memory is accessed while this bit is `0`, the MDA card will fail to drive the `IO_CH_READY` pin on the ISA bus high, and the CPU will hang. It is unclear what IBM's original intent for implementing this was, but perhaps they were simply keeping their options open for a future variant that supported additional resolutions and would have subsequently required a second clock source.
 
+{{#bitfield h3 mda_registers.toml#status-register}}
 
+The MDA's status register is very different from the CGA. The first bit reflects the HS pin from the 6845, delayed by one character clock. This differs from the CGA, which reports the inverted DE pin from the 6845. 
+
+The MDA also lacks the vertical sync status bit. Instead, it has a type of *video mux* bit, **LVIDEO**. Querying bit 3 can test if an active pixel of any "color" other than black is being output. The IBM BIOS primarily uses this as a test during POST to ensure that the card is functioning. 
+
+> [!TIP]
+> When writing MDA emulation, implementing the **LVIDEO** bit may seem daunting. It is generally sufficient to set the latch if any pixel was output in the previous character clock (or even scanline) instead of requiring pixel-perfect accuracy. The IBM BIOS draws a row of solid block characters and tests that the bit is set immediately at the start of the frame. It is unknown if any software besides the BIOS POST relies on this bit for proper functionality.
+
+## Light Pen
+
+The very earliest models of the MDA card include a header to attach a light pen, similar to the CGA. This was removed on all subsequent versions of the card — the entire footprint was removed, not just left unpopulated. IBM does not define bits in the MDA status register that provide light pen information. 
+
+The P39 phosphors used in most monochrome displays were incompatible with early light pens for the PC, which may have influenced IBM's decision to remove light pen support from the MDA.
 
 ## Display Timings
 
@@ -1006,20 +975,6 @@ For the MDA's standard text mode, the MC6845 CRTC needs to be configured with th
 .crtc-params-table td {
   padding: 2px 6px;
 }
-.crtc-params-table .mode-group {
-  border-left: 1px solid currentColor;
-  border-right: 1px solid currentColor;
-  border-top: 1px solid currentColor;
-}
-.crtc-params-table .mode-col {
-  border-bottom: 1px solid currentColor;
-}
-.crtc-params-table .mode-first {
-  border-left: 1px solid currentColor;
-}
-.crtc-params-table .mode-last {
-  border-right: 1px solid currentColor;
-}
 </style>
 
 <table class="crtc-params-table">
@@ -1027,10 +982,10 @@ For the MDA's standard text mode, the MC6845 CRTC needs to be configured with th
     <tr>
       <th rowspan="2">Register</th>
       <th rowspan="2">Name</th>
-      <th class="mode-group" colspan="1">Text Mode</th>
+      <th class="header-group" colspan="1">Text Mode</th>
     </tr>
     <tr>
-      <th class="mode-col mode-first mode-last">80 Column</th>
+      <th class="header-group-member header-group-first header-group-last">80 Column</th>
     </tr>
   </thead>
   <tbody>

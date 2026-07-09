@@ -53,12 +53,62 @@ description = "Unused"
 [registers.status-register]
 name = "Status Register"
 bits = 8
-description = "Reports display timing and light-pen status"
-register = [{ address = "3DA", access = "Read-Only" }]
-fields = [
-    { name = "/DE", lsb = 0, width = 1, description = "**Inverted display-enable signal from CRTC.**<br>**0**: CRTC is scanning **inside** the active display area.<br>**1**: CRTC is scanning **outside of** the active display area." },
-    { name = "LPT", lsb = 1, width = 1, description = "**Light-pen trigger state**<br>**0**: Light pen trigger has *not* fired<br>**1**: Light pen trigger has fired." },
-    { name = "LPS", lsb = 2, width = 1, description = "**Light-pen switch status**<br>**0**: Light pen switch **on**<br>**1**: Light pen switch **off**." },
-    { name = "VR", lsb = 3, width = 1, description = "**Vertical retrace status**<br>**0**: VS pin of CRTC is **low**<br>**1**: VS pin of CRTC is **high** (in vertical blank)" },
-    { name = "Unused", lsb = 4, width = 4, description = "Unused" },
-]
+description = "Reports horizontal retrace and current video output status"
+
+[[registers.status-register.register]]
+address = "3BA"
+access = "Read-Only"
+
+[[registers.status-register.fields]]
+name = "RETRACE"
+lsb = 0
+width = 1
+description = "**Horizontal retrace status**<br>**0**: Horizontal retrace is inactive<br>**1**: Horizontal retrace is active"
+
+[[registers.status-register.fields]]
+name = "0"
+lsb = 1
+width = 1
+color = "EEEEEE"
+description = "Always `0`."
+
+[[registers.status-register.fields]]
+name = "0"
+lsb = 2
+width = 1
+color = "EEEEEE"
+description = "Always `0`."
+
+[[registers.status-register.fields]]
+name = "LVIDEO"
+lsb = 3
+width = 1
+description = "**Video output status latch**<br>**0**: No active pixel is being output (black)<br>**1**: An active pixel is being output (normal or bright pixel)"
+
+[[registers.status-register.fields]]
+name = "1"
+lsb = 4
+width = 1
+color = "EEEEEE"
+description = "Always `1`."
+
+[[registers.status-register.fields]]
+name = "1"
+lsb = 5
+width = 1
+color = "EEEEEE"
+description = "Always `1`."
+
+[[registers.status-register.fields]]
+name = "1"
+lsb = 6
+width = 1
+color = "EEEEEE"
+description = "Always `1`."
+
+[[registers.status-register.fields]]
+name = "1"
+lsb = 7
+width = 1
+color = "EEEEEE"
+description = "Always `1`."
