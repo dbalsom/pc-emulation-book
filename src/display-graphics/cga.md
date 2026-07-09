@@ -1208,20 +1208,6 @@ For each video mode, the MC6845 CRTC needs to be configured with the correct par
 .crtc-params-table td {
   padding: 2px 6px;
 }
-.crtc-params-table .mode-group {
-  border-left: 1px solid currentColor;
-  border-right: 1px solid currentColor;
-  border-top: 1px solid currentColor;
-}
-.crtc-params-table .mode-col {
-  border-bottom: 1px solid currentColor;
-}
-.crtc-params-table .mode-first {
-  border-left: 1px solid currentColor;
-}
-.crtc-params-table .mode-last {
-  border-right: 1px solid currentColor;
-}
 </style>
 
 <table class="crtc-params-table">
@@ -1229,15 +1215,15 @@ For each video mode, the MC6845 CRTC needs to be configured with the correct par
     <tr>
       <th rowspan="2">Register</th>
       <th rowspan="2">Name</th>
-      <th class="mode-group" colspan="3">Text Mode</th>
-      <th class="mode-group" colspan="2">Graphics Mode</th>
+      <th class="header-group" colspan="3">Text Mode</th>
+      <th class="header-group" colspan="2">Graphics Mode</th>
     </tr>
     <tr>
-      <th class="mode-col mode-first">40 Column</th>
-      <th class="mode-col">80 Column</th>
-      <th class="mode-col mode-last">"160x100"</th>
-      <th class="mode-col mode-first">320x200</th>
-      <th class="mode-col mode-last">640x200</th>
+      <th class="header-group-member header-group-first">40 Column</th>
+      <th class="header-group-member">80 Column</th>
+      <th class="header-group-member header-group-last">"160x100"</th>
+      <th class="header-group-member header-group-first">320x200</th>
+      <th class="header-group-member header-group-last">640x200</th>
     </tr>
   </thead>
   <tbody>

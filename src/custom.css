@@ -19,6 +19,69 @@
     border: 1px solid #444;
 }
 
+.mda-ascii-table-wrap {
+    overflow-x: auto;
+    margin: 1em 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.mda-ascii-table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    font-family: monospace;
+    font-size: 13px;
+    margin: 0 auto;
+}
+
+.mda-ascii-table th,
+.mda-ascii-table td {
+    border: 1px solid var(--table-border-color, #ddd);
+    padding: 2px;
+    text-align: center;
+}
+
+.mda-ascii-table th {
+    background-color: var(--table-header-bg, #f5f5f5);
+    font-weight: 600;
+    line-height: 1;
+    min-width: 20px;
+}
+
+.mda-ascii-table .corner {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.mda-ascii-table .glyph-cell {
+    height: 32px;
+    line-height: 0;
+    width: 20px;
+}
+
+.mda-ascii-table .glyph {
+    width: 16px;
+    height: 28px;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    background-image: url("../images/bitmaps/mda_font_linear_2x.png");
+    background-repeat: no-repeat;
+    background-size: 4096px 32px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    transition: transform .2s, box-shadow .2s;
+    transform-origin: center;
+    z-index: 1;
+}
+
+.mda-ascii-table .glyph:hover,
+.mda-ascii-table .glyph:focus {
+    transform: scale(3.0);
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.22);
+    z-index: 2;
+}
+
 .mfm-marker-table {
     border-collapse: collapse;
     font-variant-numeric: tabular-nums;
@@ -54,8 +117,24 @@
     font-weight: 700;
 }
 
-.floppy-format-group {
+.header-group {
     border: 2px solid var(--table-border-color);
+}
+
+.crtc-params-table .header-group {
+    border-bottom: 0;
+}
+
+.header-group-member {
+    border-bottom: 2px solid var(--table-border-color);
+}
+
+.header-group-first {
+    border-left: 2px solid var(--table-border-color);
+}
+
+.header-group-last {
+    border-right: 2px solid var(--table-border-color);
 }
 
 .floppy-spec-table thead th:first-child,

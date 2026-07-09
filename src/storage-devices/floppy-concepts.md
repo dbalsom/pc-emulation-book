@@ -21,7 +21,7 @@ Floppy disks have existed in numerous forms over the entire history of computing
 
 ## Basic Floppy Operation
 
-A floppy disk is a ferromagnetic medium upon which data can be stored by magnetizing the medium in specific patterns. Data is read and written to the disk via *magnetic heads* located within a *floppy disk drive*. A floppy disk drive stores data on a floppy disk in a series of concentric rings called *tracks*. The magnetic heads travel on a linear carriage controlled by a *stepper motor* which positions the heads above a specific track to be read or written. 
+A floppy disk is a ferromagnetic medium upon which data can be stored by magnetizing the medium in specific patterns. Data is read from and written to the disk via *magnetic heads* located within a *floppy disk drive*. A floppy disk drive stores data on a floppy disk in a series of concentric rings called *tracks*. The magnetic heads travel on a linear carriage controlled by a *stepper motor* which positions the heads above a specific track to be read or written. 
 
 ## The 5.25" Diskette
 
@@ -39,9 +39,12 @@ A pill-shaped cutout called the *data window* exposes the usable region of the c
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>A 5.25" Floppy Disk (Click to zoom)</em></p>
 </div>
 
-Near the central spindle, a circular cutout in the jacket allows a photosensor to detect light through a small hole in the Mylar disc called the *index hole*. The *index hole* is used to synchronize reading and writing to the floppy. When this photosensor — called the *index sensor* — detects light through the index hole, the drive generates an *index pulse*. The floppy controller uses the index pulse to know where to start reading or writing. Not all floppy disk systems utilized the index sensor, but the PC did.
+Near the central spindle, a circular cutout in the jacket allows a photosensor to detect light through a small hole in the Mylar disc called the *index hole*. When this photosensor — called the *index sensor* — detects light through the index hole, the drive generates an *index pulse*. The floppy controller uses the index pulse to know where to start initializing or *formatting* a track of data. Once a track has been fully written, the index sensor only serves as a useful operational timeout — any disk operation typically must complete within two revolutions of the disk or two index pulses. Not all computer systems utilized an index sensor, with the Apple II the most famous of systems that did not.
 
 The *write-protect notch* is a rectangular cutout on the right side of the floppy disk that permits data to be written to the floppy disk. A small sticker could be folded over the side of the floppy disk to cover this notch, which would then prevent the host computer from writing data to the disk. 
+
+> [!NOTE]
+> The effect of a write-protect sticker is reversed on 5.25" disks from the logic used by earlier 8" disks — on an 8" disk, you apply a sticker to make the disk writable! This change may have been driven by the increasing importance of commercial software distribution on floppy, allowing manufacturers to produce "notchless" disks that couldn't be easily overwritten.
 
 The inside of the jacket contains a dust-collecting liner which served the essential function of keeping the inner cookie clean. This part of the floppy may be considered consumable; over time only so much dust can be captured and larger, grittier particles trapped in the liner may even cause damage. Therefore, storing floppy disks in closed, dust-free containers was well-advised.
 
@@ -84,7 +87,7 @@ The top head is usually on some sort of actuator, where it can be lowered onto t
 
 One way high-density 5.25" disk drives increased capacity was by doubling the number of tracks written to high-density 5.25" diskettes. To do so, the size of the magnetic head itself was made thinner. This can create issues when writing data to double-density diskettes that are then read in a double-density drive with a wider head.
 
-Many high-density 5.25" drives increase the rotational rate of the cookie to 360RPM. This can cause inaccurate flux timing readings when flux-imaging double-density diskettes. This can be compensated for, but is not ideal. It is best to image double-density floppy disks in a double-density drive, or a high-density drive with a selectable 300RPM mode.
+Many high-density 5.25" drives increase the rotational rate of the cookie to 360RPM, although this can often be controlled by a jumper on the drive. Leaving this setting at 360RPM can cause inaccurate flux timing readings when making flux-level images of double-density diskettes. This can be corrected after the fact, but is not ideal as it can interfere with proper imaging of some copy protection techniques. It is best to image double-density floppy disks in a double-density drive, or at least a high-density drive with the 300RPM mode selected.
 
 ## The 3.5" Diskette
 
@@ -103,7 +106,9 @@ Later high-density variations of the 3.5" floppy could be identified by a second
 3.5" diskettes are sometimes referred to as *microfloppies*.
 
 > [!NOTE]
-> In more recent years, a contentious debate can occasionally arise over whether the hard-shelled 3.5" disks were referred to as "floppy disks" — primarily due to their distinct lack of being floppy. The term "floppy disk" applied almost universally to 3.5" disks as well, and the evidence is overwhelming: from retail packaging to advertisements to magazine articles and contemporary books, we can easily see that 3.5" disks were widely and commonly referred to as floppies.
+> In more recent years, a contentious debate can occasionally arise over whether the hard-shelled 3.5" disks were referred to as "floppy disks" — primarily due to their distinct lack of being floppy. The term "floppy disk" generally applied to 3.5" disks as well in English-speaking countries with the exception of South Africa, where 3.5" disks were routinely called "stiffy disks"[^1]. 
+>
+> In other countries, other terminology may have been common, but most computer users would have been familiar with the term "floppy disk" in reference to 3.5" diskettes due to the predominance of US and UK-based media.
 
 ### 3.5" Floppy Capacities
 
@@ -167,7 +172,7 @@ The purpose of both encoding schemes is to add *clock bits* that provide timing 
 
 A requirement for successful clock recovery from the encoded bit stream is ensuring that `1` bits are regularly encoded. This in turn ensures that regular flux transitions are written to the disk. The absence of a flux transition over too long a period risks creating an unstable condition where data cannot be reliably read. As a general rule, no more than three consecutive `0` bits are allowed in the encoded bitstream written to a floppy disk track.
 
-The next chapter, [Data Encoding](./floppy-data-encoding.md), covers this subject in more detail.
+The next chapter, [Floppy Data Encoding](./floppy-data-encoding.md), covers this subject in more detail.
 
 ## Density
 
@@ -184,7 +189,7 @@ If viewed from the top, a floppy disk drive rotates the cookie in a *clockwise* 
 Most floppy drives on the PC rotate the cookie at 300RPM except for 5.25" high-density disk drives, which often rotate the cookie at 360RPM. 
 
 > [!NOTE] 
-> Some 3.5" drives, mostly used on non-IBM-PC compatible systems, could rotate at 360RPM, or even at dynamic speeds depending on which track was being read. These will not be discussed further in this book.
+> Some 3.5" drives — mostly used on non-IBM-PC compatible systems — could rotate at 360RPM, or even at variable RPM depending on which track was being read. These will not be discussed further in this book.
 
 ## Floppy Disk Organization and Addressing
 
@@ -195,9 +200,11 @@ A floppy disk stores concentric rings of data called *tracks*. Tracks are identi
 
 A floppy drive selects a specific cylinder to operate on by physically moving the magnetic heads until they are over the cylinder. Since the carriage the magnetic heads are on is actuated by a stepper motor, the process of moving from one cylinder to the next is called *stepping*. 
 
+Most PC floppy drives contain a special sensor that can indicate when the magnetic head is positioned at the outermost cylinder. This is called the *track 0 sensor*. If the position of the magnetic head ever becomes indeterminate, the drive can be *recalibrated* by seeking to track 0. 
+
 Each track contains one or more *sectors*. Each sector is identified by a *sector ID* consisting of the cylinder number, head number, *sector number*, and a *sector size specifier*. Sector numbers typically begin with `1` on each track by convention, but nothing actually guarantees this.
 
-The combination of cylinder, head, and sector number can uniquely identify a sector on a normal floppy disk. This is sometimes referred to as [*CHS addressing*](https://en.wikipedia.org/wiki/Cylinder-head-sector), which you may also see referenced in the context of early hard drives.
+The combination of cylinder, head, and sector number can uniquely identify a sector on a normally formatted floppy disk. This is sometimes referred to as [*CHS addressing*](https://en.wikipedia.org/wiki/Cylinder-head-sector), which you may also see referenced in the context of early hard drives.
 
 Sectors are aligned on each track by synchronizing to the *index pulse* created by a photodiode that detects light shining through the physical *index hole*. With each sector on each track aligned, a floppy disk resembles something like pie slices. Individual sectors are separated by small areas of padding called *sector gaps*.
 
@@ -221,10 +228,11 @@ If one could see the actual track layout on a 5.25" disk, it would be condensed 
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>A typical sector layout on a 5.25" 360KiB floppy disk, as seen from head 1</em></p>
 </div>
 
-
 The specification of how data is organized on any given track of a floppy disk is called its *track format*.  
 
 The track format of IBM floppy disks is sometimes referred to as *System 34 format*, in reference to the [IBM System/34](https://en.wikipedia.org/wiki/IBM_System/34), which utilized this format before the PC. 
+
+The process of writing out a standard format consisting of a prescribed number of sectors is called *formatting*. This operation can be performed by a floppy controller with a special formatting command on a per-track basis, but most users will be familiar with formatting an entire disk at a time using a utility such as MS-DOS's `FORMAT.COM`.
 
 ### Sectors: Soft vs Hard
 
@@ -239,8 +247,8 @@ Sectors may be placed anywhere on a PC-formatted floppy disk, thus we can say th
   <thead>
     <tr>
       <th></th>
-      <th class="floppy-format-group" colspan="5">5.25&quot;</th>
-      <th class="floppy-format-group" colspan="3">3.5&quot;</th>
+      <th class="header-group" colspan="5">5.25&quot;</th>
+      <th class="header-group" colspan="3">3.5&quot;</th>
     </tr>
     <tr>
       <th>Standard Capacity</th>
@@ -434,3 +442,5 @@ Sectors may be placed anywhere on a PC-formatted floppy disk, thus we can say th
   </tbody>
 </table>
 </div>
+
+[^1]: [Internet Archive full-text search for "stiffy disk"](https://archive.org/search?query=%22stiffy+disk%22&tab=fulltext)

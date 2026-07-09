@@ -155,7 +155,7 @@ NOPR
 RDAT
 WDAT
 LPEN
-
+LVIDEO
 
 # Normal words cspell doesn't handle for whatever reason
 rebadged
@@ -167,6 +167,9 @@ datasheet
 biaxially
 photosensor
 precompensation
+recalibrated
+stiffy
+notchless
 
 # British English variations
 colour
