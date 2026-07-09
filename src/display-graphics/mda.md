@@ -937,7 +937,7 @@ The MDA also lacks the vertical sync status bit. Instead, it has a type of *vide
 
 ## Light Pen
 
-The very earliest models of the MDA card include a header to attach a light pen, similar to the CGA. This was removed on all subsequent versions of the card — the entire footprint was removed, not just left unpopulated. IBM does not define bits in the MDA status register that provide light pen information. 
+The very earliest models of the MDA card include a header to attach a light pen, similar to the CGA. This was removed on all subsequent versions of the card — the entire footprint was removed, not just left unpopulated, and in addition, the strobe signal to the 6845 and the two status bits for light pen operation were also disconnected and will always return `0`.
 
 The P39 phosphors used in most monochrome displays were incompatible with early light pens for the PC, which may have influenced IBM's decision to remove light pen support from the MDA.
 

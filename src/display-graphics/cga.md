@@ -32,7 +32,7 @@ The CGA has 16KiB of DRAM dedicated to video memory, and an 8KiB font ROM that h
 
 The CGA's 16KiB of DRAM at segment `B800:0` is incompletely decoded, causing a mirror of video memory that begins at `BC00:0`. You can use this mirroring to your advantage in certain circumstances.
 
-The CGA has no on-board **video BIOS** or expansion ROM. All PC-compatible BIOS implementations must therefore know how to identify, initialize and operate a CGA card in order to provide standard [int 10h](https://en.wikipedia.org/wiki/INT_10H) services.
+The CGA has no on-board *video BIOS* or expansion ROM. All PC-compatible BIOS implementations must therefore know how to identify, initialize and operate a CGA card in order to provide standard [int 10h](https://en.wikipedia.org/wiki/INT_10H) services.
 
 In text mode, the CGA card was capable of outputting 16 colors. In graphics mode, it was limited to 3 palettes of 3 fixed colors each, with a selectable background color. The CGA also had a high-resolution mode, with a single, selectable foreground color on black.
 
@@ -49,12 +49,12 @@ The CGA has three primary modes of operation: text mode, medium-resolution graph
 
 ### Text Mode
 
-In text mode, the screen is constructed from a grid of **character glyphs**. IBM called this mode **Alphanumeric Mode (A/N)** in documentation.
+In text mode, the screen is constructed from a grid of *character glyphs*. IBM called this mode *Alphanumeric Mode (A/N)* in documentation.
 
-The IBM PC boots into text mode, either in **40-column** or **80-column** mode depending on how certain DIP switches are set. 40-column mode makes each glyph twice as wide due to a halved **dot clock**. It was primarily intended for use with television sets, on which 80-column text was difficult to read. Various tweaked text modes were derived by inventive coders over the years that provided a different number of rows and columns, so these extents are not set in stone.
+The IBM PC boots into text mode, either in *40-column* or *80-column* mode depending on how certain DIP switches are set. 40-column mode makes each glyph twice as wide due to a halved *dot clock*. It was primarily intended for use with television sets, on which 80-column text was difficult to read. Various tweaked text modes were derived by inventive coders over the years that provided a different number of rows and columns, so these extents are not set in stone.
 
 The standard text modes have black and white and color mode variants, although this typically only controls color when using the composite output.
-The background and foreground color of each character cell can be controlled via **attribute bytes**.
+The background and foreground color of each character cell can be controlled via *attribute bytes*.
 
 In text mode, a blinking, hardware cursor is usually shown indicating where the user can type - or if the programmer doesn't bother hiding it, where the screen was last updated.
 
@@ -67,11 +67,11 @@ In text mode, a blinking, hardware cursor is usually shown indicating where the 
 
 ### Medium Resolution Graphics Mode
 
-In medium-resolution graphics mode, the screen is composed of a 320x200 grid of pixels. IBM called graphics mode **All-Points-Addressable (APA)** mode.
+In medium-resolution graphics mode, the screen is composed of a 320x200 grid of pixels. IBM called graphics mode *All-Points-Addressable (APA)* mode.
 
 This is perhaps the most famous mode of the CGA, especially its cyan-magenta-white palette as seen in games like [Alley Cat](https://www.mobygames.com/game/190/alley-cat/).
 
-In this mode, three basic 'palettes' are available, two of which are notorious for being ugly. These are not actually palettes as they are typically understood - more on that below. What might be thought of as index `0`, specifies the background color. The background color is usually black, but can actually be chosen from any of the CGA's 16 possible colors. Careful use of this "extra" palette entry can create interesting effects that also extend into the borders (or **overscan**) of the screen. Games could use this color to indicate status, such as flashing it red to indicate your player character had taken damage. The color would create a frame around the addressable display area that could have a surprisingly dramatic effect.
+In this mode, three basic 'palettes' are available, two of which are notorious for being ugly. These are not actually palettes as they are typically understood - more on that below. What might be thought of as index `0`, specifies the background color. The background color is usually black, but can actually be chosen from any of the CGA's 16 possible colors. Careful use of this "extra" palette entry can create interesting effects that also extend into the borders (or *overscan*) of the screen. Games could use this color to indicate status, such as flashing it red to indicate your player character had taken damage. The color would create a frame around the addressable display area that could have a surprisingly dramatic effect.
 
 The cursor is disabled in this mode.
 
@@ -84,7 +84,7 @@ The cursor is disabled in this mode.
 
 ### High Resolution Graphics Mode
 
-This mode provides a very stretched 640x200 monochromatic graphics mode. The foreground color used to draw can be selected from any of the 16 available CGA colors, but the background cannot be changed from black. This mode can be used, with the color burst turned on, to enable 16-color **composite artifact color** modes.
+This mode provides a very stretched 640x200 monochromatic graphics mode. The foreground color used to draw can be selected from any of the 16 available CGA colors, but the background cannot be changed from black. This mode can be used, with the color burst turned on, to enable 16-color *composite artifact color* modes.
 
 The cursor is disabled in this mode.
 
@@ -263,11 +263,11 @@ The odd duck out here is non-intensified yellow, which has been conspicuously da
 </table>
 <!-- cSpell:enable -->
 
-In text mode, any of these sixteen colors can be referenced within a **character attribute byte**.
+In text mode, any of these sixteen colors can be referenced within a *character attribute byte*.
 
-In graphics modes, the CGA operates in what we might term **direct color mode**, where the bits set in video memory directly influence the Red and Green output pins.
+In graphics modes, the CGA operates in what we might term *direct color* mode, where the bits set in video memory directly influence the Red and Green output pins.
 
-The CGA only has one true palette register as we typically define one, as in a register that holds an arbitrary color. It is the background/overscan color field in the **Color Control Register**.
+The CGA only has one true palette register as we typically define one, as in a register that holds an arbitrary color. It is the background/overscan color field in the [Color Control Register](#color-control-register).
 
 ## The CGA Registers
 
@@ -299,7 +299,7 @@ There are several combinations of mode bits that are invalid, and may have stran
 
 The **color control** (or **color select**) register contains the CGA's only real color palette entry - an RGBI color may be specified that provides the background/overscan color.  This color definition has three distinct use cases - in text mode, it provides the border/overscan color. In medium-resolution graphics mode, it provides the color to use when a pair of bits are both `0`, in addition to providing the border/overscan color. In high-resolution graphics mode, it controls the color used to represent `1` pixels. Note that I have deliberately avoided calling this the "foreground color". See the section on high-resolution graphics mode for the reason why.
 
-The **overscan** or **border** is an infamously large area around the visible or **active display area** of the IBM CGA. Here is a fairly accurate representation of its extents on an IBM 5153 monitor. If you look closely, you can even see the command that has just set the overscan color to cyan:
+The *overscan* or *border* is an infamously large area around the visible or *active display area* of the IBM CGA. Here is a fairly accurate representation of its extents on an IBM 5153 monitor. If you look closely, you can even see the command that has just set the overscan color to cyan:
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/overscan_diagram_01.svg"
@@ -316,9 +316,9 @@ The other two bits in the color control register, **PAL_I** and **PAL_B**, provi
 
 The CGA **status register** contains two essential bits for synchronizing graphics with the display. Bit `0`, \\(\overline{\mathrm{DE}}\\), is the inverted `DE` pin from MC6845. Therefore it will be `0` when the MC6845 is scanning across the active display area, when the native `DE` pin is `1`.  
 
-Bit `3`, **VR**, is the non-inverted `VS` pin from MC6845 latched on the next **hclock**. When **VR** is `1` we are in the MC6845's **vertical blanking** period. Note that, unless some serious CRTC abuse is occurring, \\(\overline{\mathrm{DE}}\\) will always be `1` when **VR** is `1`.
+Bit `3`, **VR**, is the non-inverted `VS` pin from MC6845 latched on the next **hclock**. When **VR** is `1` we are in the MC6845's *vertical blanking* period. Note that, unless some serious CRTC abuse is occurring, \\(\overline{\mathrm{DE}}\\) will always be `1` when **VR** is `1`.
 
-The CGA's memory access and rasterization latency produces one character of **display enable skew**. Therefore, \\(\overline{\mathrm{DE}}\\) will flip to `0` one character clock before the CGA starts drawing the active display area, and will flip back to `1` one character clock before the end of the active display area is drawn. 
+The CGA's memory access and rasterization latency produces one character of *display enable skew*. Therefore, \\(\overline{\mathrm{DE}}\\) will flip to `0` one character clock before the CGA starts drawing the active display area, and will flip back to `1` one character clock before the end of the active display area is drawn. 
 
 The following diagram may help clarify the values of these two status bits at different points on the screen:
 
@@ -330,16 +330,16 @@ The following diagram may help clarify the values of these two status bits at di
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>A visualization of the /DE and VR bits in the CGA Status Register (Click to Zoom)</em></p>
 </div>
 
-The two other bits in the CGA status register concern themselves with **light pen** operation. 
- - The **LPT** bit is the state of the **light pen strobe** trigger. The term *trigger* can evoke the sense of a physical trigger or button on the light pen, but this is not the case. The light pen trigger is fired when the **photodiode** within the attached light pen detects light (the **strobe**) from the CRT raster beam. When this bit is `1`, the MC6845's **light pen latch** registers should contain the valid approximate position of the light pen. This bit is latched via a flip-flop on the CGA, and will remain set indefinitely unless cleared by writing any value to port `3DBh`, after which a new strobe trigger may fire and a new light-pen position latched by the MC6845. The strobe trigger may be manually fired without input from the pen by writing to port `3DCh`.  It is possible to crudely determine the current raster position of the display with this method, but it is highly unreliable. Even so, it didn't stop games like [Jungle Hunt](https://www.mobygames.com/game/133/jungle-king/) from using it to perform mid-frame palette swaps.
+The two other bits in the CGA status register concern themselves with light pen operation. 
+ - The **LPT** bit is the state of the *light pen strobe* trigger. The term *trigger* can evoke the sense of a physical trigger or button on the light pen, but this is not the case. The light pen trigger is fired when the **photodiode** within the attached light pen detects light (the *strobe*) from the CRT raster beam. When this bit is `1`, the MC6845's *light pen latch* registers should contain the valid approximate position of the light pen. This bit is latched via a flip-flop on the CGA, and will remain set indefinitely unless cleared by writing any value to port `3DBh`, after which a new strobe trigger may fire and a new light-pen position latched by the MC6845. The strobe trigger may be manually fired without input from the pen by writing to port `3DCh`.  It is possible to crudely determine the current raster position of the display with this method, but it is highly unreliable. Even so, it didn't stop games like [Jungle Hunt](https://www.mobygames.com/game/133/jungle-king/) from using it to perform mid-frame palette swaps.
 
- - The **LPS** bit is the immediate state of any switch connected to the light pen header's switch pin. The light pen switch signal is **active-low**, explaining why this bit is logically reversed. This is simply the immediate state of any switch present on the light pen - this switch may be at the tip of the pen on high-quality light pens. The switch is typically used for taking actions such as initiating a drawing operation. IBM's documentation warns us that this signal is not debounced in any way, but a high quality pen should debounce the switch for us.
+ - The **LPS** bit is the immediate state of any switch connected to the light pen header's switch pin. The light pen switch signal is *active-low*, explaining why this bit is logically reversed. This is simply the immediate state of any switch present on the light pen - this switch may be at the tip of the pen on high-quality light pens. The switch is typically used for taking actions such as initiating a drawing operation. IBM's documentation warns us that this signal is not debounced in any way, but a high quality pen should debounce the switch for us.
 
 ## Text Mode
 
-In text mode, video memory is organized conceptually as a grid of **character cells**. The dimensions of this grid are directly configured on the CRTC, and are typically 80x25. Each logical cell consists of a pair of bytes in video memory, the first byte being a **character code** and the second byte being a **character attribute**. 
+In text mode, video memory is organized conceptually as a grid of *character cells*. The dimensions of this grid are directly configured on the CRTC, and are typically 80x25. Each logical cell consists of a pair of bytes in video memory, the first byte being a *character code* and the second byte being a *character attribute*. 
 
-The character code, combined with the vertical line counter of the CRTC, is used to resolve a byte contained in the CGA's **font ROM** representing 8 pixels (or **span**) of a character glyph. You can see the standard CGA character glyphs below.
+The character code, combined with the vertical line counter of the CRTC, is used to resolve a byte contained in the CGA's *font ROM* representing 8 pixels (or *span*) of a character glyph. You can see the standard CGA character glyphs below.
 
 ### CGA Character Glyphs (Standard Font)
 
@@ -443,7 +443,7 @@ The character font ROM is not accessible from the host PC. It can only be read b
 
 {{#bitfield h3 attribute_byte.toml#attribute-byte}}
 
-The **character attribute byte** defines the foreground and background colors the CGA should use when rendering a glyph. The lower four bits provide the color to paint `1` bits which represent the foreground in the raw data from the font ROM. The upper three or four bits provide the color to paint `0` bits which represent the background. Bit `7` is a bit special - the CGA has an optional mode that enables **text blinking**.  When this mode is enabled, bit `7` of the attribute byte controls whether the text blinks or not. This means that only three bits are now available for the background color, so backgrounds are limited to the first 8 "darker" shades when blinking is enabled. See the section on text blinking for more information.
+The *character attribute byte* defines the foreground and background colors the CGA should use when rendering a glyph. The lower four bits provide the color to paint `1` bits which represent the foreground in the raw data from the font ROM. The upper three or four bits provide the color to paint `0` bits which represent the background. Bit `7` is a bit special - the CGA has an optional mode that enables *text blinking*.  When this mode is enabled, bit `7` of the attribute byte controls whether the text blinks or not. This means that only three bits are now available for the background color, so backgrounds are limited to the first 8 "darker" shades when blinking is enabled. See the section on text blinking for more information.
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/cga_attribute_visualization_01.svg"
@@ -454,13 +454,13 @@ The **character attribute byte** defines the foreground and background colors th
 
 Since each character cell has a character code and attribute byte, each character takes one 16-bit word of memory. Thus it takes 4KiB of memory to display a single 80x25 text mode screen. This means up to four text-mode screens can fit in the CGA's 16KiB of memory, and a program can switch between each screen by adjusting the CRTC's start address registers. 
 
-When multiple screens can be fit into video memory, they are called **video pages**. Switching between video pages is referred to as **page-switching** or **page-flipping** when used for fast animation, but there are many other uses - a help page could be stored separately from a text editor's main interface, allowing the program to switch to the help screen and back without having to redraw either page.
+When multiple screens can be fit into video memory, they are called *video pages*. Switching between video pages is referred to as *page-switching* or *page-flipping* when used for fast animation, but there are many other uses - a help page could be stored separately from a text editor's main interface, allowing the program to switch to the help screen and back without having to redraw either page.
 
-Alternatively, a single large screen of up to 80x100 could be stored in memory and the visible 80x25 region panned or **scrolled** down through it by adjusting the start address registers one row at a time.
+Alternatively, a single large screen of up to 80x100 could be stored in memory and the visible 80x25 region panned or *scrolled* down through it by adjusting the start address registers one row at a time.
 
 ### Cursor Blinking
 
-The Motorola MC6845 CRTC provides a dedicated `CURSOR` pin and internally handles blinking at a rate of either 16 (8 frames on, 8 frames off) or 32 fields (16 frames on, 16 frames off). It is possible to configure the MC6845 to disable blinking entirely, which would normally leave a solid, static cursor, and indeed, this is how the IBM PC BIOS configures the MC6845 by default. The cursor blinks anyway, because the CGA card has its own independent blinking logic which is combined with the `CURSOR` signal from the MC6845. 
+The Motorola MC6845 CRTC provides a dedicated **CURSOR** pin and internally handles blinking at a rate of either 16 (8 frames on, 8 frames off) or 32 fields (16 frames on, 16 frames off). It is possible to configure the MC6845 to disable blinking entirely, which would normally leave a solid, static cursor, and indeed, this is how the IBM PC BIOS configures the MC6845 by default. The cursor blinks anyway, because the CGA card has its own independent blinking logic which is combined with the **CURSOR** signal from the MC6845. 
 
 The CGA's blink logic is implemented as two 4-bit binary counters, tied to the VSYNC output of the MC6845 as seen below. The \\(\overline{\mathrm{CURSOR\\_BLINK}}\\) signal controls the cursor blinking rate, and will always blink at a rate of 16 fields, equivalent to the normal blink rate of the MC6845.  The \\(\overline{\mathrm{BLINK}}\\) signal controls [text blinking](#text-blinking) and blinks at half the rate due to being output from the next bit of the binary counter chain. 
 
@@ -484,7 +484,7 @@ Besides blinking, the cursor can be disabled a number of ways, or even 'split' i
 
 ### Text Blinking
 
-Text blinking must first be globally enabled by setting bit `5` of the [mode control register](#mode-control-register). When enabled, bit `7` of each **character attribute byte** determines whether that character cell will blink.
+Text blinking must first be globally enabled by setting bit `5` of the [mode control register](#mode-control-register). When enabled, bit `7` of each *character attribute byte* determines whether that character cell will blink.
 
 Blinking text blinks at half the rate of the cursor - 16 frames on, 16 frames off.  When text blinks 'off', the background attribute is displayed for the entire character cell, allowing for blinking with reverse-video. 
 
@@ -501,13 +501,13 @@ If the MC6845's cursor blinking is enabled at either rate, as you can imagine th
 
 ## Medium-Resolution Graphics Mode
 
-In the CGA's 320x200, 4-color graphics mode, pairs of bits (referred to as **C0** and **C1**) are interpreted by the CGA's **color multiplexer** more-or-less directly as **red** and **green**.
+In the CGA's 320x200, 4-color graphics mode, pairs of bits (referred to as **C0** and **C1**) are interpreted by the CGA's *color multiplexer* more-or-less directly as **red** and **green**.
 
-This is an important distinction - the CGA has no traditional graphics palettes as we typically understand them, other than the palette entry used for the background color (when both **C0** and **C1** are `0`). Two bits of each color to be emitted by the CGA are provided from video memory, with the other two bits provided by the **PAL_B** and **PAL_I** bits of the **color control** register. 
+This is an important distinction - the CGA has no traditional graphics palettes as we typically understand them, other than the palette entry used for the background color (when both **C0** and **C1** are `0`). Two bits of each color to be emitted by the CGA are provided from video memory, with the other two bits provided by the **PAL_B** and **PAL_I** bits of the [**color control**](#color-control-register) register. 
 
 Medium-resolution graphics mode is enabled by setting the `GFX` bit in the [mode control register](#mode-control-register).
 
-With the color control register set to its default of 0, we are left with the traditional red-green-brown palette. 
+With the [**color control**](#color-control-register) register set to its default of `0`, we are left with the traditional red-green-brown palette. 
 
 <style>
 .cga-digger-pipeline {
@@ -881,7 +881,7 @@ The key point is that medium-resolution graphics mode bit-pairs do not form pale
 
 ### Graphics Mode Function
 
-If you have read the [MC6845 chapter](./6845.md), you may be curious how a text-oriented display controller can be utilized to implement a graphics-oriented mode. The MC6845 still counts out word addresses on the CGA, and for each **low-resolution character clock**, two bytes are fetched and 8 pixels are emitted. The CGA utilizes the same pair of byte serializers that it uses to serialize the character glyph byte and character attribute byte in text mode, although the **color multiplexer** is set for input 2.
+If you have read the [MC6845 chapter](./6845.md), you may be curious how a text-oriented display controller can be utilized to implement a graphics-oriented mode. The MC6845 still counts out word addresses on the CGA, and for each *low-resolution character clock*, two bytes are fetched and 8 pixels are emitted. The CGA utilizes the same pair of byte serializers that it uses to serialize the character glyph byte and character attribute byte in text mode, although the *color multiplexer* is set for input 2.
 
 This is all fine for scanning out individual rows of graphics data, but one immediate issue is present: the vertical total register, vertical displayed register, and vertical character counters of the MC6845 are all only 7 bits. That limits us to a total of 128 logical rows. Medium-resolution graphics mode is 320x200. Clearly, 200 will not fit into 128, so some workaround is needed.
 
@@ -889,11 +889,11 @@ This is all fine for scanning out individual rows of graphics data, but one imme
 
 IBM came up with a clever solution to this problem, but one that would make programming software for the CGA's graphics mode fairly cumbersome. In standard graphics modes, rows are set to be two scanlines tall by configuring **R9** as `1` (recall this defines the line height of a character row, minus 1). The number of displayed rows, **R6**, is then set to `100`. 
 
-This creates 100 logical rows, each two scanlines tall, to give us the desired 200 total visible scanlines. The MC6845 will scan out each logical row twice, with the MC6845's row counter pin 0, `RA0`, counting from `0` to `1` for the second scanline.
+This creates 100 logical rows, each two scanlines tall, to give us the desired 200 total visible scanlines. The MC6845 will scan out each logical row twice, with the MC6845's row counter pin 0, **RA0**, counting from `0` to `1` for the second scanline.
 
 The memory address line **A13** is then exchanged for **RA0**. This substitution is made when the `GFX` bit of the [mode control](#mode-control-register) is set. 
 
-This creates an **8KiB offset** in memory for all odd scanlines. Since an extra row-counting bit has been added, we can now define up to **256** scanlines, easily fitting in our 200-line graphics mode, at the cost of an annoying interleaving scheme. Programmers could not simply copy bitmaps or sprites into the CGA's video memory without taking this interleaving into account.
+This creates an 8KiB offset in memory for all odd scanlines. Since an extra row-counting bit has been added, we can now define up to 256 scanlines, easily fitting in our 200-line graphics mode, at the cost of an annoying interleaving scheme. Programmers could not simply copy bitmaps or sprites into the CGA's video memory without taking this interleaving into account.
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/bitmaps/cga_8k_offset_01.png"
@@ -906,7 +906,7 @@ This creates an **8KiB offset** in memory for all odd scanlines. Since an extra 
 
 ## High-Resolution Graphics Mode
 
-This is a 640x200 monochromatic, 1bpp graphics mode. The CGA operates at the **low-resolution character clock** in this mode, despite the 640 columns of resolution. Each character clock, two bytes from video memory are fetched and **16 pixels** are emitted. The color used for drawing `1` bits is the color defined in the [color control register](#color-control-register).  
+This is a 640x200 monochromatic, 1bpp graphics mode. The CGA operates at the *low-resolution character clock* in this mode, despite the 640 columns of resolution. Each character clock, two bytes from video memory are fetched and 16 pixels are emitted. The color used for drawing `1` bits is the color defined in the [color control register](#color-control-register).  
 
 This is sometimes referred to as the foreground color in this mode, but it is actually still the background color. If that sounds paradoxical, it is explained by the way that this mode is implemented: in high-resolution graphics mode, the CGA's color multiplexers are set to always draw the border/overscan color. The CGA then *rapidly enables and disables the color multiplexers themselves*. So in this mode, the foreground is actually the background, and the background is actually just "off."
 
@@ -914,9 +914,28 @@ You can, of course, leave the color defined in the color control register set to
 
 Like medium-resolution graphics mode, an 8KiB offset is created between odd and even scanlines via substitution of `A13` with `RA0`.
 
-High-resolution graphics mode is enabled by setting the `GFX` and `HIRES_GFX` bits in the [mode control register](#mode-control-register).  Interestingly, the `HIRES_GFX` bit controls the rapid toggling of the CGA's color multiplexers, and it is possible to enable this mode at other times - such as in 80-column text mode, and watch as the CGA dutifully toggles the screen on and off as text mode is drawn, leading to a bizarre, striped appearance. 
+High-resolution graphics mode is enabled by setting the **GFX** and **HIRES_GFX** bits in the [mode control register](#mode-control-register).  Interestingly, the **HIRES_GFX** bit controls the rapid toggling of the CGA's color multiplexers, and it is possible to enable this mode at other times - such as in 80-column text mode, and watch as the CGA dutifully toggles the screen on and off as text mode is drawn, leading to a bizarre, striped appearance. 
 
-If the `B/W`
+If the **B/W** bit is set to `0` in this mode, the NTSC *color burst* is turned on for the composite video output. In this mode, four high-resolution pixels map to a single cycle of the NTSC's 3.579545MHz *color clock*, and thus a 16-color video mode is enabled. The exact colors produced are dependent on the value programmed into the [color control register](#color-control-register).
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start; margin: 1.5em 0;">
+  <div style="flex: 1 1 320px; max-width: 48%; min-width: 280px; text-align: center;">
+    <img src="../images/screenshots/sq1_logo_bw_01.png"
+         alt="The black-and-white raw CGA output of Sierra On-line's Space Quest I title screen"
+         data-modal-rendering="pixelated"
+         style="max-width: 100%; height: auto;"
+         onclick="openModal(this)">
+    <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The black-and-white raw CGA output of Sierra On-line's <cite>&quot;Space Quest I&quot;</cite> title screen</em></p>
+  </div>
+  <div style="flex: 1 1 320px; max-width: 48%; min-width: 280px; text-align: center;">
+    <img src="../images/screenshots/sq1_logo_composite_01.png"
+         alt="Sierra On-line's Space Quest I title screen as viewed on a color composite monitor"
+         data-modal-rendering="pixelated"
+         style="max-width: 100%; height: auto;"
+         onclick="openModal(this)">
+    <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The same <cite>&quot;Space Quest I&quot;</cite> title screen as viewed on a color composite monitor</em></p>
+  </div>
+</div>
 
 ## Low-Resolution "Graphics" Mode
 
@@ -961,7 +980,7 @@ Each of these glyphs evenly divides the 8-pixel span of a character cell into ha
 
 Next, the value of **R9** on the CRTC is set to `1`, making each logical row of character cells two scanlines tall. 
 
-Since we can independently control foreground and background colors via **character attribute bytes**, this essentially creates an all-points-addressable display, with each character cell forming two 4x2 pixel wide 'pixels'. Updating the screen now involves writing only to the CGA attribute bytes. 
+Since we can independently control foreground and background colors via character attribute bytes, this essentially creates an all-points-addressable display, with each character cell forming two 4x2 pixel wide 'pixels'. Updating the screen now involves writing only to the CGA attribute bytes. 
 
 Given the CGA's drastically stretched aspect ratio, these end up displaying as square - as seen below in an aspect-corrected screenshot of the PC shareware title, [Round 42](https://www.mobygames.com/game/209/round-42/):
 
@@ -1031,7 +1050,7 @@ For a rather comprehensive review of the various titles that have used a tweaked
 
 ## Light Pen
 
-The IBM CGA provided a header for attaching a light pen. This header supported a pen with *active-low* **strobe** and **switch signals**.
+The IBM CGA provided a header for attaching a light pen. This header supported a pen with active-low *strobe* and *switch* signals.
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/photos/CGA_Light_Pen_Header.jpg"
@@ -1091,13 +1110,13 @@ A 4:3 aspect ratio applied to a 640-pixel wide image produces the familiar 640x4
 
 ## CGA Clocks
 
-The 14.31818MHz clock of the CGA can be used directly as the dot clock, which is the case in the CGA's high-resolution **80-column** text mode. Alternatively, it can be divided by two to produce a 7.159MHz dot clock, which is done in **40-column** text mode, and for all of the CGA's graphics modes. The effect of halving the dot clock effectively doubles the width of each pixel, as the card toggles its RGBI outputs at half the rate, while the monitor continues scanning out at the same rate as always.
+The 14.31818MHz clock of the CGA can be used directly as the dot clock, which is the case in the CGA's high-resolution *80-column* text mode. Alternatively, it can be divided by two to produce a 7.159MHz dot clock, which is done in *40-column* text mode, and for all of the CGA's graphics modes. The effect of halving the dot clock effectively doubles the width of each pixel, as the card toggles its RGBI outputs at half the rate, while the monitor continues scanning out at the same rate as always.
 
-The CGA further divides the dot clock by 8 to produce a **character clock**. In 80-column text mode, this clock runs at 1.79MHz and is called the high-resolution character clock, or **hclock**. In graphics mode, or 40-column text mode, the CGA accordingly uses the low-resolution character clock or **lclock** that runs at 895kHz.
+The CGA further divides the dot clock by 8 to produce a *character clock*. In 80-column text mode, this clock runs at 1.79MHz and is called the high-resolution character clock, or **hclock**. In graphics mode, or 40-column text mode, the CGA accordingly uses the low-resolution character clock or **lclock** that runs at 895kHz.
 
-When using the **hclock**, the CGA typically outputs 640 pixels per scanline. When using the **lclock**, the card typically outputs 320 pixels per scanline, as the effective width of each pixel is doubled since the raster beam continues to scan out the screen at the same rate. The CGA's **high resolution graphics mode** is an exception to this, as it has a little trick up its sleeve - it draws by modulating the CGA's color multiplexers on and off at a rate driven by the original 14MHz dot clock.
+When using the **hclock**, the CGA typically outputs 640 pixels per scanline. When using the **lclock**, the card typically outputs 320 pixels per scanline, as the effective width of each pixel is doubled since the raster beam continues to scan out the screen at the same rate. The CGA's high resolution graphics mode is an exception to this, as it has a little trick up its sleeve - it draws by modulating the CGA's color multiplexers on and off at a rate driven by the original 14MHz dot clock.
 
-Since both the dot and character clocks have the same relationships, it can be useful to discuss the CGA's effective **clock divisor** for a given mode. This is fairly easy: for 80-column text mode, the clock divisor is `1` or undivided - for all other modes it is `2`.
+Since both the dot and character clocks have the same relationships, it can be useful to discuss the CGA's effective *clock divisor* for a given mode. This is fairly easy: for 80-column text mode, the clock divisor is `1` or undivided - for all other modes it is `2`.
 
 With either clock, the number of vertical scanlines remains the same, but the horizontal timings programmed into the CRTC must be adjusted to account for the particular dot clock in use.
 
@@ -1322,17 +1341,17 @@ For each video mode, the MC6845 CRTC needs to be configured with the correct par
 
 ## Video Memory
 
-The 16KiB of DRAM on the CGA is not expandable. It is also **single-ported**, meaning that only either the CPU or the CGA can access the video memory at any given time. This is a bit of a problem as the CGA needs to be reading video memory constantly as it rasterizes the screen. We will cover those issues in the next section, [Memory Contention](#memory-contention).
+The 16KiB of DRAM on the CGA is not expandable. It is also *single-ported*, meaning that only either the CPU or the CGA can access the video memory at any given time. This is a bit of a problem as the CGA needs to be reading video memory constantly as it rasterizes the screen. We will cover those issues in the next section, [Memory Contention](#memory-contention).
 
-The 16KiB of video memory is composed of 8 separate 16Kbit DRAM chips, each of which provides a single bit. These bits are organized logically as a 128x128 grid - to address a single bit, a 7-bit **column address** must be provided followed by a 7-bit **row address**.  The CGA produces these **RAS** and **CAS** addresses from the `MA` pins of the 6845 with some additional manipulation, such as substituting `RA0` for `A13` in graphics modes.
+The 16KiB of video memory is composed of 8 separate 16Kbit DRAM chips, each of which provides a single bit. These bits are organized logically as a 128x128 grid - to address a single bit, a 7-bit *column address* must be provided followed by a 7-bit *row address*.  The CGA produces these **RAS** and **CAS** addresses from the **MA** pins of the 6845 with some additional manipulation, such as substituting **RA0** for `A13` in graphics modes.
 
 ## Memory Contention
 
-The CGA has some circuitry for attempting to arbitrate access to memory between the CPU and the card itself (which IBM refers to, somewhat confusingly, as the **CRT**). This is done via manipulation of the `IO_CH_READY` pin of the ISA bus. When this pin is pulled low, any attempts by the CPU to access the CGA's video memory will stall, with the CPU performing **wait states** until the pin is released. In this manner the card can guarantee exclusive access to video memory for itself - but only at the slower, 7MHz dot clock. The higher bandwidth requirements of 80-column text mode make this scheme fall apart.
+The CGA has some circuitry for attempting to arbitrate access to memory between the CPU and the card itself (which IBM refers to, somewhat confusingly, as the *CRT*). This is done via manipulation of the `IO_CH_READY` pin of the ISA bus. When this pin is pulled low, any attempts by the CPU to access the CGA's video memory will stall, with the CPU performing *wait states* until the pin is released. In this manner the card can guarantee exclusive access to video memory for itself - but only at the slower, 7MHz dot clock. The higher bandwidth requirements of 80-column text mode make this scheme fall apart.
 
 ### CGA Snow
 
-In 80-column text mode, attempts to access video memory by the CPU while the CGA is rasterizing the active display area will cause a phenomenon called **snow** - random glitches will briefly appear on the screen, whenever the CGA happens to read data placed on its internal data bus by the CPU while it was attempting to read character glyphs or attribute bytes. 
+In 80-column text mode, attempts to access video memory by the CPU while the CGA is rasterizing the active display area will cause a phenomenon called *snow* - random glitches will briefly appear on the screen, whenever the CGA happens to read data placed on its internal data bus by the CPU while it was attempting to read character glyphs or attribute bytes. 
 
 Due to the CGA's wait state circuitry, even columns are protected from experiencing snow, which only appears on odd columns.
 
