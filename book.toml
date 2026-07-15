@@ -34,3 +34,6 @@ table = "md"
 
 [preprocessor.csv_table]
 command = "python scripts/mdbook-csvtable/mdbook-csv_table.py"
+
+[preprocessor.overbar]
+command = "python scripts/mdbook-overbar/mdbook-overbar.py"
