@@ -43,9 +43,6 @@ Here are the basic options:
      - These would be the resources you would be using if the PC Emulation Book did not exist. You are still encouraged to use them!
      - Note: These can be used in conjunction with citations. Citations are more specific.
 
-
-
-
 ## Tone & Readability
 
 Avoid use of the first person perspective. Use the second-person perspective sparingly.
