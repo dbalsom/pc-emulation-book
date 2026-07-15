@@ -40,6 +40,7 @@
 - [Floppy Disk Concepts](./storage-devices/floppy-concepts.md)
 - [Floppy Data Encoding](./storage-devices/floppy-data-encoding.md)
 - [Floppy Disk Controller](./storage-devices/floppy-controller.md)
+- [Floppy Disk Image Formats](./storage-devices/floppy-disk-image-formats.md)
 <!-- Future implementation:
 - [Hard Disk Controllers](./storage-devices/hard-disk-controllers.md)
   - [IBM/Xebec Hard Disk Controller](./storage-devices/ibm-xebec-controller.md)
@@ -53,9 +54,7 @@
 - [Motorola 6845 CRTC](./display-graphics/6845.md)
 - [Monochrome Display Adapter (MDA)](./display-graphics/mda.md)
 - [Color Graphics Adapter (CGA)](./display-graphics/cga.md)
-<!--
 - [Composite Video](./display-graphics/composite-video.md)
--->
 
 # Part VIII: Input/Output Devices
 
