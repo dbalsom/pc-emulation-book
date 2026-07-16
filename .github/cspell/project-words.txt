@@ -6,11 +6,14 @@ mathrm
 peaceiris
 
 # technical terms
+artifacting
 Kbit
 bitfield
 bitfields
 bitstream
 bitcell
+booter
+Booter
 regs
 scancode
 scancodes
@@ -77,8 +80,12 @@ DDAM
 IDAM
 nums
 LZHUF
+
+# Project names
 Kryoflux
-Teledisk
+DOSBox
+86Box
+PCem
 
 # brand names
 Amstrad
@@ -92,6 +99,8 @@ XTIDE
 Macrocom
 TEAC
 Sydex
+DeLorean
+Teledisk
 
 # websites
 minuszerodegrees
@@ -106,6 +115,7 @@ netcore
 sourceforge
 Nerdly
 Wayback
+VOGONS
 
 # People
 Jurgens
