@@ -54,7 +54,7 @@ This is the basic derivation of the [Y'UV color space](https://en.wikipedia.org/
 
 Color is encoded in a composite signal by comparing the phase offset of the color signal contained within the 3.57954MHz color carrier with the reference phase of the color burst. 
 
-We can map YUV colors to the [unit circle](https://en.wikipedia.org/wiki/Unit_circle), assigning an angle to each color. This produces the YUV color wheel. The color burst represents a reference at 180 on this wheel, mapping to the color yellow. Sometimes you will see the color burst referred to as the *yellow burst* as a consequence.
+We can map YUV colors to the [unit circle](https://en.wikipedia.org/wiki/Unit_circle), assigning an angle to each hue. This produces the YUV color wheel. The color burst represents a reference at 180 on this wheel, mapping to the color yellow. Sometimes you will see the color burst referred to as the *yellow burst* as a consequence.
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/diagrams/color_wheel_01.svg"
