@@ -58,7 +58,7 @@ description = "**Controller reset gate**<br>**0**: Hold controller in reset<br>*
 name = "DR"
 lsb = 0
 width = 2
-description = "**Selected drive.**"
+description = "Selected drive"
 markdown-after = """
 | DR1 | DR0 | Drive |
 |:---:|:---:|:-----:|
@@ -643,10 +643,10 @@ width = 1
 description = "**Seek end**<br>**0:** No seek performed.<br>**1:** The controller successfully executed a seek or recalibrate operation.<br>This includes commands with an **implicit seek**."
 
 [[registers.status-register-0.fields]]
-name = "UC"
+name = "EC"
 lsb = 4
 width = 1
-description = "**Unit check**<br>**0:** No fault detected.<br>**1:** The target drive has a fault (track 0 sensor may be inoperable)"
+description = "**Equipment check**<br>**0:** No fault detected.<br>**1:** The target drive reports a fault, or track 0 sensor may be inoperable"
 
 [[registers.status-register-0.fields]]
 name = "NR"
@@ -831,7 +831,7 @@ description = "**Drive ready**<br>The **ready** signal from the floppy drive."
 name = "T0"
 lsb = 4
 width = 1
-description = "**Track 0**<br>The **track 0** from the floppy drive."
+description = "**Track 0**<br>The **track 0** signal from the floppy drive."
 
 [[registers.status-register-3.fields]]
 name = "TS"

@@ -1,5 +1,12 @@
 # Monochrome Display Adapter (MDA)
 
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/photos/mda_card_01.webp"
+       alt="A photograph of a full-length ISA card in green, with a DE-9 connector and DB-25 parallel port at the I/O faceplate."
+       style="max-width: 100%; max-height: 480px; height: auto;">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The IBM MDA card</em></p>
+</div>
+
 The IBM Monochrome Display Adapter (MDA) was one of the first video adapters available for the IBM PC, along with the IBM Color Graphics Adapter and the third-party Hercules video adapter.
 
 > [!IMPORTANT] 

@@ -2,6 +2,11 @@
     --content-max-width: 87%;
 }
 
+.pcbook-overbar {
+    text-decoration-line: overline;
+    text-decoration-skip-ink: none;
+}
+
 .cga-bg-swatch {
     background-color: transparent !important;
     background-image: 

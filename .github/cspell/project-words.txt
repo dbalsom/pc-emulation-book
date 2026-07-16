@@ -6,11 +6,14 @@ mathrm
 peaceiris
 
 # technical terms
+artifacting
 Kbit
 bitfield
 bitfields
 bitstream
 bitcell
+booter
+Booter
 regs
 scancode
 scancodes
@@ -42,7 +45,9 @@ subcarrier
 hdots
 hsync
 hclock
+hclocks
 lclock
+lclocks
 rasterizes
 rasterizing
 DREQ
@@ -74,6 +79,13 @@ MMFM
 DDAM
 IDAM
 nums
+LZHUF
+
+# Project names
+Kryoflux
+DOSBox
+86Box
+PCem
 
 # brand names
 Amstrad
@@ -86,6 +98,9 @@ Vectrex
 XTIDE
 Macrocom
 TEAC
+Sydex
+DeLorean
+Teledisk
 
 # websites
 minuszerodegrees
@@ -100,6 +115,7 @@ netcore
 sourceforge
 Nerdly
 Wayback
+VOGONS
 
 # People
 Jurgens
@@ -112,11 +128,22 @@ Gulotta
 Heirophant
 Pooler
 Abrash
+Dunfield
+Hampa
 
 # Software
 HELPPC
 helppc
 bochs
+Kryo
+MAME
+Tele
+TELEDISK
+trackdisk
+fluxfox
+
+# Disk image formats
+MOOF
 
 # Enumerations
 SCRL
@@ -156,6 +183,7 @@ RDAT
 WDAT
 LPEN
 LVIDEO
+WPROTECT
 
 # Normal words cspell doesn't handle for whatever reason
 rebadged

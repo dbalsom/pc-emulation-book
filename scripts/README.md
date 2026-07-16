@@ -13,3 +13,11 @@ There are two ways to generate a bitfield diagram from a TOML specification:
 
 The `mdbook-csvtable` plugin renders a relative link to a CSV file as a markdown table.
 A link takes the format ```{{#csvtable [filename.csv]}}```
+
+## mdbook-overbar
+
+The `mdbook-overbar` plugin converts active-low signal names written with a leading slash into a span with the `pcbook-overbar` class.
+
+For example, `/RESET` becomes `<span class="pcbook-overbar">RESET</span>`.
+
+The plugin only matches all-caps alphanumeric names with underscores. It skips fenced code blocks, inline code spans, Markdown links, URLs, and raw HTML tags.

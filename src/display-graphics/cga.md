@@ -1,5 +1,12 @@
 # The IBM Color Graphics Adapter
 
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/photos/cga_card_01.webp"
+       alt="A photograph of a full-length ISA card in green, with a DE-9 connector and composite video output at the I/O faceplate."
+       style="max-width: 100%; max-height: 480px; height: auto;">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The IBM CGA card</em></p>
+</div>
+
 The IBM Color Graphics Adapter (CGA) was one of the first video adapters available for the IBM PC, along with the IBM Monochrome Display Adapter and the third-party Hercules video adapter. It is perhaps the classic video card that comes to mind when people think of the IBM PC.
 
 > [!IMPORTANT] 
