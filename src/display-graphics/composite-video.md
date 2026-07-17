@@ -19,7 +19,7 @@ An in-depth discussion of the NTSC video display standard is out of scope for th
 
 ## The Color Burst
 
-The NTSC broadcast television standard was originally black and white. When color was added to the broadcast signal, it needed to be added in a way that was backwards compatible with black and white television sets. One way this was accomplished was by adding a signal called the *color burst* that only color television sets would understand.
+The NTSC broadcast television standard was originally black and white. When color was added to the broadcast signal, it needed to be added in a way that was backwards compatible with black and white television sets. Part of how this was accomplished was by adding a signal called the *color burst* that only color television sets would understand.
 
 The *color burst* is a 3.57954MHz reference clock signal emitted during the *back porch* of a scanline. It is a sine wave about 2.5 microseconds in duration that provides a *phase reference* for decoding color for that particular scanline. You can see the color burst from an IBM CGA card captured on an oscilloscope below.
 
@@ -137,7 +137,7 @@ Individual pixels will no longer render as white, instead transmuted into a spec
 
 Like the Apple II, it is possible to produce a color composite video signal using the CGA's high-resolution monochrome video mode, relying solely on the effect of color artifacting.
 
-With double the horizontal resolution, four pixels in high-resolution graphics mode fit into a single NTSC color cycle, producing an effective 4-bit or 16-color "palette." This is not an accident - IBM designed the 14.31818MHz clock of the PC — and thus the dot clock of the IBM CGA — to be exactly four times the frequency of the NTSC color carrier.
+With double the horizontal resolution, four pixels in high-resolution graphics mode fit into a single NTSC color cycle, producing an effective 4-bit or 16-color "palette." This is not an accident; IBM designed the 14.31818MHz clock of the PC — and thus the dot clock of the IBM CGA — to be exactly four times the frequency of the NTSC color carrier.
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/screenshots/cga_composite_kq1_01.png"
@@ -605,7 +605,7 @@ It is possible to re-enable the color burst in 80-column text mode by adjusting 
 
 ## Old vs New CGA
 
-At some point, IBM redesigned the CGA's composite output stage to feed more of the color signals into the luminance signal. This improved the ability to discriminate individual colors on grayscale composite monitors. Unfortunately, this means that any composite conversion code must now be able to handle both models for accuracy.
+At some point, IBM redesigned the CGA's composite output stage to feed more of the color signals into the luminance signal. Cards made before this change are called *old style* CGA cards, with cards made after the change being the *new style*. The new style redesign improved the ability to discriminate individual colors on grayscale composite monitors. Unfortunately, this means that any composite conversion code must now be able to handle both models for accuracy.
 
 ## 8088 MPH
 
