@@ -421,13 +421,15 @@ The VGA's color registers are 18-bit, assigning 6 bits each to the primary color
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The VGA color gamut</em></p>
 </div>
 
-## The Default VGA Palette
+## The Default VGA Palettes
 
-Out of the 262,144 colors possible, the VGA can store 256 at a time in its color registers. The default VGA palette is shown below.
+Out of the 262,144 colors possible, the VGA can store 256 at a time in its color registers. There are two default VGA palettes: one for 8bpp mode, and one for all other modes. The default VGA palette in 8bpp mode is shown below. The default VGA palette in all other modes is the same as the EGA color gamut in the first 64 color registers with black in the remaining 192 color registers.
 
-The VGA still has the 16 Attribute Controller Palette registers, which are used in text mode and 4bpp modes, however they no longer store color information. Instead, they contain indexes into the 256 color registers of the DAC. This DAC lookup is always active. 
+The VGA still has the 16 Attribute Controller Palette registers, which are used in text mode and 4bpp modes, however they no longer store color information. Instead, they contain indexes into the 256 color registers of the DAC. This DAC lookup is always active. The Attribute Palette registers are initialized to select the colors that correspond to the traditional 16 color RGBI palette from the EGA color gamut in the DAC.
 
-The first 16 colors of the default VGA palette correspond to the traditional 16 color RGBI palette, and so the Attribute Palette registers reference the same colors by virtue of being initialized with the values 0-F.  The Attribute Palette registers remain 6 bits, and so they can only reference a total of 64 DAC Color registers. Due to this, the VGA divides the 256 total Color registers into four separate banks, which can be selected independently. 
+The Attribute Palette registers remain 6 bits, and so they can only reference a total of 64 DAC Color registers. Due to this, the VGA divides the 256 total Color registers into four separate banks, which can be selected independently.
+
+The first 16 colors of the default VGA palette in 8bpp mode correspond to the traditional 16 color RGBI palette.
 
 <!-- cSpell:disable -->
 <table style='border-collapse: collapse;'>
