@@ -38,7 +38,7 @@ I could certainly use help documenting everything - there's a lot of material to
  - The late David Jurgens for authoring [HELPPC](https://helppc.netcore2k.net/)
  - Ralf Brown for his many contributions [documenting the PC](https://www.cs.cmu.edu/~ralf/files.html)
  - Ken Shirriff for documenting [all the things silicon](https://righto.com)
- - [reenigne]((https://reenigne.org) for being an amazing code wizard
+ - [reenigne](https://reenigne.org) for being an amazing code wizard
  - [Trixter](https://trixter.oldskool.org/) for the constant encouragement and deep historical knowledge
  - Scott Smitelli for the excellent [Cosmodoc](https://cosmodoc.org/) from which some material has been adapted, with permission.
  - John Elliott for curating a beautiful collection of vintage PC documentation at [seasip.info](https://www.seasip.info/VintagePC/index.html)
