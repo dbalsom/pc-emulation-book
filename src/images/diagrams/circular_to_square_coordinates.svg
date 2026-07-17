@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1000" height="580" viewBox="0 0 1000 580"
+     role="img" aria-labelledby="title description">
+  <title id="title">Circular-to-square joystick coordinate remapping</title>
+  <desc id="description">
+    A point travels around a circular modern analog-stick coordinate range on the left.
+    A synchronized point travels around the equivalent square traditional joystick range
+    on the right, showing a radial circle-to-square coordinate mapping.
+  </desc>
+
+  <defs>
+    <linearGradient id="input-fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#69b7ff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#7167ff" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="output-fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb34f" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#ff667f" stop-opacity="0.08"/>
+    </linearGradient>
+    <filter id="point-glow" x="-250%" y="-250%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head"/>
+    </marker>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      .background { fill: #f8fafc; }
+      .heading { fill: #172033; font: 700 28px system-ui, sans-serif; }
+      .panel-title { fill: #172033; font: 650 19px system-ui, sans-serif; }
+      .subtitle { fill: #667085; font: 16px system-ui, sans-serif; }
+      .axis-label { fill: #667085; font: 12px ui-monospace, monospace; }
+      .formula { fill: #344054; font: 16px ui-monospace, monospace; }
+      .formula-note { fill: #667085; font: 16px system-ui, sans-serif; }
+      .axis { stroke: #98a2b3; stroke-width: 1.5; }
+      .grid { fill: none; stroke: #b8c1ce; stroke-width: 1; stroke-dasharray: 4 5; }
+      .spoke { stroke: #c7ced8; stroke-width: 1; }
+      .input-boundary { fill: url(#input-fill); stroke: #2684ff; stroke-width: 3; }
+      .output-boundary { fill: url(#output-fill); stroke: #f79009; stroke-width: 3; }
+      .input-guide { fill: #2684ff; opacity: 0.35; }
+      .output-guide { fill: #f79009; opacity: 0.35; }
+      .input-point { fill: #0870e6; stroke: #ffffff; stroke-width: 3; }
+      .output-point { fill: #e56b00; stroke: #ffffff; stroke-width: 3; }
+      .center-point { fill: #667085; }
+      .mapping-arrow { stroke: #667085; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .arrow-head { fill: #667085; }
+      .mapping-label { fill: #667085; font: 600 13px system-ui, sans-serif; }
+      .panel-rule { stroke: #e1e6ed; stroke-width: 1; }
+
+      @media (prefers-color-scheme: dark) {
+        .background { fill: #111827; }
+        .heading, .panel-title { fill: #f1f5f9; }
+        .subtitle, .axis-label, .formula-note, .mapping-label { fill: #9aa7b8; }
+        .formula { fill: #d3dae6; }
+        .axis { stroke: #667085; }
+        .grid { stroke: #465266; }
+        .spoke { stroke: #39465a; }
+        .panel-rule { stroke: #293548; }
+        .input-boundary { stroke: #62adff; }
+        .output-boundary { stroke: #ffb247; }
+        .mapping-arrow { stroke: #9aa7b8; }
+        .arrow-head { fill: #9aa7b8; }
+        .input-point, .output-point { stroke: #111827; }
+      }
+    </style>
+  </defs>
+
+  <text class="heading" x="500" y="44" text-anchor="middle">Circular-to-square joystick coordinate remapping</text>
+  <line class="panel-rule" x1="60" y1="66" x2="940" y2="66"/>
+
+  <text class="panel-title" x="250" y="96" text-anchor="middle">Modern analog stick</text>
+  <text class="subtitle" x="250" y="112" text-anchor="middle">circular coordinate domain</text>
+  <text class="panel-title" x="750" y="96" text-anchor="middle">Traditional joystick</text>
+  <text class="subtitle" x="750" y="112" text-anchor="middle">independent X/Y axis ranges</text>
+
+  <circle class="input-boundary" cx="250" cy="290" r="150"/>
+  <circle class="grid" cx="250" cy="290" r="50"/>
+  <circle class="grid" cx="250" cy="290" r="100"/>
+  <line class="axis" x1="82" y1="290" x2="418" y2="290"/>
+  <line class="axis" x1="250" y1="122" x2="250" y2="458"/>
+  <line class="spoke" x1="143.93" y1="183.93" x2="356.07" y2="396.07"/>
+  <line class="spoke" x1="356.07" y1="183.93" x2="143.93" y2="396.07"/>
+  <circle class="center-point" cx="250" cy="290" r="3.5"/>
+  <text class="axis-label" x="424" y="295">+X</text>
+  <text class="axis-label" x="76" y="295" text-anchor="end">−X</text>
+  <text class="axis-label" x="250" y="160" text-anchor="middle">+Y</text>
+  <text class="axis-label" x="250" y="428" text-anchor="middle">−Y</text>
+
+  <rect class="output-boundary" x="600" y="140" width="300" height="300"/>
+  <rect class="grid" x="650" y="190" width="200" height="200"/>
+  <rect class="grid" x="700" y="240" width="100" height="100"/>
+  <line class="axis" x1="582" y1="290" x2="918" y2="290"/>
+  <line class="axis" x1="750" y1="122" x2="750" y2="458"/>
+  <line class="spoke" x1="600" y1="140" x2="900" y2="440"/>
+  <line class="spoke" x1="900" y1="140" x2="600" y2="440"/>
+  <circle class="center-point" cx="750" cy="290" r="3.5"/>
+  <text class="axis-label" x="924" y="295">+X</text>
+  <text class="axis-label" x="576" y="295" text-anchor="end">−X</text>
+  <text class="axis-label" x="750" y="160" text-anchor="middle">+Y</text>
+  <text class="axis-label" x="750" y="428" text-anchor="middle">−Y</text>
+
+  <g>
+    <circle class="input-guide" cx="400" cy="290" r="4"/>
+    <circle class="input-guide" cx="356.07" cy="396.07" r="4"/>
+    <circle class="input-guide" cx="250" cy="440" r="4"/>
+    <circle class="input-guide" cx="143.93" cy="396.07" r="4"/>
+    <circle class="input-guide" cx="100" cy="290" r="4"/>
+    <circle class="input-guide" cx="143.93" cy="183.93" r="4"/>
+    <circle class="input-guide" cx="250" cy="140" r="4"/>
+    <circle class="input-guide" cx="356.07" cy="183.93" r="4"/>
+
+    <circle class="output-guide" cx="900" cy="290" r="4"/>
+    <circle class="output-guide" cx="900" cy="440" r="4"/>
+    <circle class="output-guide" cx="750" cy="440" r="4"/>
+    <circle class="output-guide" cx="600" cy="440" r="4"/>
+    <circle class="output-guide" cx="600" cy="290" r="4"/>
+    <circle class="output-guide" cx="600" cy="140" r="4"/>
+    <circle class="output-guide" cx="750" cy="140" r="4"/>
+    <circle class="output-guide" cx="900" cy="140" r="4"/>
+  </g>
+
+  <path class="mapping-arrow" d="M 448 270 C 475 255, 525 255, 552 270"/>
+  <text class="mapping-label" x="500" y="244" text-anchor="middle">radial remap</text>
+
+  <g filter="url(#point-glow)">
+    <circle class="input-point" cx="400" cy="290" r="9">
+      <animateMotion dur="8s" repeatCount="indefinite"
+        path="M 0 0 A 150 150 0 1 1 -300 0 A 150 150 0 1 1 0 0"/>
+    </circle>
+  </g>
+
+  <g filter="url(#point-glow)">
+    <circle class="output-point" cx="900" cy="290" r="9">
+      <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear"
+        path="M 0 0 L 0 150 L -300 150 L -300 -150 L 0 -150 Z"
+        keyTimes="0;0.03125;0.0625;0.09375;0.125;0.15625;0.1875;0.21875;0.25;0.28125;0.3125;0.34375;0.375;0.40625;0.4375;0.46875;0.5;0.53125;0.5625;0.59375;0.625;0.65625;0.6875;0.71875;0.75;0.78125;0.8125;0.84375;0.875;0.90625;0.9375;0.96875;1"
+        keyPoints="0;0.024864;0.051777;0.083522;0.125;0.166478;0.198223;0.225136;0.25;0.274864;0.301777;0.333522;0.375;0.416478;0.448223;0.475136;0.5;0.524864;0.551777;0.583522;0.625;0.666478;0.698223;0.725136;0.75;0.774864;0.801777;0.833522;0.875;0.916478;0.948223;0.975136;1"/>
+    </circle>
+  </g>
+
+  <line class="panel-rule" x1="60" y1="476" x2="940" y2="476"/>
+  <text class="formula" x="500" y="505" text-anchor="middle">
+    <tspan x="500">r = √(x² + y²)</tspan>
+    <tspan x="500" dy="19">m = max(|x|, |y|)</tspan>
+    <tspan x="500" dy="19">(x′, y′) = (r/m)(x, y)</tspan>
+  </text>
+  <text class="formula-note" x="500" y="562" text-anchor="middle">
+    The distance from center and the direction are preserved; the available range expands to the square boundary.
+  </text>
+</svg>
