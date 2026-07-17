@@ -142,6 +142,7 @@ Tele
 TELEDISK
 trackdisk
 fluxfox
+JOYCALIB
 
 # Disk image formats
 MOOF

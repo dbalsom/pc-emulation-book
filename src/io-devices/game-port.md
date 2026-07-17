@@ -4,10 +4,10 @@
   <img src="../images/photos/game_port_card_01.webp"
        alt="A photograph of a short ISA card in green, with a DA-15 connector at the I/O faceplate."
        style="max-width: 100%; max-height: 480px; height: auto;">
-  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The IBM Game Control Card</em></p>
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The IBM Game Control Adapter</em></p>
 </div>
 
-The **IBM Game Control Card** implements a *game port*, supporting up to four buttons and four analog axes. In the early days of the PC, joysticks typically had two axes (one stick) and one to two buttons.
+The **IBM Game Control Adapter** implements a *game port*, supporting up to four buttons and four analog axes. In the early days of the PC, joysticks typically had two axes (one stick) and one to two buttons.
 
 ## At a Glance
 
@@ -138,3 +138,10 @@ This produces the following remapping:
 
 The game port didn't exist for long as a standalone card, although several companies produced their own versions, sometimes with a trim adjustment knob for better calibration. Game ports instead started to appear on many *multifunction cards* like the *AST SixPakPlus*. Eventually, the game port would migrate almost entirely to PC sound cards such as the *SoundBlaster*, where they also served a secondary role as a MIDI port.
 
+## Utilities
+
+ - (www.oldskool.org) [JOYCALIB](http://www.oldskool.org/pc/joycalib) is an excellent joystick calibration utility made by [Trixter](https://www.oldskool.org/). It can be very useful for testing your game port and joystick emulation.
+
+## Datasheet
+
+ - (archive.org) [The IBM Game Control Adapter](https://archive.org/details/ibm_pc_datasheets/Expansion%20Cards/IBM%20Game%20Control%20Adapter/)
