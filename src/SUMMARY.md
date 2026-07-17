@@ -65,8 +65,8 @@
 - [Serial Ports](./io-devices/serial.md)
 -->
 - [Parallel Ports](./io-devices/parallel.md)
+- [Game Port](./io-devices/game-port.md)
 <!-- Future implementation:
-- [The Game Port](./io-devices/game-port.md)
   - [Joysticks](./io-devices/joysticks.md)
 - [Mice](./io-devices/mice.md)
   - [Microsoft Serial Mouse](./io-devices/ms-serial-mouse.md)

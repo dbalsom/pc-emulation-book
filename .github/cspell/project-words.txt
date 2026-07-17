@@ -101,6 +101,7 @@ TEAC
 Sydex
 DeLorean
 Teledisk
+SixPakPlus
 
 # websites
 minuszerodegrees
@@ -198,6 +199,8 @@ precompensation
 recalibrated
 stiffy
 notchless
+monostable
+gamepad
 
 # British English variations
 colour
