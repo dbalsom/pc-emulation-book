@@ -102,6 +102,7 @@ Sydex
 DeLorean
 Teledisk
 SixPakPlus
+Gravis
 
 # websites
 minuszerodegrees
@@ -202,6 +203,7 @@ stiffy
 notchless
 monostable
 gamepad
+gamepads
 
 # British English variations
 colour
