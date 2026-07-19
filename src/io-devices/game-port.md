@@ -158,4 +158,5 @@ The game port didn't exist for long as a standalone card, although several compa
 
 ## Primary References
 
+<!-- cSpell:disable-next-line -->
  - (davenunez.wordpress.com) [Reading hat switches on PC gameport joysticks](https://davenunez.wordpress.com/2014/02/22/reading-hat-switches-on-pc-gameport-joysticks/)
