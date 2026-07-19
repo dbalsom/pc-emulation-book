@@ -64,8 +64,8 @@
 - [The Cassette Interface](./io-devices/cassette.md)
 - [Serial Ports](./io-devices/serial.md)
 -->
-- [Parallel Ports](./io-devices/parallel.md)
-- [Game Port](./io-devices/game-port.md)
+- [The Parallel Port](./io-devices/parallel.md)
+- [The Game Port](./io-devices/game-port.md)
 <!-- Future implementation:
   - [Joysticks](./io-devices/joysticks.md)
 - [Mice](./io-devices/mice.md)
