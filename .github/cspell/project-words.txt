@@ -103,6 +103,7 @@ DeLorean
 Teledisk
 SixPakPlus
 Gravis
+Thrustmaster
 
 # websites
 minuszerodegrees
@@ -132,6 +133,8 @@ Pooler
 Abrash
 Dunfield
 Hampa
+Pavlik
+Vojtech
 
 # Software
 HELPPC
