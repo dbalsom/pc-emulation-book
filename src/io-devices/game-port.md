@@ -9,7 +9,9 @@
 
 The **IBM Game Control Adapter** implements a *game port*, supporting up to four buttons and four analog axes. In the early days of the PC, joysticks typically had two axes (one stick) and two buttons. Later on, gamepads with four buttons emerged, such as the [Gravis PC Gamepad](https://en.wikipedia.org/wiki/Gravis_PC_GamePad). 
 
-Eventually, joystick makers employed various schemes to support more than four buttons and inputs such as *hat switches*. These techniques will not be discussed here.
+Eventually, joystick makers employed various schemes to support more than four buttons and inputs such as *hat switches*. 
+
+This included implementing bespoke digital protocols on top of the existing game port wiring. Digital joystick protocols will not be discussed here. 
 
 ## At a Glance
 
@@ -37,7 +39,7 @@ $$
 
 The measured resistance value can be normalized to the range [0.0-1.0] by dividing by the maximum resistance. The potentiometers in the joystick typically have a range of 0 to 100kΩ. An emulator can simulate an ideal joystick with a perfect, linear response within this full range. Real joysticks were imperfect, and so many applications that used a joystick had a *calibration routine* where the user was asked to move the stick to the maximum extent of each axis before pressing a button. In this way the effective range of the potentiometer could be determined.
 
-When the stick of a joystick is auto-centered, we could say the stick is in its *neutral position*. In the neutral position, the joystick may not read at the exact center of its range. Some joysticks included *trim controls* that could be used to adjust the center position until it read correctly. A robust joystick calibration routine should also capture the neutral position to account for any off-center readings.
+When the stick of a joystick is auto-centered, the stick is said to be in its *neutral position*. In the neutral position, the joystick may not read at the exact center of its range. Some joysticks included *trim controls* that could be used to adjust the center position until it read correctly. A robust joystick calibration routine should also capture the neutral position to account for any off-center readings.
 
 Without sufficient calibration, a phenomenon known as *drift* may occur where an unintended directional input is produced while the joystick remains in the neutral position. 
 
@@ -119,6 +121,59 @@ A typical joystick of the original PC era would have a single stick, and one or 
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The IBM Joystick</em></p>
 </div>
 
+## Hat Switches 
+
+A hat switch is a multidirectional input present on some joysticks that is typically operated with the user's thumb. It typically allows four directions of input, and can be useful in flight simulators for changing camera views or navigating through menus. 
+
+Two separate and incompatible techniques emerged for encoding hat switch input. 
+
+### Thrustmaster Hat Switch Input 
+
+The first came from the joystick manufacturer [Thrustmaster](https://www.thrustmaster.com/) to support the hat switch on the *Thrustmaster FCS*. 
+
+The four positions of the hat switch were encoded as five specific resistance values measured on the single **B-Y** axis.
+
+| Value   | Hat position |
+| ------: | ------------ |
+|  0.2 kΩ | Up           |
+|   20 kΩ | Right        |
+|   40 kΩ | Down         |
+|   60 kΩ | Left         |
+|   82 kΩ | Center       |
+
+This implies interpreting resistance bands as follows:
+
+| Low      | High   | Center Fraction  | Hat position |
+| -------: | -----: | :--------------- | ------------ |
+|    0 kΩ  | 10 kΩ  | 1/8              | Up           |
+|   10 kΩ  | 31 kΩ  | 3/8              | Right        |
+|   31 kΩ  | 51 kΩ  | 5/8              | Down         |
+|   51 kΩ  | 72 kΩ  | 7/8              | Left         |
+|   72 kΩ  | ~      |                  | Center       |
+
+> [!NOTE]
+> Various references conflict on the ordering of these inputs. This is the ordering used by the Linux analog joystick driver, and several modern microcontroller projects.
+
+### CH Products Hat Switch Input
+
+The competing hat switch encoding standard was from *CH Products*. In this scheme, multiple inputs or *chords* of the standard four buttons encode the hat switch position. The downside of this scheme is losing the ability to register more than one simultaneous button press during normal input. 
+
+| Button A1 | Button A2 | Button B1 | Button B2 | Hat position |
+| :-------: | :-------: | :-------: | :-------: | :----------- |
+|     0     |     0     |     1     |     0     |    Right     |
+|     0     |     0     |     1     |     1     |     Left     |
+|     0     |     0     |     0     |     0     |      Up      |
+|     0     |     0     |     0     |     1     |     Down     |
+
+If multiple buttons are pressed, only a single button will register, based on the lowest *priority* number.
+
+| Button | Priority |
+| ------ | -------- |
+| A1     | 1        |
+| A2     | 2        |
+| B1     | 3        |
+| B2     | 4        |
+
 
 ## Radial Remapping
 
@@ -159,4 +214,9 @@ The game port didn't exist for long as a standalone card, although several compa
 ## Primary References
 
 <!-- cSpell:disable-next-line -->
- - (davenunez.wordpress.com) [Reading hat switches on PC gameport joysticks](https://davenunez.wordpress.com/2014/02/22/reading-hat-switches-on-pc-gameport-joysticks/)
+ - (atrey.karlin.mff.cuni.cz @ archive.org) [Vojtech Pavlik's Joytic Specifications](https://web.archive.org/web/20090403092557/http://atrey.karlin.mff.cuni.cz/~vojtech/joystick/specs.txt)
+ - (epanorma.net) [Joysticks and other game controllers](https://www.epanorama.net/documents/joystick/)
+<!-- cSpell:disable-next-line -->
+ - (davenunez.wordpress.com @ archive.org) [Reading hat switches on PC gameport joysticks](https://web.archive.org/web/20240606185827/https://davenunez.wordpress.com/2014/02/22/reading-hat-switches-on-pc-gameport-joysticks/)
+ - (nerdlypleasures.blogspot.com) [Three Flight Simulator Joysticks for DOS](https://nerdlypleasures.blogspot.com/2014/10/three-flight-simulator-joysticks-for-dos.html)
+ - (github.com) [/drivers/input/joystick/analog.c](https://github.com/torvalds/linux/blob/b95f03f04d475aa6719d15a636ddf32222d55657/drivers/input/joystick/analog.c)
