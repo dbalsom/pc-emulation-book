@@ -1,3 +1,3 @@
-- Install mdBook 0.5.2 via `cargo install mdbook --version 0.5.2 --locked`.
+- Install mdBook 0.5.4 via `cargo install mdbook --version 0.5.4 --locked`.
 - Install the Python preprocessor dependencies via `python -m pip install -r scripts/requirements.txt`.
 - Call `mdbook build` to build the book or `mdbook serve` to build and serve the book on localhost.
