@@ -605,7 +605,7 @@ It is possible to re-enable the color burst in 80-column text mode by adjusting 
 
 ## Old vs New CGA
 
-At some point, IBM redesigned the CGA's composite output stage to feed more of the color signals into the luminance signal. Cards made before this change are called *old style* CGA cards, with cards made after the change being the *new style*. The new style redesign improved the ability to discriminate individual colors on grayscale composite monitors. Unfortunately, this means that any composite conversion code must now be able to handle both models for accuracy.
+At some point, IBM redesigned the CGA's composite output stage to make the RGBI color outputs contribute more to the luminance signal. Cards made before this change are called *old style* CGA cards, while cards made after the change are called *new style* cards. The new style redesign improved the ability to discriminate individual colors on grayscale composite monitors, an important feature intended to support IBM's [Model 5155 Portable Computer](https://en.wikipedia.org/wiki/IBM_Portable_Personal_Computer)[^machrone-new-cga]. Unfortunately, this means that any composite conversion code must now be able to handle both models for accuracy.
 
 ## 8088 MPH
 
@@ -646,3 +646,9 @@ Reenigne took a statistical approach and sampled the output of both the old and 
 <!-- cSpell:disable-next-line -->
  - (vogons.org) [CGA Composite Mode under DOSBOX (Committed r3804)](https://www.vogons.org/viewtopic.php?p=677941#p677941)
  - (github.org) [CGA Artifact Color](https://github.com/dbalsom/cga_artifact_color)
+
+## Inline References
+
+[^machrone-new-cga]: Bill Machrone, “Inside the PC Portable,” *PC Magazine*,
+    vol. 3, no. 10, May 29, 1984, pp. 117–119.
+    [Internet Archive](https://archive.org/details/PC-Mag-1984-05-29)
