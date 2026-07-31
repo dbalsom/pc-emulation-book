@@ -129,7 +129,7 @@ The Gravis PC GamePad shown here could be switched between left and right-hand o
 
 <div style="text-align: center; margin: 1.5em 0;">
   <img src="../images/photos/gravis_gamepad_01.jpg"
-       alt="A photograph of a beiege Gravis Gamepad, with a purple D-pad and four multicolored face buttons."
+       alt="A photograph of a beige Gravis Gamepad, with a purple D-pad and four multicolored face buttons."
        style="max-width: 100%; max-height: 480px; height: auto;">
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The Gravis PC Gamepad</em></p>
 </div>

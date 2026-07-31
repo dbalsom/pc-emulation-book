@@ -648,7 +648,7 @@ Reenigne took a statistical approach and sampled the output of both the old and 
  - (github.org) [CGA Artifact Color](https://github.com/dbalsom/cga_artifact_color)
 
 ## Inline References
-
+<!-- cSpell:disable-next-line -->
 [^machrone-new-cga]: Bill Machrone, “Inside the PC Portable,” *PC Magazine*,
     vol. 3, no. 10, May 29, 1984, pp. 117–119.
     [Internet Archive](https://archive.org/details/PC-Mag-1984-05-29)
