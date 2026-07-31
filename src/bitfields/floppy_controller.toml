@@ -633,7 +633,7 @@ markdown-after = """
 | 0   | 0   | **Normal termination** |
 | 0   | 1   | **Abnormal termination**<br>The controller encountered an error condition during the execution phase. |
 | 1   | 0   | **Invalid command** |
-| 1   | 1   | **Abnormal termination caused by polling**<br>A drive became not-ready during the execution phase. |
+| 1   | 1   | **Polling status change**<br>A drive became ready or became not-ready during a drive poll. |
 """
 
 [[registers.status-register-0.fields]]

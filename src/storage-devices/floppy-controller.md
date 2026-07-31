@@ -226,6 +226,35 @@ The first **command code byte 0** is common to all commands and contains the **c
 
 {{#bitfield floppy_controller.toml#command-byte-drive-head}}
 
+### Sector Size (N)
+
+Many commands take a parameter **N** which represents the size of the sector to operate on. **N** is not the actual sector size, but can be used to calculate it by shifting `128` left by the value of **N** (ex: `128 << N`).
+
+The following values of N are valid:
+
+| Value | Meaning |
+|-------|---------|
+| 0     | 128/DTL |
+| 1     | 256     |
+| 2     | 512     |
+| 3     | 1024    |
+| 4     | 2048    |
+| 5     | 4096    |
+| 6     | 8192    |
+
+> [!NOTE]
+> The largest sector size supported by the 765 is **N==6**, or 8192 bytes. Some controllers support larger values of **N**, but this is already impractical as an 8192 byte sector will wrap completely around the track.
+
+An **N** of `0` is special. This indicates a sector size of 128 bytes, but fewer than 128 bytes can be read from a sector with `N == 0` via means of the **DTL** field. 
+
+### Data Length (DTL) Field
+
+When reading or writing most sectors with `N > 0`, the **DTL** field is not used, and should be set to `FFh`. 
+
+When reading or writing a sector with `N == 0`, the **DTL** field is honored, up to a maximum of `128` bytes. The entire sector is still read and written, to either validate the CRC in the case of reading, or to calculate and write the CRC in case of writing. In the write case, the unspecified bytes of the sector are padded with `00h`.[^fdc37c78-dtl]
+
+
+
 ### The Read Data Command
 
 The **Read Data** command is opcode `06h`. 
@@ -580,6 +609,9 @@ The **Seek** command sets bits **D0B—D3B** in the [Main Status Register](#the-
 
 If the drive is not ready at the end of the command phase, or if the drive becomes not ready during the execution phase before completion of the seek operation, the **NR** bit is set in [ST0](#status-register-0-st0) and the operation terminates with the *abnormal termination* interrupt code.
 
+> [!WARNING]
+> The IBM floppy controller does not connect the 765's *unit select* pins, therefore simultaneous seek operations are not possible.
+
 > [!NOTE] 
 > The IBM floppy controller does not connect the READY line, so it has no way of detecting the not-ready condition.
 
@@ -612,6 +644,9 @@ Multiple **Recalibrate** commands can be issued at the same time. Once the first
 The **Recalibrate** command sets bits **D0B—D3B** in the [Main Status Register](#the-main-status-register) according to which drive was selected in the command phase. These bits are only cleared by a **Sense Interrupt Status** command.
 
 If the drive is not ready at the end of the command phase, or if the drive becomes not ready during the execution phase before completion of the recalibrate operation, the **NR** bit is set in [ST0](#status-register-0-st0) and the operation terminates with the *abnormal termination* interrupt code.
+
+> [!WARNING]
+> The IBM floppy controller does not connect the 765's *unit select* pins, therefore simultaneous recalibrate operations are not possible.
 
 > [!NOTE] 
 > The IBM floppy controller does not connect the READY line, so it has no way of detecting the not-ready condition.
@@ -725,6 +760,21 @@ The **Sense Drive Status** command retrieves the status of the drive indicated b
 
 Any unrecognized or unsupported command code will return a single [ST0](#status-register-0-st0) byte with a **IC** of `10b`, or *invalid command*. The value of the ST0 byte in hexadecimal will be `80h`. Some software looks for this code to be returned in response to specific commands in order to properly identify the type of controller present.
 
+## Drive Polling
+
+Every `1024 ms` the 765 attempts to poll all four drives for change in the **READY** line. On the IBM floppy controller this polling mechanism is effectively disabled, since the 765's *unit select* pins are disconnected, and the **READY** input pin is tied high.
+
+The way polling is intended to work is that a change in the **READY** status of a drive will set an internal *ready poll change* flag for that drive, and cause an interrupt to be generated. A **Sense Interrupt Status** command will then discover a **IC** of `11b` in **ST0**, with the corresponding drive that changed status in the **US** field.
+
+It is possible that while this interrupt is pending, another drive may also change status. Therefore, the **Sense Interrupt Status** command may be issued multiple times, returning different values in **US**, until the command finally returns `80h` in **ST0**.
+
+Although the polling mechanism on the PC is disabled, on controller reset all four drives appear to undergo a state change to ready. This sets all four internal *ready poll change* flags and triggers a post-reset interrupt. The first **Sense Interrupt Status** command acknowledges the interrupt, but leaves three drives with their *ready poll change* flags set. This is essentially harmless, but IBM decided that starting with the XT BIOS, it would clear all four *ready poll change* flags. 
+
+Thus during BIOS POST, you will see the XT BIOS issue four **Sense Interrupt Status** commands. It expects to see an **IC** of `11b` returned for all four drives, as reflected in **UC**.
+
+> [!NOTE] 
+> Later controllers connected READY lines, but some controllers only retained the polling feature on reset to retain backwards compatibility. The polling feature is sometimes optional and can be disabled with a **Configure** command.
+
 ## Datasheets
 
  - (archive.org) [μPD765A Single/Double Density Floppy Disk Controller](https://archive.org/details/ibm_pc_datasheets/Controller%20Chips/NEC%20upd765%20Floppy%20Controller/upd765a/)
@@ -733,3 +783,7 @@ Any unrecognized or unsupported command code will return a single [ST0](#status-
 ## Primary References
 
  - (debs.future.easyspace.com @ web.archive.org) [Programming Floppy Disk Controllers](https://web.archive.org/web/20041010081013/http://debs.future.easyspace.com/Programming/Hardware/FDC/floppy.html)
+
+## Citations
+
+[^fdc37c78-dtl]: Standard Microsystems Corporation, [FDC37C78 Floppy Disk Controller](https://ww1.microchip.com/downloads/en/DeviceDoc/37c78.pdf), rev. 02-16-07, p. 29
