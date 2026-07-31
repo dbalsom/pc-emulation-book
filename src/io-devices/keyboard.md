@@ -16,12 +16,11 @@ The 83-key keyboard layout is missing many of the keys that we take for granted 
        onclick="openModal(this)">
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>Figure 1.1: IBM PC 83-key Model F Keyboard Layout with scancodes (Click to zoom)</em></p>
 </div>
-
 <!-- cSpell:enable -->
 
 ## Keyboard Operation
 
-The keyboard communicates with the PC by sending **scancodes** when a key is pressed or released. On the original 83-key keyboard, each key produces a pair of single-byte scancodes, one when pressed, called the **make** scancode, and one when released called the **break** scancode. The make scancodes are typically the values provided in scancode tables, and can be seen in the figure above. Break scancodes are calculated by taking the make scancode and setting the MSB to 1. 
+The keyboard communicates with the PC by sending *scancodes* when a key is pressed or released. On the original 83-key keyboard, each key produces a pair of single-byte scancodes, one when pressed, called the *make* scancode, and one when released called the *break* scancode. The make scancodes are typically the values provided in scancode tables, and can be seen in the figure above. Break scancodes are calculated by taking the make scancode and setting the MSB to 1. 
 
 Since keyboard operation is event-driven, if the host computer were ever to miss processing a 'key-up' scancode, this would cause the phenomenon of a "stuck key," something most PC users have experienced at one point.
 
@@ -29,7 +28,8 @@ Inside the Model F keyboard is an Intel 8048 microcontroller that is responsible
 
 The 8048 has burned-in program ROM and a small amount of onboard RAM, in which it keeps a 16-byte scancode FIFO buffer. Scancodes are placed into this buffer as they are detected from the keyboard matrix, and read out as they are sent to the host. 
 
-> **Note:** It is important that you buffer scancodes in your emulator - a fast typist can generate scancodes very rapidly - consider how quickly scancodes may be produced in the event that multiple keys are pressed and released at once. It is generally insufficient to deliver one scancode per frame.
+> [!NOTE]
+> It is important that you buffer scancodes in your emulator - a fast typist can generate scancodes very rapidly - consider how quickly scancodes may be produced in the event that multiple keys are pressed and released at once. It is generally insufficient to deliver one scancode per frame.
 
 The keyboard is a serial device, and the keyboard port is a specialized serial port. The exact electrical details of the keyboard port are not crucially important to emulating the keyboard, except for the operation of the clock pin.
 
@@ -45,7 +45,7 @@ Setting bit 6 of the 8255 PPI's Port B register to 0 will result in the motherbo
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>Figure 1.2: Keyboard reset byte 0xAA timing trace (Click to zoom)</em></p>
 </div>
 
-If you fail to emulate sending the reset scancode `0xAA` at the appropriate time, the BIOS will emit a `POST error code 301`.
+If you fail to emulate sending the reset scancode `0xAA` at the appropriate time, the BIOS will emit a *POST error code* `301`.
 
 It is important to note that the 'clock' line does not actually clock the 8048 MCU itself. The keyboard data and clock lines are simply connected to specialized I/O pins on the 8048 that allow it to monitor the voltage level of each line, or pull the line to ground. 
 
@@ -53,9 +53,9 @@ The 8048 is operationally clocked via an internal oscillator, the speed of which
 
 ### Typematic Repeat
 
-Most computer users are familiar with what happens when a key on the keyboard is held down - typically after a short delay, the keyboard will begin repeating the keypress automatically. 
+Most computer users are familiar with what typically happens when a key on the keyboard is held down: after a short delay, the keyboard will begin repeating the keypress automatically. 
 
-IBM called this feature "typematic" on the Model F. When a key is held down, it will start to repeat after approximately 500ms at a rate of approximately 11 characters per second. Both the make and break scancodes are sent for each repeat.
+IBM called this feature *typematic repeat* on the Model F. When a key is held down, it will start to repeat after approximately 500ms at a rate of approximately 11 characters per second. Both the make and break scancodes are sent for each repeat.
 
 It is possible to simply pass through the host's typematic repeat to your emulator, but I recommend handling it yourself, as it gives you better control over the rate (which might otherwise be too fast). 
 
@@ -174,8 +174,12 @@ If you happen to be using SDL for your emulator, here's a table of SDL keycode d
 | SDLK_KP_MULTIPLY  | 37             |
 | SDLK_KP_EQUALS    | 0D             |
 
+## Primary References
 
-# References
+ - (github.com) [Commented Intel 8048 disassembly of the IBM 83-key Type-2 Model F (XT) keyboard ROM](https://github.com/Halicery/8042/blob/main/8048_XT_INTERN.TEXT)
+
+## Citations
+
 [^mzd]: minuszerodegrees.net [IBM 5160 - Keyboards](https://minuszerodegrees.net/5160/keyboard/5160_keyboard_support.htm)
 [^mzd-kb]: minuszerodegrees.net [5160 Keyboard Startup](https://minuszerodegrees.net/5160/keyboard/5160_keyboard_startup.jpg)
 [^seasip]: seasip.info [The IBM 1501105 Keyboard](https://www.seasip.info/VintagePC/ibm_1501105.html)

@@ -121,6 +121,19 @@ A typical joystick of the original PC era would have a single stick, and one or 
   <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The IBM Joystick</em></p>
 </div>
 
+## Typical Game Pad
+
+Game pads typically had a directional pad (or D-pad) that acted in a digital fashion, snapping to the farthest extent of either of two joystick axes when a direction was pressed. Directional pads were more suitable for fast action games and were the primary means of directional input for popular home video game consoles such as the NES.
+
+The Gravis PC GamePad shown here could be switched between left and right-hand operation, as well as between two and four-button mode. Two gamepads could only be used at the same time in two-button mode.
+
+<div style="text-align: center; margin: 1.5em 0;">
+  <img src="../images/photos/gravis_gamepad_01.jpg"
+       alt="A photograph of a beige Gravis Gamepad, with a purple D-pad and four multicolored face buttons."
+       style="max-width: 100%; max-height: 480px; height: auto;">
+  <p style="font-style: italic; margin-top: 0.5em; opacity: 0.8;"><em>The Gravis PC Gamepad</em></p>
+</div>
+
 ## Hat Switches 
 
 A hat switch is a multidirectional input present on some joysticks that is typically operated with the user's thumb. It typically allows four directions of input, and can be useful in flight simulators for changing camera views or navigating through menus. 
