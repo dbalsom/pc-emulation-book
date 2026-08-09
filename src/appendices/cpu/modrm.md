@@ -2,6 +2,8 @@
 
 ## 16-Bit ModR/M
 
+<!-- cspell:disable -->
+
 <div class="table-wrapper">
 <table class="modrm-table">
     <thead>
@@ -485,7 +487,11 @@
 </table>
 </div>
 
+<!-- cspell:enable -->
+
 ## 32-Bit ModR/M
+
+<!-- cspell:disable -->
 
 <div class="table-wrapper">
 <table class="modrm-table">
@@ -570,7 +576,11 @@
 </table>
 </div>
 
+<!-- cspell:enable -->
+
 ## SIB Byte
+
+<!-- cspell:disable -->
 
 <div class="table-wrapper">
 <table class="sib-table">
@@ -627,6 +637,8 @@
 </table>
 </div>
 
+<!-- cspell:enable -->
+
 <a id="sib-base-101-note"></a>
 
 > [!NOTE]
@@ -634,12 +646,16 @@
 
 ### EBP Slot Table
 
+<!-- cspell:disable -->
+
 | Mod | Base |   | Scaled Index | Disp |
 |:---:|:----:|:-:|:------------:|:----:|
 | `00` | &mdash; | &mdash; | [Scaled Index] | `disp32` |
 | `01` | EBP | + | [Scaled Index] | `disp8` |
 | `10` | EBP | + | [Scaled Index] | `disp32` |
 | <a href="#sib-mod-11-note"><code>11</code><sup>**</sup></a> | &mdash; | &mdash; | &mdash; | &mdash; |
+
+<!-- cspell:enable -->
 
 <a id="sib-mod-11-note"></a>
 
