@@ -164,6 +164,12 @@
     white-space: nowrap;
 }
 
+.modrm-table td,
+.sib-table td {
+    font-family: var(--mono-font, Consolas, "Cascadia Mono", "Liberation Mono", monospace);
+    font-variant-numeric: tabular-nums;
+}
+
 .modrm-table thead tr:not(:last-child) > :first-child,
 .sib-table thead tr:not(:last-child) > :first-child {
     border-right-width: 3px;
