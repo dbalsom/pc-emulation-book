@@ -8,12 +8,10 @@
 
 # Part II: The Intel 8088 CPU
 
-<!-- Future implementation:
 - [Intel 8088 CPU](./cpu/8088-cpu.md)
   - [Architecture and Registers](./cpu/architecture.md)
   - [Instruction Set and Execution](./cpu/instructions.md)
   - [Bus Interface and Timing](./cpu/bus-timing.md)
--->
 
 # Part III: Support Chips
 
@@ -117,7 +115,7 @@
   - [EGA Registers](./appendices/video/ega-registers.md)
   - [SuperEGA Registers](./appendices/video/superega-registers.md)
   - [Palette References](./appendices/video/palettes.md)
-
+- [ModR/M Reference](./appendices/cpu/modrm.md)
 <!-- Future implementation:
 # Glossary
 
