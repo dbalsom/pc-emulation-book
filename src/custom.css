@@ -146,3 +146,82 @@
 .floppy-spec-table tbody th:first-child {
     text-align: left;
 }
+
+.modrm-table,
+.sib-table {
+    border: 3px solid var(--table-border-color, currentColor);
+    border-collapse: collapse;
+}
+
+.modrm-table th,
+.modrm-table td,
+.sib-table th,
+.sib-table td {
+    border: 0;
+    border-left: 1px solid var(--table-border-color, currentColor);
+    border-right: 1px solid var(--table-border-color, currentColor);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.modrm-table td,
+.sib-table td {
+    font-family: var(--mono-font, Consolas, "Cascadia Mono", "Liberation Mono", monospace);
+    font-variant-numeric: tabular-nums;
+}
+
+.modrm-table thead tr:not(:last-child) > :first-child,
+.sib-table thead tr:not(:last-child) > :first-child {
+    border-right-width: 3px;
+}
+
+.modrm-table thead tr:last-child > *,
+.sib-table thead tr:last-child > * {
+    border-top: 3px solid var(--table-border-color, currentColor);
+    border-bottom: 3px solid var(--table-border-color, currentColor);
+}
+
+.modrm-table .section-start > *,
+.sib-table .section-start > * {
+    border-top: 2px solid var(--table-border-color, currentColor);
+}
+
+.modrm-table thead tr:last-child > :nth-child(5),
+.modrm-table tbody tr:first-child > :nth-child(5),
+.modrm-table tbody tr:nth-child(9) > :nth-child(4),
+.modrm-table tbody tr:nth-child(17) > :nth-child(4),
+.modrm-table tbody tr:nth-child(25) > :nth-child(5),
+.modrm-table tbody tr:not(:nth-child(8n+1)) > :nth-child(3) {
+    border-right-width: 3px;
+}
+
+.modrm-table tbody tr:first-child > :nth-child(2),
+.modrm-table tbody tr:nth-child(n+2):nth-child(-n+24) > :first-child {
+    border-left-width: 3px;
+    border-right-width: 3px;
+}
+
+.modrm-table tbody tr:first-child > :nth-child(2) {
+    border-top: 3px solid var(--table-border-color, currentColor);
+}
+
+.modrm-table tbody tr:nth-child(24) > :first-child {
+    border-bottom: 3px solid var(--table-border-color, currentColor);
+}
+
+.modrm-table .addressing-mode {
+    border-right-width: 2px;
+    font-weight: 600;
+}
+
+.modrm-table .addressing-mode span {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.sib-table thead tr:last-child > :nth-child(3),
+.sib-table tbody tr:nth-child(8n+1) > :nth-child(3),
+.sib-table tbody tr:not(:nth-child(8n+1)) > :nth-child(2) {
+    border-right-width: 3px;
+}
