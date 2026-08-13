@@ -18,6 +18,7 @@ Floppy disks have existed in numerous forms over the entire history of computing
 | **5.25"** | late 1970s-1980s | about 90KiB to 1200KiB | The dominant early microcomputer format and the original IBM PC diskette size. |
 | **3.5"** | mid-1980s-1990s | 720KiB, 1440KiB, and 2880KiB | A smaller rigid-shell format that gradually replaced 5.25-inch media on PCs. |
 | **3"** | mid-1980s | about 180KiB per side to 720KiB | A less common format used mainly by Amstrad and a few other systems. |
+| **2"** | 1989 | 720KiB | FujiFilm LT-1 miniature floppy. Used only on the [Zenith MinisPort](https://en.wikipedia.org/wiki/Zenith_MinisPort) laptop |
 
 ## Basic Floppy Operation
 
