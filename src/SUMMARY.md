@@ -116,6 +116,7 @@
   - [SuperEGA Registers](./appendices/video/superega-registers.md)
   - [Palette References](./appendices/video/palettes.md)
 - [ModR/M Reference](./appendices/cpu/modrm.md)
+- [8088 Undefined Flag Reference](./appendices/cpu/undefined_flags_8088.md)
 <!-- Future implementation:
 # Glossary
 
